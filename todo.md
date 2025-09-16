@@ -1,6 +1,0 @@
-- [x] Create getUsersWithoutProjects query to fetch users not working on any projects
-- [x] Update ProjectForm.tsx to import and use the new query
-- [x] Fix destructuring and options mapping in ProjectForm.tsx
-- [x] Update CreateProjectSchema to accept userId as number and remove id field
-- [x] Update ProjectForm to use userId field name
-- [x] Update createProject mutation to handle techStack as string and convert to array

@@ -7,13 +7,18 @@ import getUsersWithoutProjects from "src/app/users/queries/getUsersWithoutProjec
 import { usePaginatedQuery } from "@blitzjs/rpc";
 export { FORM_ERROR } from "src/app/components/Form";
 
+import { useCurrentUser } from "src/app/users/hooks/useCurrentUser";
+
 export function ProjectForm<S extends z.ZodType<any, any>>(
   props: FormProps<S>
 ) {
   const [users] = usePaginatedQuery(getUsersWithoutProjects, null);
+  const currentUser = useCurrentUser();
+
+  const initialValues = props.initialValues || { userId: currentUser?.id };
 
   return (
-    <Form<S> {...props}>
+    <Form<S> {...props} initialValues={initialValues}>
       <LabeledTextField
         name="title"
         label="Title"
@@ -32,6 +37,13 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         placeholder="Category"
         type="text"
       />
+      <LabeledTextField
+        name="tags"
+        label="Tags"
+        placeholder="Tags"
+        type="text"
+      />
+
       <LabeledTextField
         name="techStack"
         label="Tech Stack"
@@ -53,7 +65,16 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
 
       <LabeledCheckbox name="isResellAllowed" label="Is Resell Allowed" defaultChecked={true} />
       <LabeledCheckbox name="isApproved" label="Is Approved" defaultChecked={true} />
-      <LabeledTextField name="userId" label="USER ID" isSelect={true} options={users.map(user => ({ value: user.id, label: user.name || user.email }))} />
+      <LabeledTextField
+        name="userId"
+        label="USER ID"
+        isSelect={true}
+        options={
+          currentUser
+            ? [{ value: currentUser.id, label: currentUser.name || currentUser.email }]
+            : []
+        }
+      />
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
     </Form>
   );

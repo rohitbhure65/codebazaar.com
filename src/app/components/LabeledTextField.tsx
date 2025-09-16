@@ -19,7 +19,7 @@ export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input">
   /** Flag to determine if the field is a select dropdown */
   isSelect?: boolean
   /** Options for select dropdown (if applicable) */
-  options?: { value: string | number; label: string }[]
+  options?: { value: number; label: any }[]
   outerProps?: BoxProps
   labelProps?: Omit<ComponentPropsWithoutRef<typeof FormControlLabel>, 'label' | 'control'>
   fieldProps?: UseFieldConfig<string>
@@ -42,10 +42,10 @@ export const LabeledTextField = forwardRef<
   const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
 
   return (
-    <Box 
-      {...outerProps} 
-      sx={{ 
-        width: '100%', 
+    <Box
+      {...outerProps}
+      sx={{
+        width: '100%',
         mb: 2,
         ...(outerProps?.sx as object)
       }}
@@ -98,13 +98,13 @@ export const LabeledTextField = forwardRef<
       )}
 
       {touched && normalizedError && (
-        <Box 
-          role="alert" 
-          sx={{ 
-            color: 'error.main', 
-            fontSize: '0.75rem', 
+        <Box
+          role="alert"
+          sx={{
+            color: 'error.main',
+            fontSize: '0.75rem',
             mt: 0.5,
-            ml: 2 
+            ml: 2
           }}
         >
           {normalizedError}

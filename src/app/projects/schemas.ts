@@ -5,6 +5,7 @@ export const CreateProjectSchema = z.object({
   title: z.string(),
   description: z.string(),
   category: z.string(),
+  tags: z.string(),
   techStack: z.string(),
   fileUrl: z.string(),
   price: z.number(),
@@ -15,7 +16,7 @@ export const CreateProjectSchema = z.object({
 export const UpdateProjectSchema = CreateProjectSchema.merge(
   z.object({
     id: z.number(),
-    userId: z.undefined(),
+    userId: z.number(),
   })
 );
 
