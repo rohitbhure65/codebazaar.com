@@ -14,6 +14,8 @@ import FormControl from "@mui/material/FormControl"
 import InputLabel from "@mui/material/InputLabel"
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
+import Hero from "components/ui/Hero"
+
 
 const ITEMS_PER_PAGE = 5
 
@@ -122,7 +124,7 @@ export const TasksList = () => {
 
   return (
     <section className="mb-10">
-      <div className="mx-auto max-w-screen-4xl px-4 lg:px-12">
+      <div className="">
         <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
             <div className="w-full md:w-1/2">
