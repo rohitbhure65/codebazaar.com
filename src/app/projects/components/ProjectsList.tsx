@@ -36,7 +36,7 @@ export const ProjectsList = () => {
       <ul>
         {projects.map((project) => (
           <li key={project.id}>
-            <Link href={`/projects/${project.id}`}>{project.name}</Link>
+            <Link href={`/projects/${project.id}`}>{project.title}</Link>
           </li>
         ))}
       </ul>

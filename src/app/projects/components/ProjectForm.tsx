@@ -51,9 +51,8 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         type="number"
       />
 
-       <LabeledCheckbox name="isResellAllowed" label="Is Resell Allowed" defaultChecked={true} />
-       <LabeledCheckbox name="isApproved" label="Is Approved" defaultChecked={true} />
-
+      <LabeledCheckbox name="isResellAllowed" label="Is Resell Allowed" defaultChecked={true} />
+      <LabeledCheckbox name="isApproved" label="Is Approved" defaultChecked={true} />
       <LabeledTextField name="userId" label="USER ID" isSelect={true} options={users.map(user => ({ value: user.id, label: user.name || user.email }))} />
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
     </Form>
