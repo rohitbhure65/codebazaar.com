@@ -1,24 +1,6 @@
-FROM node:lts
-
-WORKDIR /app
-
-EXPOSE 3000
-
-# Copy the package.json and pnpm-lock.yaml files to the container
-COPY package.json ./
-#COPY patches ./patches
-COPY pnpm-lock.yaml ./
-
-RUN npm install -g pnpm && pnpm i
-
-COPY . .
-
-RUN yarn build
-
-# https://github.com/blitz-js/blitz/issues/4354
-RUN cp -r ./node_modules/.pnpm/sodium-native@3.4.1/node_modules/sodium-native/prebuilds ".next/server/app/(auth)/login"
-RUN cp -r ./node_modules/.pnpm/sodium-native@3.4.1/node_modules/sodium-native/prebuilds ".next/server/app/api/rpc/[[...blitz]]"
-RUN cp -r ./node_modules/.pnpm/sodium-native@3.4.1/node_modules/sodium-native/prebuilds ".next/server/app/(auth)/reset-password"
-
-CMD yarn start
-
+- [x] Create getUsersWithoutProjects query to fetch users not working on any projects
+- [x] Update ProjectForm.tsx to import and use the new query
+- [x] Fix destructuring and options mapping in ProjectForm.tsx
+- [x] Update CreateProjectSchema to accept userId as number and remove id field
+- [x] Update ProjectForm to use userId field name
+- [x] Update createProject mutation to handle techStack as string and convert to array

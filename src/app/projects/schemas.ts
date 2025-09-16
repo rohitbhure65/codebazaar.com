@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const CreateProjectSchema = z.object({
-  userId: z.undefined(),
+  userId: z.number(),
   title: z.string(),
   description: z.string(),
   category: z.string(),
@@ -10,7 +10,6 @@ export const CreateProjectSchema = z.object({
   price: z.number(),
   isResellAllowed: z.boolean(),
   isApproved: z.boolean(),
-  id: z.string(),
   // template: __fieldName__: z.__zodType__(),
 });
 export const UpdateProjectSchema = CreateProjectSchema.merge(

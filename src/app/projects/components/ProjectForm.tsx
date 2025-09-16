@@ -1,22 +1,16 @@
 import React, { Suspense } from "react";
 import { Form, FormProps } from "src/app/components/Form";
 import { LabeledTextField } from "src/app/components/LabeledTextField";
-
+import LabeledCheckbox from "../../components/LabeledCheckbox";
 import { z } from "zod";
-import getUsers from "src/app/users/queries/getUsers";
+import getUsersWithoutProjects from "src/app/users/queries/getUsersWithoutProjects";
 import { usePaginatedQuery } from "@blitzjs/rpc";
 export { FORM_ERROR } from "src/app/components/Form";
 
 export function ProjectForm<S extends z.ZodType<any, any>>(
   props: FormProps<S>
 ) {
-  const [{
-    users: users
-  }] = usePaginatedQuery(getUsers, {
-    orderBy: {
-      id: "asc"
-    }
-  });
+  const [users] = usePaginatedQuery(getUsersWithoutProjects, null);
 
   return (
     <Form<S> {...props}>
@@ -56,20 +50,11 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         placeholder="Price"
         type="number"
       />
-      <LabeledTextField
-        name="isResellAllowed"
-        label="Is Resell Allowed"
-        placeholder="Is Resell Allowed"
-        type="text"
-      />
-      <LabeledTextField
-        name="isApproved"
-        label="Is Approved"
-        placeholder="Is Approved"
-        type="text"
-      />
 
-      <LabeledTextField name="id" label="USER ID" isSelect={true} options={users} />
+       <LabeledCheckbox name="isResellAllowed" label="Is Resell Allowed" defaultChecked={true} />
+       <LabeledCheckbox name="isApproved" label="Is Approved" defaultChecked={true} />
+
+      <LabeledTextField name="userId" label="USER ID" isSelect={true} options={users.map(user => ({ value: user.id, label: user.name || user.email }))} />
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
     </Form>
   );
