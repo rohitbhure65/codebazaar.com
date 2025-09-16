@@ -9,8 +9,11 @@ import { useSearchParams } from "next/navigation"
 import { Route } from "next"
 import deleteTask from "../mutations/deleteTask"
 import { TaskStatus } from "db"
-import { Form } from "react-final-form" // Import Form from react-final-form
-import TextField from "@mui/material/TextField" // Use regular TextField instead
+import TextField from "@mui/material/TextField"
+import FormControl from "@mui/material/FormControl"
+import InputLabel from "@mui/material/InputLabel"
+import Select from "@mui/material/Select"
+import MenuItem from "@mui/material/MenuItem"
 
 const ITEMS_PER_PAGE = 5
 
@@ -19,7 +22,7 @@ export const TasksList = () => {
   const page = Number(searchParams.get("page")) || 0
   const urlStatusFilter = searchParams.get("status")
   const urlSearchTerm = searchParams.get("search") || ""
-  
+
   const [statusFilter, setStatusFilter] = useState<string | null>(urlStatusFilter)
   const [searchTerm, setSearchTerm] = useState<string>(urlSearchTerm)
 
@@ -31,11 +34,11 @@ export const TasksList = () => {
       ...(statusFilter ? { status: TaskStatus[statusFilter as keyof typeof TaskStatus] } : {}),
       ...(searchTerm
         ? {
-            name: {
-              contains: searchTerm,
-              mode: "insensitive",
-            },
-          }
+          name: {
+            contains: searchTerm,
+            mode: "insensitive",
+          },
+        }
         : {}),
     },
   })
@@ -66,10 +69,10 @@ export const TasksList = () => {
     }
   }
 
-  const handleStatusFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleStatusFilterChange = (event: any) => {
     const newStatus = event.target.value || null
     setStatusFilter(newStatus)
-    
+
     const params = new URLSearchParams(searchParams)
     if (newStatus) {
       params.set("status", newStatus)
@@ -108,6 +111,15 @@ export const TasksList = () => {
     }
   }
 
+  const statusOptions = [
+    { value: "Backlog", label: "Backlog" },
+    { value: "ToDo", label: "To Do" },
+    { value: "InProgress", label: "In Progress" },
+    { value: "ReadyForReview", label: "Ready for Review" },
+    { value: "BackForReview", label: "Back for Review" },
+    { value: "Completed", label: "Completed" },
+  ]
+
   return (
     <section className="mb-10">
       <div className="mx-auto max-w-screen-4xl px-4 lg:px-12">
@@ -125,6 +137,7 @@ export const TasksList = () => {
                   fullWidth
                   size="small"
                 />
+
               </form>
             </div>
             <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
@@ -134,19 +147,25 @@ export const TasksList = () => {
               >
                 New Task
               </Link>
-              <select
-                onChange={handleStatusFilterChange}
-                value={statusFilter || ""}
-                className="py-2 px-4 border border-gray-300 rounded-lg text-gray-900 dark:bg-gray-700 dark:text-gray-200"
-              >
-                <option value="">All Statuses</option>
-                <option value="Backlog">Backlog</option>
-                <option value="ToDo">To Do</option>
-                <option value="InProgress">In Progress</option>
-                <option value="ReadyForReview">Ready for Review</option>
-                <option value="BackForReview">Back for Review</option>
-                <option value="Completed">Completed</option>
-              </select>
+              <FormControl size="small" sx={{ minWidth: 120 }}>
+                <InputLabel id="status-filter-label">Status</InputLabel>
+                <Select
+                  labelId="status-filter-label"
+                  id="status-filter"
+                  value={statusFilter || ""}
+                  label="Status"
+                  onChange={handleStatusFilterChange}
+                >
+                  <MenuItem value="">
+                    <em>All Statuses</em>
+                  </MenuItem>
+                  {statusOptions.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
           </div>
 
@@ -231,13 +250,13 @@ export const TasksList = () => {
                 ))}
               </tbody>
             </table>
-            
+
             {tasks.length === 0 && (
               <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                 No tasks found. {searchTerm || statusFilter ? "Try adjusting your search filters." : "Create a new task to get started."}
               </div>
             )}
-            
+
             <nav
               className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 p-4"
               aria-label="Table navigation"
@@ -259,9 +278,8 @@ export const TasksList = () => {
               <ul className="inline-flex items-stretch -space-x-px">
                 <li>
                   <button
-                    className={`flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
-                      page === 0 ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${page === 0 ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     onClick={goToPreviousPage}
                     disabled={page === 0}
                   >
@@ -283,9 +301,8 @@ export const TasksList = () => {
                 </li>
                 <li>
                   <button
-                    className={`flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
-                      !hasMore ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${!hasMore ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     onClick={goToNextPage}
                     disabled={!hasMore}
                   >
