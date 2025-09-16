@@ -63,10 +63,10 @@ const Hero = () => {
 
                             <div className="w-px h-5 bg-gray-300"></div>
 
-                            <a href="#" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Login </a>
+                            <a href="login" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Login </a>
 
                             <a
-                                href="#"
+                                href="signup"
                                 title=""
                                 className="
                             px-5
@@ -123,7 +123,7 @@ const Hero = () => {
                                 <div className="w-full h-px bg-gray-300 my-2"></div>
 
                                 <a 
-                                    href="#" 
+                                    href="login" 
                                     className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
                                     onClick={closeMenu}
                                 > 
@@ -131,7 +131,7 @@ const Hero = () => {
                                 </a>
 
                                 <a
-                                    href="#"
+                                    href="signup"
                                     className="
                                         px-5
                                         py-2
