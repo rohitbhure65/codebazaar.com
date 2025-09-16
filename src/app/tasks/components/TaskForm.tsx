@@ -9,10 +9,10 @@ export { FORM_ERROR } from "src/app/components/Form"
 export function TaskForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   const statusOptions = [
     { value: "Backlog", label: "Backlog" },
-    { value: "To Do", label: "To Do" },
-    { value: "In Progress", label: "In Progress" },
-    { value: "Ready for Review", label: "Ready for Review" },
-    { value: "Back for Review", label: "Back for Review" },
+    { value: "ToDo", label: "To Do" },
+    { value: "InProgress", label: "In Progress" },
+    { value: "ReadyForReview", label: "Ready for Review" },
+    { value: "BackForReview", label: "Back for Review" },
     { value: "Completed", label: "Completed" },
   ]
   const TypeOptions = [
