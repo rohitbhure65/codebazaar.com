@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import TextType from 'components/ui/TextType';
 const Hero = () => {

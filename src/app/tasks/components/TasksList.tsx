@@ -14,7 +14,7 @@ import FormControl from "@mui/material/FormControl"
 import InputLabel from "@mui/material/InputLabel"
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
-import Hero from "components/ui/Hero"
+import Hero from "@/components/Hero"
 
 
 const ITEMS_PER_PAGE = 5

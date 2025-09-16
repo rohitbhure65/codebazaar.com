@@ -14,7 +14,7 @@ export interface LabeledCheckboxProps {
   [key: string]: any
 }
 
-export const LabeledCheckbox = forwardRef<HTMLInputElement, LabeledCheckboxProps>(
+export const LabeledCheckbox = forwardRef<HTMLButtonElement, LabeledCheckboxProps>(
   ({ name, label, ...props }, ref) => {
     const {
       input,
