@@ -1,9 +1,9 @@
-import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from "react"
+import { forwardRef, ComponentPropsWithoutRef } from "react"
 import { useField, UseFieldConfig } from "react-final-form"
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
+export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input"> {
   /** Field name. */
   name: string
   /** Field label. */
@@ -14,7 +14,7 @@ export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElem
   isSelect?: boolean
   /** Options for select dropdown (if applicable) */
   options?: { value: string; label: string }[]
-  outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
+  outerProps?: ComponentPropsWithoutRef<"div">
   labelProps?: ComponentPropsWithoutRef<"label">
   fieldProps?: UseFieldConfig<string>
 }
@@ -27,7 +27,9 @@ export const LabeledTextField = forwardRef<
     input,
     meta: { touched, error, submitError, submitting },
   } = useField(name, {
-    parse: type === "number" ? (Number as any) : (v) => (v === "" ? null : v),
+    parse: type === "number" 
+      ? (v) => (v === "" ? null : Number(v)) 
+      : (v) => (v === "" ? null : v),
     ...fieldProps,
   })
 
@@ -35,25 +37,35 @@ export const LabeledTextField = forwardRef<
 
   return (
     <Box {...outerProps} className="flex flex-col" sx={{ '& > :not(style)': { m: 1, width: '25ch' } }} noValidate autoComplete="off">
-      <label {...labelProps} className="flex flex-col text-sm mb-2">
-        {type === "checkbox" ? (
-          <div className="flex items-center mt-2">
-            <input
-              type="checkbox"
-              {...input}
-              disabled={submitting}
-              ref={ref as React.Ref<HTMLInputElement>}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500"
-            />
-            <span className="ml-2 text-sm">{label}</span>
-          </div>
-        ) : isSelect ? (
+      {type === "checkbox" ? (
+        <div className="flex items-center mt-2" {...outerProps}>
+          <input
+            type="checkbox"
+            {...input}
+            disabled={submitting}
+            ref={ref as React.Ref<HTMLInputElement>}
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+            id={name}
+          />
+          <label 
+            htmlFor={name} 
+            {...labelProps} 
+            className="ml-2 text-sm cursor-pointer"
+          >
+            {label}
+          </label>
+        </div>
+      ) : isSelect ? (
+        <div {...outerProps} className="flex flex-col">
+          <label htmlFor={name} {...labelProps} className="text-sm mb-2">
+            {label}
+          </label>
           <select
-            {...(input as any)}
+            {...input}
             disabled={submitting}
             ref={ref as React.Ref<HTMLSelectElement>}
-            {...props}
-            className="mt-2 rounded p-2 text-sm"
+            id={name}
+            className="mt-2 rounded p-2 text-sm border border-gray-300"
           >
             {options?.map((option) => (
               <option key={option.value} value={option.value}>
@@ -61,19 +73,22 @@ export const LabeledTextField = forwardRef<
               </option>
             ))}
           </select>
-        ) : (
+        </div>
+      ) : (
+        <div {...outerProps}>
           <TextField
             {...input}
             disabled={submitting}
-            {...props}
+            type={type}
             id={name}
             label={label}
             variant="outlined"
             ref={ref as React.Ref<HTMLInputElement>}
             sx={{ mt: 1 }}
+            fullWidth
           />
-        )}
-      </label>
+        </div>
+      )}
 
       {touched && normalizedError && (
         <div role="alert" className="text-red-500 text-sm mt-1">
