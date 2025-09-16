@@ -11,14 +11,22 @@ export default resolver.pipe(
       ...input,
       category:
         typeof input.category === "string"
-          ? input.category.split(",").map((s) => s.trim())
-          : input.category,
+          ? (input.category as string).split(",").map((s) => s.trim())
+          : Array.isArray(input.category)
+            ? input.category
+            : [],
       techStack:
         typeof input.techStack === "string"
-          ? input.techStack.split(",").map((s) => s.trim())
-          : input.techStack,
+          ? (input.techStack as string).split(",").map((s: string) => s.trim())
+          : Array.isArray(input.techStack)
+            ? input.techStack as string[]
+            : [],
       tags:
-        typeof input.tags === "string" ? input.tags.split(",").map((s) => s.trim()) : input.tags,
+        typeof input.tags === "string"
+          ? (input.tags as string).split(",").map((s) => s.trim())
+          : Array.isArray(input.tags)
+            ? input.tags as string[]
+            : [],
     }
     const project = await db.project.create({ data })
 
