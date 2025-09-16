@@ -1,6 +1,18 @@
+"use client"
 import React, { useState } from 'react';
 import TextType from 'components/ui/TextType';
+
 const Hero = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
+
     return (
         <div className="relative bg-gray-50">
             <div className="absolute bottom-0 right-0 overflow-hidden lg:inset-y-0">
@@ -10,20 +22,36 @@ const Hero = () => {
             <header className="relative py-4 md:py-6">
                 <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between">
-                        <div className="flex-shrink-0">
-                            <a href="#" title="" className="flex rounded outline-none focus:ring-1 focus:ring-gray-900 focus:ring-offset-2">
+                        <div className="flex-shrink-0 flex items-center">
+                            <a href="#" title="" className="flex rounded outline-none  focus:ring-1 focus:ring-gray-900 focus:ring-offset-2">
                                 <img className="w-auto h-8" src="https://d33wubrfki0l68.cloudfront.net/682a555ec15382f2c6e7457ca1ef48d8dbb179ac/f8cd3/images/logo.svg" alt="" />
-                            </a>
+                            </a><span className="ml-3 relative flex size-3">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex size-3 rounded-full bg-green-500"></span>
+                            </span>
                         </div>
 
+                        {/* Mobile menu button */}
                         <div className="flex lg:hidden">
-                            <button type="button" className="text-gray-900">
-                                <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
-                                </svg>
+                            <button 
+                                type="button" 
+                                className="text-gray-900"
+                                onClick={toggleMenu}
+                                aria-label="Toggle menu"
+                            >
+                                {isMenuOpen ? (
+                                    <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                ) : (
+                                    <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                                    </svg>
+                                )}
                             </button>
                         </div>
 
+                        {/* Desktop navigation */}
                         <div className="hidden lg:flex lg:ml-16 lg:items-center lg:justify-center lg:space-x-10">
                             <div className="flex items-center space-x-12">
                                 <a href="#" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Features </a>
@@ -63,6 +91,73 @@ const Hero = () => {
                             </a>
                         </div>
                     </div>
+
+                    {/* Mobile menu */}
+                    {isMenuOpen && (
+                        <div className="lg:hidden mt-4 bg-white rounded-lg shadow-lg p-4">
+                            <div className="flex flex-col space-y-4">
+                                <a 
+                                    href="#" 
+                                    className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
+                                    onClick={closeMenu}
+                                > 
+                                    Features 
+                                </a>
+
+                                <a 
+                                    href="#" 
+                                    className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
+                                    onClick={closeMenu}
+                                > 
+                                    Pricing 
+                                </a>
+
+                                <a 
+                                    href="#" 
+                                    className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
+                                    onClick={closeMenu}
+                                > 
+                                    Automation 
+                                </a>
+
+                                <div className="w-full h-px bg-gray-300 my-2"></div>
+
+                                <a 
+                                    href="#" 
+                                    className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
+                                    onClick={closeMenu}
+                                > 
+                                    Login 
+                                </a>
+
+                                <a
+                                    href="#"
+                                    className="
+                                        px-5
+                                        py-2
+                                        text-base
+                                        font-semibold
+                                        leading-7
+                                        text-gray-900
+                                        transition-all
+                                        duration-200
+                                        bg-transparent
+                                        border border-gray-900
+                                        rounded-xl
+                                        font-pj
+                                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900
+                                        hover:bg-gray-900 hover:text-white
+                                        focus:bg-gray-900 focus:text-white
+                                        text-center
+                                    "
+                                    role="button"
+                                    onClick={closeMenu}
+                                >
+                                    Create free account
+                                </a>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </header>
 
@@ -71,13 +166,15 @@ const Hero = () => {
                     <div className="grid grid-cols-1 gap-y-8 lg:items-center lg:grid-cols-2 sm:gap-y-20 xl:grid-cols-5">
                         <div className="text-center xl:col-span-2 lg:text-left md:px-16 lg:px-0">
                             <div className="max-w-sm mx-auto sm:max-w-md md:max-w-full">
-                                <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight font-pj"> <TextType
-                                    text={["Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code!"]}
-                                    typingSpeed={100}
-                                    pauseDuration={1500}
-                                    showCursor={true}
-                                    cursorCharacter="|"
-                                /></h1>
+                                <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight font-pj"> 
+                                    <TextType
+                                        text={["Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code!"]}
+                                        typingSpeed={100}
+                                        pauseDuration={1500}
+                                        showCursor={true}
+                                        cursorCharacter="|"
+                                    />
+                                </h1>
 
                                 <div className="mt-8 lg:mt-12 lg:flex lg:items-center">
                                     <div className="flex justify-center flex-shrink-0 -space-x-4 overflow-hidden lg:justify-start">
@@ -126,21 +223,21 @@ const Hero = () => {
                                     role="button"
                                 >
                                     <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                                     </svg>
                                     Download iOS App
                                 </a>
                             </div>
                         </div>
 
-                        <div className="xl:col-span-3">
+                        <div className="xl:col-span-3 block-appear-right">
                             <img className="w-full mx-auto scale-110" src="https://d33wubrfki0l68.cloudfront.net/29c501c64b21014b3f2e225abe02fe31fd8f3a5c/f866d/images/hero/3/illustration.png" alt="" />
                         </div>
                     </div>
                 </div>
             </section>
         </div>
-
     )
 }
+
 export default Hero;

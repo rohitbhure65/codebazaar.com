@@ -5,6 +5,7 @@ import getCurrentUser from "./users/queries/getCurrentUser"
 import Hero from "components/Hero"
 import State from "components/State"
 import Testimonial from "components/Testimonial"
+import ProjectShowCase from "@/components/ProjectShowCase"
 
 export default async function Home() {
   const currentUser = await invoke(getCurrentUser, null)
@@ -13,6 +14,7 @@ export default async function Home() {
     <>
       <Hero />
       <State />
+      <ProjectShowCase />
       <Testimonial />
     </>
   )

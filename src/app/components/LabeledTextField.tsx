@@ -1,7 +1,7 @@
 import React, { forwardRef, ComponentPropsWithoutRef } from "react"
 import { useField, UseFieldConfig } from "react-final-form"
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -20,13 +20,13 @@ export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input">
   isSelect?: boolean
   /** Options for select dropdown (if applicable) */
   options?: { value: string; label: string }[]
-  outerProps?: ComponentPropsWithoutRef<"div">
-  labelProps?: ComponentPropsWithoutRef<"label">
+  outerProps?: BoxProps
+  labelProps?: Omit<ComponentPropsWithoutRef<typeof FormControlLabel>, 'label' | 'control'>
   fieldProps?: UseFieldConfig<string>
 }
 
 export const LabeledTextField = forwardRef<
-  HTMLInputElement | HTMLSelectElement,
+  HTMLInputElement | HTMLSelectElement | HTMLButtonElement,
   LabeledTextFieldProps
 >(({ name, label, isSelect, options, outerProps, fieldProps, labelProps, type, ...props }, ref) => {
   const {
@@ -57,7 +57,7 @@ export const LabeledTextField = forwardRef<
               {...input}
               checked={!!input.value}
               disabled={submitting}
-              ref={ref as React.Ref<HTMLInputElement>}
+              ref={ref as React.Ref<HTMLButtonElement>}
               color="primary"
             />
           }
