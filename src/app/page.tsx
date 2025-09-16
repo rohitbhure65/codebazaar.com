@@ -2,7 +2,6 @@ import Link from "next/link"
 import { invoke } from "./blitz-server"
 import { LogoutButton } from "./(auth)/components/LogoutButton"
 import getCurrentUser from "./users/queries/getCurrentUser"
-import Navbar from "@/components/Navbar"
 import State from "components/State"
 import Testimonial from "components/Testimonial"
 import ProjectShowCase from "@/components/ProjectShowCase"
@@ -13,7 +12,6 @@ export default async function Home() {
 
   return (
     <>
-      <Navbar />
       <Hero />
       <State />
       <ProjectShowCase />

@@ -19,7 +19,7 @@ export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input">
   /** Flag to determine if the field is a select dropdown */
   isSelect?: boolean
   /** Options for select dropdown (if applicable) */
-  options?: { value: number; label: any }[]
+  options?: { value: any; label: any }[]
   outerProps?: BoxProps
   labelProps?: Omit<ComponentPropsWithoutRef<typeof FormControlLabel>, 'label' | 'control'>
   fieldProps?: UseFieldConfig<string>

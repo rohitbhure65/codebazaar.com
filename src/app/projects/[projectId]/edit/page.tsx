@@ -14,7 +14,7 @@ export async function generateMetadata(
   const params = await props.params;
   const Project = await invoke(getProject, { id: Number(params.projectId) });
   return {
-    title: `Edit Project ${Project.id} - ${Project.name}`,
+    title: `Edit Project ${Project.id} - ${Project.title}`,
   };
 }
 
