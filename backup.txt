@@ -152,13 +152,13 @@ model User {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  tokens         Token[]
-  sessions       Session[]
-  projects       Project[]
-  purchases      Purchase[]
-  reviews        Review[]
-  transactions   Transaction[]
-  supportTickets SupportTicket[]
+  tokens        Token[]
+  sessions      Session[]
+  Project       Project[]
+  Purchase      Purchase[]
+  Review        Review[]
+  Transaction   Transaction[]
+  SupportTicket SupportTicket[]
 }
 
 model Session {
@@ -189,6 +189,28 @@ model Token {
   userId Int
 
   @@unique([hashedToken, type])
+}
+
+model Project {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  title           String
+  description     String
+  category        String
+  techStack       String[]
+  fileUrl         String
+  price           Float
+  isResellAllowed Boolean  @default(false)
+  isApproved      Boolean  @default(false)
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  Purchase      Purchase[]
+  Review        Review[]
+  ProjectTag    ProjectTag[]
+  SupportTicket SupportTicket[]
 }
 
 model Purchase {
@@ -238,7 +260,7 @@ model Category {
   name        String   @unique
   description String
 
-  projectTags ProjectTag[]
+  ProjectTag ProjectTag[]
 }
 
 model ProjectTag {
@@ -251,8 +273,6 @@ model ProjectTag {
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
-
-  @@unique([projectId, categoryId])
 }
 
 model SupportTicket {
@@ -260,7 +280,7 @@ model SupportTicket {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   issueType   IssueType
-  status      TicketStatus @default(OPEN)
+  status      TicketStatus
   description String
   resolvedAt  DateTime?
 
@@ -315,46 +335,4 @@ enum IssueType {
   REFUND
   BUG
   QUERY
-}
-
-// model Project {
-//   id              Int      @id @default(autoincrement())
-//   createdAt       DateTime @default(now())
-//   updatedAt       DateTime @updatedAt
-//   title           String
-//   description     String
-//   category        String
-//   techStack       String[]
-//   fileUrl         String
-//   price           Float
-//   isResellAllowed Boolean  @default(false)
-//   isApproved      Boolean  @default(false)
-
-//   user   User @relation(fields: [userId], references: [id])
-//   userId Int
-
-//   Purchase      Purchase[]
-//   Review        Review[]
-//   ProjectTag    ProjectTag[]
-//   SupportTicket SupportTicket[]
-// }
-
-model Project {
-  id              Int             @id @default(autoincrement())
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  title           String
-  description     String
-  category        String
-  techStack       String[]
-  fileUrl         String
-  price           Float
-  isResellAllowed Boolean         @default(false)
-  isApproved      Boolean         @default(false)
-  user            User            @relation(fields: [userId], references: [id])
-  userId          Int
-  Purchase        Purchase[]
-  Review          Review[]
-  ProjectTag      ProjectTag[]
-  SupportTicket   SupportTicket[]
 }

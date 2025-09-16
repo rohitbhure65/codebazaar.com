@@ -22,21 +22,3 @@ RUN cp -r ./node_modules/.pnpm/sodium-native@3.4.1/node_modules/sodium-native/pr
 
 CMD yarn start
 
-.form {
-  /* Form styles */
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-}
-
-.inputField {
-  /* Input field styles */
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
