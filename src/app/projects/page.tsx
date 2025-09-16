@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { ProjectsList } from "./components/ProjectsList";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div>
+      <Navbar />
       <p>
         <Link href={"/projects/new"}>Create Project</Link>
       </p>
