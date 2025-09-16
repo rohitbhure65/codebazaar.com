@@ -1,7 +1,7 @@
 import "./styles/globals.css"
 import { BlitzProvider } from "./blitz-client"
 import { Inter } from "next/font/google"
-import Navbar from "./tasks/components/Navbar"
+import Navbar from "@/components/ui/Navbar"
 const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: { title: "New Blitz App", template: "%s – Blitz" },
