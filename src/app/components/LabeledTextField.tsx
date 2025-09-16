@@ -69,7 +69,7 @@ export const LabeledTextField = forwardRef<
           <InputLabel id={`${name}-label`}>{label}</InputLabel>
           <Select
             {...input}
-            disabled={submitting}
+            disabled={props.disabled || submitting}
             labelId={`${name}-label`}
             id={name}
             label={label}

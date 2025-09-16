@@ -69,6 +69,7 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         name="userId"
         label="USER ID"
         isSelect={true}
+        disabled={true}
         options={
           currentUser
             ? [{ value: currentUser.id, label: currentUser.name || currentUser.email }]
