@@ -1,7 +1,13 @@
-import { forwardRef, ComponentPropsWithoutRef } from "react"
+import React, { forwardRef, ComponentPropsWithoutRef } from "react"
 import { useField, UseFieldConfig } from "react-final-form"
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input"> {
   /** Field name. */
@@ -36,65 +42,73 @@ export const LabeledTextField = forwardRef<
   const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
 
   return (
-    <Box {...outerProps} className="flex flex-col" component="form"
-      sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
-      noValidate
-      autoComplete="off">
+    <Box 
+      {...outerProps} 
+      sx={{ 
+        width: '100%', 
+        mb: 2,
+        ...(outerProps?.sx as object)
+      }}
+    >
       {type === "checkbox" ? (
-        <div className="flex items-center mt-2" {...outerProps}>
-          <input
-            type="checkbox"
-            {...input}
-            disabled={submitting}
-            ref={ref as React.Ref<HTMLInputElement>}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500"
-            id={name}
-          />
-          <label
-            htmlFor={name}
-            {...labelProps}
-            className="ml-2 text-sm cursor-pointer"
-          >
-            {label}
-          </label>
-        </div>
+        <FormControlLabel
+          control={
+            <Checkbox
+              {...input}
+              checked={!!input.value}
+              disabled={submitting}
+              ref={ref as React.Ref<HTMLInputElement>}
+              color="primary"
+            />
+          }
+          label={label}
+          {...labelProps}
+        />
       ) : isSelect ? (
-        <div {...outerProps} className="flex flex-col">
-          <label htmlFor={name} {...labelProps} className="text-sm mb-2">
-            {label}
-          </label>
-          <select
+        <FormControl fullWidth error={touched && !!normalizedError}>
+          <InputLabel id={`${name}-label`}>{label}</InputLabel>
+          <Select
             {...input}
             disabled={submitting}
-            ref={ref as React.Ref<HTMLSelectElement>}
+            labelId={`${name}-label`}
             id={name}
-            className="mt-2 rounded p-2 text-sm border border-gray-300"
+            label={label}
+            value={input.value || ''}
+            ref={ref as React.Ref<any>}
           >
             {options?.map((option) => (
-              <option key={option.value} value={option.value}>
+              <MenuItem key={option.value} value={option.value}>
                 {option.label}
-              </option>
+              </MenuItem>
             ))}
-          </select>
-        </div>
+          </Select>
+        </FormControl>
       ) : (
-        <div {...outerProps}>
-          <TextField
-            {...input}
-            disabled={submitting}
-            type={type}
-            id="outlined-basic"
-            label={label}
-            variant="outlined"
-            ref={ref as React.Ref<HTMLInputElement>}
-          />
-        </div>
+        <TextField
+          {...input}
+          disabled={submitting}
+          type={type}
+          id={name}
+          label={label}
+          variant="outlined"
+          fullWidth
+          ref={ref as React.Ref<HTMLInputElement>}
+          error={touched && !!normalizedError}
+        />
       )}
 
       {touched && normalizedError && (
-        <div role="alert" className="text-red-500 text-sm mt-1">
+        <Box 
+          role="alert" 
+          sx={{ 
+            color: 'error.main', 
+            fontSize: '0.75rem', 
+            mt: 0.5,
+            ml: 2 
+          }}
+        >
           {normalizedError}
-        </div>
+        </Box>
       )}
     </Box>
   )
