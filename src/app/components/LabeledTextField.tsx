@@ -1,7 +1,7 @@
 import { forwardRef, ComponentPropsWithoutRef } from "react"
 import { useField, UseFieldConfig } from "react-final-form"
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 
 export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input"> {
   /** Field name. */
@@ -27,8 +27,8 @@ export const LabeledTextField = forwardRef<
     input,
     meta: { touched, error, submitError, submitting },
   } = useField(name, {
-    parse: type === "number" 
-      ? (v) => (v === "" ? null : Number(v)) 
+    parse: type === "number"
+      ? (v) => (v === "" ? null : Number(v))
       : (v) => (v === "" ? null : v),
     ...fieldProps,
   })
@@ -36,7 +36,10 @@ export const LabeledTextField = forwardRef<
   const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
 
   return (
-    <Box {...outerProps} className="flex flex-col" sx={{ '& > :not(style)': { m: 1, width: '25ch' } }} noValidate autoComplete="off">
+    <Box {...outerProps} className="flex flex-col" component="form"
+      sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+      noValidate
+      autoComplete="off">
       {type === "checkbox" ? (
         <div className="flex items-center mt-2" {...outerProps}>
           <input
@@ -47,9 +50,9 @@ export const LabeledTextField = forwardRef<
             className="h-4 w-4 text-blue-600 focus:ring-blue-500"
             id={name}
           />
-          <label 
-            htmlFor={name} 
-            {...labelProps} 
+          <label
+            htmlFor={name}
+            {...labelProps}
             className="ml-2 text-sm cursor-pointer"
           >
             {label}
@@ -80,12 +83,10 @@ export const LabeledTextField = forwardRef<
             {...input}
             disabled={submitting}
             type={type}
-            id={name}
+            id="outlined-basic"
             label={label}
             variant="outlined"
             ref={ref as React.Ref<HTMLInputElement>}
-            sx={{ mt: 1 }}
-            fullWidth
           />
         </div>
       )}
