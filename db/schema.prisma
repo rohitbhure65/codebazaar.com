@@ -348,6 +348,7 @@ model Project {
   category        String[]
   tags            String[]
   techStack       String[]
+  projectImages   String[]
   fileUrl         String
   price           Float
   isResellAllowed Boolean         @default(false)

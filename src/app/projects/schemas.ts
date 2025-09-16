@@ -7,6 +7,7 @@ export const CreateProjectSchema = z.object({
   category: z.preprocess((val) => typeof val === 'string' ? val.split(',').map(s => s.trim()) : val, z.array(z.string())),
   tags: z.preprocess((val) => typeof val === 'string' ? val.split(',').map(s => s.trim()) : val, z.array(z.string())),
   techStack: z.preprocess((val) => typeof val === 'string' ? val.split(',').map(s => s.trim()) : val, z.array(z.string())),
+  projectImages: z.preprocess((val) => typeof val === 'string' ? val.split(',').map(s => s.trim()) : val, z.array(z.string())),
   fileUrl: z.string(),
   price: z.number(),
   isResellAllowed: z.boolean().default(true),
