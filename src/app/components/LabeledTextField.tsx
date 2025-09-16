@@ -1,7 +1,15 @@
-import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from "react"
+import React, { forwardRef, ComponentPropsWithoutRef } from "react"
 import { useField, UseFieldConfig } from "react-final-form"
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
-export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
+export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input"> {
   /** Field name. */
   name: string
   /** Field label. */
@@ -12,7 +20,7 @@ export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElem
   isSelect?: boolean
   /** Options for select dropdown (if applicable) */
   options?: { value: string; label: string }[]
-  outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
+  outerProps?: ComponentPropsWithoutRef<"div">
   labelProps?: ComponentPropsWithoutRef<"label">
   fieldProps?: UseFieldConfig<string>
 }
@@ -25,58 +33,84 @@ export const LabeledTextField = forwardRef<
     input,
     meta: { touched, error, submitError, submitting },
   } = useField(name, {
-    parse: type === "number" ? (Number as any) : (v) => (v === "" ? null : v),
+    parse: type === "number"
+      ? (v) => (v === "" ? null : Number(v))
+      : (v) => (v === "" ? null : v),
     ...fieldProps,
   })
 
   const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
 
   return (
-    <div {...outerProps} className="flex flex-col">
-      <label {...labelProps} className="flex flex-col text-sm mb-2">
-        {label}
-          {type === "checkbox" ? (
-            <div className="flex items-center mt-2">
-              <input
-                type="checkbox"
-                {...input}
-                disabled={submitting}
-                ref={ref as React.Ref<HTMLInputElement>}
-                className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <span className="ml-2 text-sm">{label}</span>
-            </div>
-          ) : isSelect ? (
-            <select
-              {...(input as any)}
-              disabled={submitting}
-              ref={ref as React.Ref<HTMLSelectElement>}
-              {...props}
-              className="mt-2 border border-purple-400 rounded p-2 text-sm"
-            >
-              {options?.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          ) : (
-            <input
+    <Box 
+      {...outerProps} 
+      sx={{ 
+        width: '100%', 
+        mb: 2,
+        ...(outerProps?.sx as object)
+      }}
+    >
+      {type === "checkbox" ? (
+        <FormControlLabel
+          control={
+            <Checkbox
               {...input}
+              checked={!!input.value}
               disabled={submitting}
-              {...props}
               ref={ref as React.Ref<HTMLInputElement>}
-              className="mt-2 border border-purple-400 rounded p-2 text-sm"
+              color="primary"
             />
-          )}
-      </label>
+          }
+          label={label}
+          {...labelProps}
+        />
+      ) : isSelect ? (
+        <FormControl fullWidth error={touched && !!normalizedError}>
+          <InputLabel id={`${name}-label`}>{label}</InputLabel>
+          <Select
+            {...input}
+            disabled={submitting}
+            labelId={`${name}-label`}
+            id={name}
+            label={label}
+            value={input.value || ''}
+            ref={ref as React.Ref<any>}
+          >
+            {options?.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      ) : (
+        <TextField
+          {...input}
+          disabled={submitting}
+          type={type}
+          id={name}
+          label={label}
+          variant="outlined"
+          fullWidth
+          ref={ref as React.Ref<HTMLInputElement>}
+          error={touched && !!normalizedError}
+        />
+      )}
 
       {touched && normalizedError && (
-        <div role="alert" className="text-red-500 text-sm mt-1">
+        <Box 
+          role="alert" 
+          sx={{ 
+            color: 'error.main', 
+            fontSize: '0.75rem', 
+            mt: 0.5,
+            ml: 2 
+          }}
+        >
           {normalizedError}
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   )
 })
 
