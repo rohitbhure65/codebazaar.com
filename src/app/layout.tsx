@@ -1,7 +1,6 @@
 import "./styles/globals.css"
 import { BlitzProvider } from "./blitz-client"
 import { Inter } from "next/font/google"
-import Navbar from "./tasks/components/Navbar"
 const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: { title: "New Blitz App", template: "%s – Blitz" },
@@ -13,8 +12,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${inter.className}`}>
         <BlitzProvider>
-          <Navbar />
-          <div className="mt-8 max-w-screen-lg mx-auto">{children}</div>
+          {/* <div className="mt-8 max-w-screen-lg mx-auto">{children}</div> */}
+          <div>{children}</div>
         </BlitzProvider>
       </body>
     </html>
