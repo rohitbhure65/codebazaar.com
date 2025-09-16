@@ -9,8 +9,8 @@ export const CreateProjectSchema = z.object({
   techStack: z.preprocess((val) => typeof val === 'string' ? val.split(',').map(s => s.trim()) : val, z.array(z.string())),
   fileUrl: z.string(),
   price: z.number(),
-  isResellAllowed: z.boolean(),
-  isApproved: z.boolean(),
+  isResellAllowed: z.boolean().default(true),
+  isApproved: z.boolean().default(true),
   // template: __fieldName__: z.__zodType__(),
 });
 export const UpdateProjectSchema = CreateProjectSchema.merge(
