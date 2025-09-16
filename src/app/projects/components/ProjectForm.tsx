@@ -38,6 +38,12 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         type="text"
       />
       <LabeledTextField
+        name="projectImages"
+        label="Project Images"
+        placeholder="project Images"
+        type="text"
+      />
+      <LabeledTextField
         name="tags"
         label="Tags"
         placeholder="Tags"
@@ -69,6 +75,7 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         name="userId"
         label="USER ID"
         isSelect={true}
+        disabled={true}
         options={
           currentUser
             ? [{ value: currentUser.id, label: currentUser.name || currentUser.email }]
