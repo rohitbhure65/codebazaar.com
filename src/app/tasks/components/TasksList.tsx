@@ -7,17 +7,23 @@ import { usePathname } from "next/navigation"
 import getTasks from "../queries/getTasks"
 import { useSearchParams } from "next/navigation"
 import { Route } from "next"
-import deleteTask from "../mutations/deleteTask" // Import the delete mutation
+import deleteTask from "../mutations/deleteTask"
 import { TaskStatus } from "db"
+import { Form } from "react-final-form" // Import Form from react-final-form
+import TextField from "@mui/material/TextField" // Use regular TextField instead
+
 const ITEMS_PER_PAGE = 5
 
 export const TasksList = () => {
   const searchParams = useSearchParams()!
   const page = Number(searchParams.get("page")) || 0
-  const [statusFilter, setStatusFilter] = useState<string | null>(null)
-  const [searchTerm, setSearchTerm] = useState<string>("")
+  const urlStatusFilter = searchParams.get("status")
+  const urlSearchTerm = searchParams.get("search") || ""
+  
+  const [statusFilter, setStatusFilter] = useState<string | null>(urlStatusFilter)
+  const [searchTerm, setSearchTerm] = useState<string>(urlSearchTerm)
 
-  const [{ tasks, hasMore }] = usePaginatedQuery(getTasks, {
+  const [{ tasks, hasMore, count }] = usePaginatedQuery(getTasks, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
@@ -38,6 +44,12 @@ export const TasksList = () => {
   const [deleteTaskMutation] = useMutation(deleteTask)
   const pathname = usePathname()
 
+  // Update filters when URL params change
+  useEffect(() => {
+    setStatusFilter(urlStatusFilter)
+    setSearchTerm(urlSearchTerm)
+  }, [urlStatusFilter, urlSearchTerm])
+
   const goToPreviousPage = () => {
     if (page > 0) {
       const params = new URLSearchParams(searchParams)
@@ -55,9 +67,15 @@ export const TasksList = () => {
   }
 
   const handleStatusFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatusFilter(event.target.value || null)
-    // Reset to the first page when the filter changes
+    const newStatus = event.target.value || null
+    setStatusFilter(newStatus)
+    
     const params = new URLSearchParams(searchParams)
+    if (newStatus) {
+      params.set("status", newStatus)
+    } else {
+      params.delete("status")
+    }
     params.set("page", "0")
     router.push(`${pathname}?${params.toString()}` as Route)
   }
@@ -69,15 +87,18 @@ export const TasksList = () => {
   const handleSearchSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     const params = new URLSearchParams(searchParams)
+    if (searchTerm) {
+      params.set("search", searchTerm)
+    } else {
+      params.delete("search")
+    }
     params.set("page", "0")
-    router.push(
-      `${pathname}?${params.toString()}&search=${encodeURIComponent(searchTerm)}` as Route
-    )
+    router.push(`${pathname}?${params.toString()}` as Route)
   }
 
   const handleDeleteTask = async (taskId: string) => {
     try {
-      if (window.confirm("This will be deleted")) {
+      if (window.confirm("This task will be deleted")) {
         await deleteTaskMutation({ id: taskId })
         router.refresh()
       }
@@ -94,16 +115,15 @@ export const TasksList = () => {
           <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
             <div className="w-full md:w-1/2">
               <form className="flex items-center" onSubmit={handleSearchSubmit}>
-                <label htmlFor="simple-search" className="sr-only">
-                  Search
-                </label>
-                <input
+                <TextField
+                  name="search"
+                  label="Search"
+                  placeholder="Search tasks..."
                   type="text"
-                  id="simple-search"
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Search"
+                  fullWidth
+                  size="small"
                 />
               </form>
             </div>
@@ -112,14 +132,14 @@ export const TasksList = () => {
                 href="/tasks/new"
                 className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-blue-500 rounded-lg border border-gray-200 hover:bg-blue-400 hover:text-primary-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-blue-300"
               >
-                New
+                New Task
               </Link>
               <select
                 onChange={handleStatusFilterChange}
                 value={statusFilter || ""}
                 className="py-2 px-4 border border-gray-300 rounded-lg text-gray-900 dark:bg-gray-700 dark:text-gray-200"
               >
-                <option value="">Task Status</option>
+                <option value="">All Statuses</option>
                 <option value="Backlog">Backlog</option>
                 <option value="ToDo">To Do</option>
                 <option value="InProgress">In Progress</option>
@@ -186,6 +206,7 @@ export const TasksList = () => {
                               fill="#ffffff"
                             />
                           </svg>
+                          Edit
                         </button>
                       </Link>
                       <button
@@ -203,28 +224,43 @@ export const TasksList = () => {
                           <path d="M4 6h12v12H4V6z" />
                           <path d="M3 4h14a1 1 0 0 1 1 1v1H2V5a1 1 0 0 1 1-1zM5 8h10v10H5V8z" />
                         </svg>
+                        Delete
                       </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            
+            {tasks.length === 0 && (
+              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                No tasks found. {searchTerm || statusFilter ? "Try adjusting your search filters." : "Create a new task to get started."}
+              </div>
+            )}
+            
             <nav
               className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 p-4"
               aria-label="Table navigation"
             >
               <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                 Showing{" "}
-                <span className="font-semibold text-gray-900 dark:text-white">{`${
-                  page * ITEMS_PER_PAGE + 1
-                }-${Math.min((page + 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE * 2 + 1)}`}</span>{" "}
-                of <span className="font-semibold text-gray-900 dark:text-white">{page + 1}</span>
+                <span className="font-semibold text-gray-900 dark:text-white">
+                  {tasks.length > 0 ? page * ITEMS_PER_PAGE + 1 : 0}
+                </span>
+                {" - "}
+                <span className="font-semibold text-gray-900 dark:text-white">
+                  {page * ITEMS_PER_PAGE + tasks.length}
+                </span>
+                {" of "}
+                <span className="font-semibold text-gray-900 dark:text-white">
+                  {count}
+                </span>
               </span>
               <ul className="inline-flex items-stretch -space-x-px">
                 <li>
                   <button
                     className={`flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
-                      page === 0 ? "hidden" : ""
+                      page === 0 ? "opacity-50 cursor-not-allowed" : ""
                     }`}
                     onClick={goToPreviousPage}
                     disabled={page === 0}
@@ -248,7 +284,7 @@ export const TasksList = () => {
                 <li>
                   <button
                     className={`flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
-                      !hasMore ? "hidden" : ""
+                      !hasMore ? "opacity-50 cursor-not-allowed" : ""
                     }`}
                     onClick={goToNextPage}
                     disabled={!hasMore}
