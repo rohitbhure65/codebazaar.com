@@ -8,13 +8,12 @@ import getTasks from "../queries/getTasks"
 import { useSearchParams } from "next/navigation"
 import { Route } from "next"
 import deleteTask from "../mutations/deleteTask"
-import { TaskStatus } from "db"
+import TaskStatus from "db"
 import TextField from "@mui/material/TextField"
 import FormControl from "@mui/material/FormControl"
 import InputLabel from "@mui/material/InputLabel"
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
-import Hero from "@/components/Hero"
 
 
 const ITEMS_PER_PAGE = 5
@@ -43,7 +42,7 @@ export const TasksList = () => {
         }
         : {}),
     },
-  })
+  }) as any
 
   const router = useRouter()
   const [deleteTaskMutation] = useMutation(deleteTask)
@@ -196,7 +195,7 @@ export const TasksList = () => {
                 </tr>
               </thead>
               <tbody>
-                {tasks.map((task) => (
+                {tasks.map((task:any) => (
                   <tr key={task.id} className="border-b dark:border-gray-700">
                     <th
                       scope="row"

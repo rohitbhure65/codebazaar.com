@@ -68,6 +68,12 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         placeholder="Price"
         type="number"
       />
+      <LabeledTextField
+        name="slug"
+        label="Slug"
+        placeholder="Slug"
+        type="text"
+      />
 
       <LabeledCheckbox name="isResellAllowed" label="Is Resell Allowed" defaultChecked={true} />
       <LabeledCheckbox name="isApproved" label="Is Approved" defaultChecked={true} />

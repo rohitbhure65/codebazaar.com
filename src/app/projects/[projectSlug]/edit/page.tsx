@@ -5,16 +5,16 @@ import getProject from "../../queries/getProject";
 import { EditProject } from "../../components/EditProject";
 
 type EditProjectPageProps = {
-  params: Promise<{ projectId: string }>;
+  params: Promise<{ projectSlug: string }>;
 };
 
 export async function generateMetadata(
   props: EditProjectPageProps
 ): Promise<Metadata> {
   const params = await props.params;
-  const Project = await invoke(getProject, { id: Number(params.projectId) });
+  const Project = await invoke(getProject, { slug: params.projectSlug });
   return {
-    title: `Edit Project ${Project.id} - ${Project.name}`,
+    title: `Edit Project ${Project.id} - ${Project.title}`,
   };
 }
 
@@ -23,7 +23,7 @@ export default async function Page(props: EditProjectPageProps) {
   return (
     <div>
       <Suspense fallback={<div>Loading...</div>}>
-        <EditProject projectId={Number(params.projectId)} />
+        <EditProject projectSlug={params.projectSlug} />
       </Suspense>
     </div>
   );

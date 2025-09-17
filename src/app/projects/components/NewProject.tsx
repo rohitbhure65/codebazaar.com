@@ -15,7 +15,7 @@ export function New__ModelName() {
       onSubmit={async (values) => {
         try {
           const project = await createProjectMutation(values);
-          router.push(`/projects/${project.id}`);
+          router.push(`/projects/${project.slug}`);
         } catch (error: any) {
           console.error(error);
           return {
