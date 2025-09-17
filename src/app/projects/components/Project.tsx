@@ -9,6 +9,7 @@ import TextSnippetRoundedIcon from '@mui/icons-material/TextSnippetRounded';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import Reviews from "@/components/reviews"
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
@@ -138,6 +139,8 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Project Details</h3>
         <p className="mb-4">{project.description}</p>
       </div>
+
+      <Reviews />
     </div>
   )
 }
