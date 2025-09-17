@@ -9,14 +9,14 @@ export async function generateMetadata(
   props: ProjectPageProps
 ): Promise<Metadata> {
   const params = await props.params;
-  const Project = await invoke(getProject, { id: Number(params.projectId) });
+  const Project = await invoke(getProject, { slug: params.projectSlug });
   return {
     title: `Project ${Project.id} - ${Project.title}`,
   };
 }
 
 type ProjectPageProps = {
-  params: Promise<{ projectId: string }>;
+  params: Promise<{ projectSlug: string }>;
 };
 
 export default async function Page(props: ProjectPageProps) {
@@ -27,7 +27,7 @@ export default async function Page(props: ProjectPageProps) {
         <Link href={"/projects"}>Projects</Link>
       </p>
       <Suspense fallback={<div>Loading...</div>}>
-        <Project projectId={Number(params.projectId)} />
+        <Project projectSlug={params.projectSlug} />
       </Suspense>
     </div>
   );

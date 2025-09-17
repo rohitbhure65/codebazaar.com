@@ -7,10 +7,10 @@ import { FORM_ERROR, ProjectForm } from "./ProjectForm";
 import { useMutation, useQuery } from "@blitzjs/rpc";
 import { useRouter } from "next/navigation";
 
-export const EditProject = ({ projectId }: { projectId: number }) => {
+export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
   const [project, { setQueryData }] = useQuery(
     getProject,
-    { id: projectId },
+    { slug: projectSlug },
     {
       // This ensures the query never refreshes and overwrites the form data while the user is editing.
       staleTime: Infinity,
@@ -32,7 +32,7 @@ export const EditProject = ({ projectId }: { projectId: number }) => {
               try {
                 const updated = await updateProjectMutation({
                   ...values,
-                  id: project.id,
+                  slug: project.slug,
                 });
                 await setQueryData(updated);
                 router.refresh();

@@ -5,9 +5,9 @@ import { UpdateProjectSchema } from "../schemas";
 export default resolver.pipe(
   resolver.zod(UpdateProjectSchema),
   resolver.authorize(),
-  async ({ id, ...data }) => {
+  async ({ slug, ...data }) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const project = await db.project.update({ where: { id }, data });
+    const project = await db.project.update({ where: { slug }, data });
 
     return project;
   }

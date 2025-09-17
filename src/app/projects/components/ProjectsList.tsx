@@ -48,6 +48,7 @@ export const ProjectsList = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <span className="text-lg font-bold text-gray-900">${project.price}</span>
+                      <span className="text-lg font-bold text-gray-900">${project.slug}</span>
                       {project.price && (
                         <span className="text-sm text-gray-500 line-through">${project.price}</span>
                       )}

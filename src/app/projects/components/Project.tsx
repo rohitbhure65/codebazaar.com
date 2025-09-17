@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import deleteProject from "../mutations/deleteProject";
 import getProject from "../queries/getProject";
 
-export const Project = ({ projectId }: { projectId: number }) => {
+export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const router = useRouter();
   const [deleteProjectMutation] = useMutation(deleteProject);
-  const [project] = useQuery(getProject, { id: projectId });
+  const [project] = useQuery(getProject, { slug: projectSlug });
 
   return (
     <>
@@ -16,13 +16,13 @@ export const Project = ({ projectId }: { projectId: number }) => {
         <h1>Project {project.id}</h1>
         <pre>{JSON.stringify(project, null, 2)}</pre>
 
-        <Link href={`/projects/${project.id}/edit`}>Edit</Link>
+        <Link href={`/projects/${project.slug}/edit`}>Edit</Link>
 
         <button
           type="button"
           onClick={async () => {
             if (window.confirm("This will be deleted")) {
-              await deleteProjectMutation({ id: project.id });
+              await deleteProjectMutation({ slug: project.slug });
               router.push("/projects");
             }
           }}

@@ -17,11 +17,11 @@ export const CreateProjectSchema = z.object({
 });
 export const UpdateProjectSchema = CreateProjectSchema.merge(
   z.object({
-    id: z.number(),
+    slug: z.string(),
     userId: z.number(),
   })
 );
 
 export const DeleteProjectSchema = z.object({
-  id: z.number(),
+  slug: z.string(),
 });
