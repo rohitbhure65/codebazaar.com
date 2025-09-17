@@ -43,7 +43,7 @@ export const ProjectsList = () => {
                 <div className="h-32 bg-gray-200 mb-3 flex items-center justify-center">
                   {project.projectImages.length > 0 ? (
                     <img
-                      src={project.projectImages[0]}
+                      src={project.projectImage}
                       alt={project.title}
                       className="object-cover h-full w-full"
                     />

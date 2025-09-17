@@ -8,8 +8,8 @@
   box-sizing: border-box;
 }
 
-html,body{
-  overflow-x: none;
+*::-webkit-scrollbar {
+  display: none;
 }
 
 @layer base {

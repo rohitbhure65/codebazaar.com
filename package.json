@@ -10,7 +10,8 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prisma:all": "blitz prisma generate && blitz prisma migrate dev && blitz prisma db push"
   },
   "prisma": {
     "schema": "db/schema.prisma"

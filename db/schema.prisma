@@ -349,6 +349,7 @@ model Project {
   category           String[]
   tags               String[]
   techStack          String[]
+  projectImage       String
   projectImages      String[]
   slug               String          @unique
   fileUrl            String
@@ -368,7 +369,7 @@ model Project {
   twitterImage       String?
   canonicalUrl       String?
   robots             String?         @default("index, follow")
-  // Example: "noindex, nofollow", "index, follow"
+                                      // Example: "noindex, nofollow", "index, follow"
   demoUrl            String?
   repositoryUrl      String?
   visibility         String          @default("public")

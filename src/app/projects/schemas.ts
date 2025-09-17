@@ -20,6 +20,7 @@ export const CreateProjectSchema = z.object({
     (val) => (typeof val === "string" ? val.split(",").map((s) => s.trim()) : val),
     z.array(z.string())
   ),
+  projectImage: z.string(),
   fileUrl: z.string(),
   slug: z.string(),
   price: z.number(),
