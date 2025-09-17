@@ -74,7 +74,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
             </div>
           </div>
 
-          <p className="text-gray-700 font-bold">Tags:  <Badge variant="outline">Outline</Badge></p>
+          <p className="text-gray-700 font-bold">Tags:  <Badge variant="outline">{project.tags}</Badge></p>
 
           <div className="flex gap-4 mt-4">
             {project.demoUrl ? (
