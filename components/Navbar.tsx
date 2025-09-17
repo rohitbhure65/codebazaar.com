@@ -32,8 +32,8 @@ const Navbar = () => {
 
                         {/* Mobile menu button */}
                         <div className="flex lg:hidden">
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="text-gray-900"
                                 onClick={toggleMenu}
                                 aria-label="Toggle menu"
@@ -58,10 +58,10 @@ const Navbar = () => {
 
                             <div className="w-px h-5 bg-gray-300"></div>
 
-                            <a href="login" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Login </a>
+                            <a href="/login" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Login </a>
 
                             <a
-                                href="signup"
+                                href="/signup"
                                 title=""
                                 className="
                             px-5
@@ -91,22 +91,22 @@ const Navbar = () => {
                     {isMenuOpen && (
                         <div className="lg:hidden mt-4 bg-white rounded-lg shadow-lg p-4">
                             <div className="flex flex-col space-y-4">
-                                <a 
-                                    href="/projects" 
+                                <a
+                                    href="/projects"
                                     className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
                                     onClick={closeMenu}
-                                > 
-                                    Projects 
+                                >
+                                    Projects
                                 </a>
 
                                 <div className="w-full h-px bg-gray-300 my-2"></div>
 
-                                <a 
-                                    href="login" 
+                                <a
+                                    href="login"
                                     className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
                                     onClick={closeMenu}
-                                > 
-                                    Login 
+                                >
+                                    Login
                                 </a>
 
                                 <a
