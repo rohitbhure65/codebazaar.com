@@ -2,7 +2,10 @@
 import { useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import getProject from "../queries/getProject"
-import {Badge} from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge"
+import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
+import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
+import TextSnippetRoundedIcon from '@mui/icons-material/TextSnippetRounded';
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
@@ -25,7 +28,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
             <span>⭐ 39 Reviews</span>
           </div>
 
-          <h1 className="font-bold text-3xl ">$ {project.price}</h1>
+          <h1 className="font-bold text-3xl "><CurrencyRupeeRoundedIcon /> {project.price}</h1>
 
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Project Details</h3>
@@ -74,17 +77,29 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
             </div>
           </div>
 
-          <p className="text-gray-700 font-bold">{project.tags && project.tags.length > 0 ? (
-              <span className="flex flex-wrap gap-2">
-                Tags: {project.tags.flatMap((tag, index) =>
-                  tag.split(' ').map((word, wordIndex) => (
-                    <Badge key={`${index}-${wordIndex}`} variant="outline">{word}</Badge>
-                  ))
-                )}
-              </span>
-            ) : (
-              <span>No tags</span>
-            )}
+          <p className="text-gray-700">{project.tags && project.tags.length > 0 ? (
+            <span className="flex flex-wrap gap-2">
+            <TextSnippetRoundedIcon/>  <span className="text-sm font-bold">Tags</span>: {project.tags.flatMap((tag, index) =>
+                tag.split(' ').map((word, wordIndex) => (
+                  <Badge key={`${index}-${wordIndex}`} variant="outline">{word}</Badge>
+                ))
+              )}
+            </span>
+          ) : (
+            <span>No tags</span>
+          )}
+          </p>
+          <p className="text-gray-700">{project.techStack && project.techStack.length > 0 ? (
+            <span className="flex flex-wrap gap-2">
+              <CodeRoundedIcon /> <span className="text-sm font-bold">Tech Stack</span>: {project.techStack.flatMap((techStack, index) =>
+                techStack.split(' ').map((word, wordIndex) => (
+                  <Badge key={`${index}-${wordIndex}`} variant="outline">{word}</Badge>
+                ))
+              )}
+            </span>
+          ) : (
+            <span>No tags</span>
+          )}
           </p>
 
           <div className="flex gap-4 mt-4">
@@ -102,12 +117,12 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
             </Link>
           </div>
         </div>
-        
+
       </div>
-       <div className="bg-white rounded-lg shadow-md mt-10 p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Project Details</h3>
-          <p className="mb-4">{project.description}</p>
-        </div>
+      <div className="bg-white rounded-lg shadow-md mt-10 p-6 border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">Project Details</h3>
+        <p className="mb-4">{project.description}</p>
+      </div>
     </div>
   )
 }
