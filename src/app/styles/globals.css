@@ -8,8 +8,8 @@
   box-sizing: border-box;
 }
 
-html,body{
-  overflow-x: none;
+*::-webkit-scrollbar {
+  display: none;
 }
 
 @layer base {
@@ -79,7 +79,6 @@ html,body{
   }
 }
 
-/* Appear Animation (default center) */
 @keyframes appear {
   from {
     opacity: 0;
@@ -97,7 +96,6 @@ html,body{
   animation-range: entry 0% cover 40%;
 }
 
-/* Appear from Left Animation */
 @keyframes appear-left {
   from {
     opacity: 0;
@@ -115,7 +113,6 @@ html,body{
   animation-range: entry 0% cover 40%;
 }
 
-/* Appear from Right Animation */
 @keyframes appear-right {
   from {
     opacity: 0;

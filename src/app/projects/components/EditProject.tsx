@@ -11,10 +11,7 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
   const [project, { setQueryData }] = useQuery(
     getProject,
     { slug: projectSlug },
-    {
-      // This ensures the query never refreshes and overwrites the form data while the user is editing.
-      staleTime: Infinity,
-    }
+    { staleTime: Infinity}
   )
   const [updateProjectMutation] = useMutation(updateProject)
   const router = useRouter()

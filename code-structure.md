@@ -1,5 +1,6 @@
 .
 ├── code-structure.md
+├── code-structure.txt
 ├── components
 │   ├── Hero.tsx
 │   ├── Navbar.tsx
@@ -61471,4 +61472,4 @@
 ├── tsconfig.json
 └── types.ts
 
-6909 directories, 54563 files
+6909 directories, 54564 files

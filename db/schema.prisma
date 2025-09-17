@@ -191,6 +191,46 @@ model Token {
   @@unique([hashedToken, type])
 }
 
+model Project {
+  id                 Int             @id @default(autoincrement())
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  title              String
+  description        String
+  category           String[]
+  tags               String[]
+  techStack          String[]
+  projectImage       String
+  projectImages      String[]
+  slug               String          @unique
+  fileUrl            String
+  price              Float
+  isResellAllowed    Boolean         @default(false)
+  isApproved         Boolean         @default(false)
+  views              Int             @default(0)
+  downloads          Int             @default(0)
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  ogTitle            String?
+  ogDescription      String?
+  ogImage            String?
+  twitterTitle       String?
+  twitterDescription String?
+  twitterImage       String?
+  canonicalUrl       String?
+  robots             String?         @default("index, follow") // Example: "noindex, nofollow", "index, follow"
+  demoUrl            String?
+  repositoryUrl      String?
+  visibility         String          @default("public")
+  user               User            @relation(fields: [userId], references: [id])
+  userId             Int
+  Purchase           Purchase[]
+  Review             Review[]
+  ProjectTag         ProjectTag[]
+  SupportTicket      SupportTicket[]
+}
+
 model Purchase {
   id          Int         @id @default(autoincrement())
   createdAt   DateTime    @default(now())
@@ -211,8 +251,8 @@ model Review {
   updatedAt     DateTime @updatedAt
   rating        Int      @default(5) @db.SmallInt
   comment       String
-  averageRating Float?   @default(0) // New field for average rating
-  ratingcount   Int?     @default(0) // New field for rating count
+  averageRating Float?   @default(0)
+  ratingcount   Int?     @default(0)
   user          User     @relation(fields: [userId], references: [id])
   userId        Int
 
@@ -317,128 +357,3 @@ enum IssueType {
   BUG
   QUERY
 }
-
-// model Project {
-//   id              Int      @id @default(autoincrement())
-//   createdAt       DateTime @default(now())
-//   updatedAt       DateTime @updatedAt
-//   title           String
-//   description     String
-//   category        String
-//   techStack       String[]
-//   fileUrl         String
-//   price           Float
-//   isResellAllowed Boolean  @default(false)
-//   isApproved      Boolean  @default(false)
-
-//   user   User @relation(fields: [userId], references: [id])
-//   userId Int
-
-//   Purchase      Purchase[]
-//   Review        Review[]
-//   ProjectTag    ProjectTag[]
-//   SupportTicket SupportTicket[]
-// }
-
-model Project {
-  id                 Int             @id @default(autoincrement())
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
-  title              String
-  description        String
-  category           String[]
-  tags               String[]
-  techStack          String[]
-  projectImages      String[]
-  slug               String          @unique
-  fileUrl            String
-  price              Float
-  isResellAllowed    Boolean         @default(false)
-  isApproved         Boolean         @default(false)
-  views              Int             @default(0)
-  downloads          Int             @default(0)
-  metaTitle          String?
-  metaDescription    String?
-  metaKeywords       String?
-  ogTitle            String?
-  ogDescription      String?
-  ogImage            String?
-  twitterTitle       String?
-  twitterDescription String?
-  twitterImage       String?
-  canonicalUrl       String?
-  robots             String?         @default("index, follow")
-  // Example: "noindex, nofollow", "index, follow"
-  demoUrl            String?
-  repositoryUrl      String?
-  visibility         String          @default("public")
-  user               User            @relation(fields: [userId], references: [id])
-  userId             Int
-  Purchase           Purchase[]
-  Review             Review[]
-  ProjectTag         ProjectTag[]
-  SupportTicket      SupportTicket[]
-}
-
-// model User {
-//   id          Int       @id @default(autoincrement())
-//   email       String    @unique
-//   password    String
-//   name        String?
-//   projects    Project[] // Projects created by the user
-//   orders      Order[]   // Orders made by the user
-//   reviews     Review[]  // Reviews written by the user
-//   createdAt   DateTime  @default(now())
-//   updatedAt   DateTime  @updatedAt
-// }
-
-// model Project {
-//   id          Int        @id @default(autoincrement())
-//   title       String
-//   description String
-//   price       Float
-//   imageUrl    String?
-//   category    Category   @relation(fields: [categoryId], references: [id])
-//   categoryId  Int
-//   seller      User       @relation(fields: [sellerId], references: [id])
-//   sellerId    Int
-//   orders      Order[]    // Orders that include this project
-//   reviews     Review[]   // Reviews for this project
-//   createdAt   DateTime   @default(now())
-//   updatedAt   DateTime   @updatedAt
-// }
-
-// model Category {
-//   id        Int       @id @default(autoincrement())
-//   name      String    @unique
-//   projects  Project[]
-// }
-
-// model Order {
-//   id          Int       @id @default(autoincrement())
-//   buyer       User      @relation(fields: [buyerId], references: [id])
-//   buyerId     Int
-//   project     Project   @relation(fields: [projectId], references: [id])
-//   projectId   Int
-//   totalPrice  Float
-//   status      OrderStatus @default(PENDING)
-//   createdAt   DateTime  @default(now())
-//   updatedAt   DateTime  @updatedAt
-// }
-
-// enum OrderStatus {
-//   PENDING
-//   COMPLETED
-//   CANCELLED
-// }
-
-// model Review {
-//   id          Int       @id @default(autoincrement())
-//   rating      Int       @default(5) @db.SmallInt
-//   comment     String?
-//   project     Project   @relation(fields: [projectId], references: [id])
-//   projectId   Int
-//   author      User      @relation(fields: [authorId], references: [id])
-//   authorId    Int
-//   createdAt   DateTime  @default(now())
-// }

@@ -38,6 +38,12 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         type="text"
       />
       <LabeledTextField
+        name="projectImage"
+        label="Project Image"
+        placeholder="Project Image"
+        type="text"
+      />
+      <LabeledTextField
         name="projectImages"
         label="Project Images"
         placeholder="project Images"
