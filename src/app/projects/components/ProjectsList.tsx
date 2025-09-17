@@ -8,27 +8,98 @@ import Pagination from "@mui/material/Pagination";
 import { Route } from "next";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { useState, useEffect } from "react";
+import { TextField, Slider } from '@mui/material';
 
 
 const ITEMS_PER_PAGE = 8;
 
 export const ProjectsList = () => {
   const searchparams = useSearchParams()!;
-  const page = Number(searchparams.get("page")) || 1; // MUI Pagination starts at 1
+  const page = Number(searchparams.get("page")) || 1; 
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+
+  const [filters, setFilters] = useState({
+    category: '',
+    tags: '',
+    techStack: '',
+    minPrice: 0,
+    maxPrice: 10000,
+  });
+  const [debouncedFilters, setDebouncedFilters] = useState(filters);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+      setDebouncedFilters(filters);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm, filters]);
+
+  // Build where clause
+  const buildWhere = () => {
+    let where: any = {};
+
+    if (debouncedSearchTerm) {
+      where.OR = [
+        { title: { contains: debouncedSearchTerm, mode: "insensitive" } },
+        { metaDescription: { contains: debouncedSearchTerm, mode: "insensitive" } },
+      ];
+    }
+
+    if (debouncedFilters.category) {
+      const catArray = debouncedFilters.category.split(',').map(c => c.trim()).filter(c => c);
+      if (catArray.length > 0) {
+        where.category = { hasSome: catArray };
+      }
+    }
+
+    if (debouncedFilters.tags) {
+      const tagArray = debouncedFilters.tags.split(',').map(t => t.trim()).filter(t => t);
+      if (tagArray.length > 0) {
+        where.tags = { hasSome: tagArray };
+      }
+    }
+
+    if (debouncedFilters.techStack) {
+      const techArray = debouncedFilters.techStack.split(',').map(t => t.trim()).filter(t => t);
+      if (techArray.length > 0) {
+        where.techStack = { hasSome: techArray };
+      }
+    }
+
+    where.price = { gte: debouncedFilters.minPrice, lte: debouncedFilters.maxPrice };
+
+    return Object.keys(where).length > 0 ? where : undefined;
+  };
+
   const [{ projects, count }] = usePaginatedQuery(getProjects, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * (page - 1),
     take: ITEMS_PER_PAGE,
+    where: buildWhere(),
   });
 
   const router = useRouter();
   const pathname = usePathname();
 
-  const handlePageChange = (_: any, value: number) => {
+  const handlePageChange = (_: any, page: number) => {
     const params = new URLSearchParams(searchparams);
-    params.set("page", value.toString());
+    params.set("page", page.toString());
     router.push((pathname + "?" + params.toString()) as Route);
   };
+
+  // Reset page to 1 when search term or filters change
+  useEffect(() => {
+    const params = new URLSearchParams(searchparams);
+    params.set("page", "1");
+    router.push((pathname + "?" + params.toString()) as Route);
+  }, [debouncedSearchTerm, debouncedFilters]);
 
   // Calculate total pages
   const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
@@ -39,7 +110,79 @@ export const ProjectsList = () => {
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={3}>
             <Grid size={3}>
-              <div className="w-full shadow-lg rounded-lg mt-10 h-5/6"></div>
+              <div className="w-full shadow-lg rounded-lg mt-10 p-4 max-h-screen overflow-y-auto">
+                <TextField
+                  fullWidth
+                  label="Search projects"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  variant="outlined"
+                  size="small"
+                  margin="normal"
+                />
+                <TextField
+                  fullWidth
+                  label="Category (comma-separated)"
+                  value={filters.category}
+                  onChange={(e) => setFilters({ ...filters, category: e.target.value })}
+                  variant="outlined"
+                  size="small"
+                  margin="normal"
+                />
+                <TextField
+                  fullWidth
+                  label="Tags (comma-separated)"
+                  value={filters.tags}
+                  onChange={(e) => setFilters({ ...filters, tags: e.target.value })}
+                  variant="outlined"
+                  size="small"
+                  margin="normal"
+                />
+                <TextField
+                  fullWidth
+                  label="Tech Stack (comma-separated)"
+                  value={filters.techStack}
+                  onChange={(e) => setFilters({ ...filters, techStack: e.target.value })}
+                  variant="outlined"
+                  size="small"
+                  margin="normal"
+                />
+                <TextField
+                  fullWidth
+                  label="Min Price"
+                  type="number"
+                  value={filters.minPrice.toString()}
+                  onChange={(e) => setFilters({ ...filters, minPrice: parseFloat(e.target.value) || 0 })}
+                  inputProps={{ min: 0, max: 10000, step: 10 }}
+                  variant="outlined"
+                  size="small"
+                  margin="normal"
+                />
+                <TextField
+                  fullWidth
+                  label="Max Price"
+                  type="number"
+                  value={filters.maxPrice.toString()}
+                  onChange={(e) => setFilters({ ...filters, maxPrice: parseFloat(e.target.value) || 10000 })}
+                  inputProps={{ min: 0, max: 10000, step: 10 }}
+                  variant="outlined"
+                  size="small"
+                  margin="normal"
+                />
+                <div style={{ margin: '16px 0' }}>
+                  <label>Price Range: ${filters.minPrice} - ${filters.maxPrice}</label>
+                  <Slider
+                    value={[filters.minPrice, filters.maxPrice]}
+                    onChange={(e, newValue) => setFilters({ ...filters, minPrice: newValue[0], maxPrice: newValue[1] })}
+                    valueLabelDisplay="auto"
+                    min={0}
+                    max={10000}
+                    step={10}
+                  />
+                </div>
+               
+               
+              </div>
             </Grid>
             <Grid size={8}>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -82,6 +225,17 @@ export const ProjectsList = () => {
                   </div>
                 ))}
               </div>
+              {projects.length === 0 && (
+                <div className="text-center py-10">
+                  <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10 p-8">
+                    <div className="w-[200px] h-[200px] mx-auto mb-4">
+
+                    <img src="find.svg" alt="" />
+                    </div>
+                    <p className="text-gray-500 text-lg">No Project available</p>
+                  </div>
+                </div>
+              )}
 
               {/* MUI Pagination */}
               <div className="flex justify-center mt-6">
