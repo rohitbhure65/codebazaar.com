@@ -1,7 +1,7 @@
 {
   "name": "codebazaar.com",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "blitz dev",
     "build": "blitz build",
@@ -11,7 +11,8 @@
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "prepare": "husky install",
-    "prisma:all": "blitz prisma generate && blitz prisma migrate dev && blitz prisma db push"
+    "prisma:all": "blitz prisma generate && blitz prisma migrate dev && blitz prisma db push",
+    "blitz:tree": "tree > code-structure.md"
   },
   "prisma": {
     "schema": "db/schema.prisma"
