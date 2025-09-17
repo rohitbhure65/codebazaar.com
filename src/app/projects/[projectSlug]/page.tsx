@@ -30,7 +30,7 @@ export default async function Page(props: ProjectPageProps) {
           <div className="flex flex-col md:flex-row gap-8">
             {/* Left: Image Skeleton */}
             <div className="md:w-1/2 space-y-4">
-              <Skeleton className="h-64 w-full rounded-lg" />
+              <Skeleton className="h-96 w-full rounded-lg" />
             </div>
 
             <div className="md:w-1/2 space-y-6">
