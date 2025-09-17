@@ -13,8 +13,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
   return (
     <>
       <div>
-        <h1>Project {project.id}</h1>
-        <pre>{JSON.stringify(project, null, 2)}</pre>
+       
 
         <Link href={`/projects/${project.slug}/edit`}>Edit</Link>
 

@@ -11,8 +11,7 @@
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "prepare": "husky install",
-    "prisma:all": "blitz prisma generate && blitz prisma migrate dev && blitz prisma db push",
-    "blitz:tree": "tree > code-structure.md"
+    "prisma:all": "blitz prisma generate && blitz prisma migrate dev && blitz prisma db push"
   },
   "prisma": {
     "schema": "db/schema.prisma"

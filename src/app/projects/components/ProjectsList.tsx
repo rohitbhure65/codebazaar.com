@@ -16,7 +16,7 @@ const ITEMS_PER_PAGE = 8;
 
 export const ProjectsList = () => {
   const searchparams = useSearchParams()!;
-  const page = Number(searchparams.get("page")) || 1; 
+  const page = Number(searchparams.get("page")) || 1;
 
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
@@ -180,49 +180,45 @@ export const ProjectsList = () => {
                     step={10}
                   />
                 </div>
-               
-               
               </div>
             </Grid>
             <Grid size={8}>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {projects.map((project) => (
-                  <div key={project.id} className="shadow-lg rounded-lg overflow-hidden bg-white mt-10">
-                    <div className="bg-white hover:shadow-md transition-shadow duration-200">
-                      {/* Image or placeholder */}
-                      <div className="h-32 bg-gray-200 mb-3 flex items-center justify-center">
-                        {project.projectImages.length > 0 ? (
-                          <img
-                            src={project.projectImage}
-                            alt={project.title}
-                            className="object-cover h-full w-full"
-                          />
-                        ) : (
-                          <span className="text-gray-500">No Image</span>
-                        )}
-                      </div>
+                  <Link href={`/projects/${project.slug}`} key={project.id}>
+                    <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10">
+                      <div className="bg-white hover:shadow-md transition-shadow duration-200">
+                        <div className="h-32 bg-gray-200 mb-3 flex items-center justify-center">
+                          {project.projectImages.length > 0 ? (
+                            <img
+                              src={project.projectImage}
+                              alt={project.title}
+                              className="object-cover h-full w-full"
+                            />
+                          ) : (
+                            <span className="text-gray-500">No Image</span>
+                          )}
+                        </div>
 
-                      <div className="content-card p-4">
-                        {/* Title */}
-                        <h3 className="font-semibold text-gray-800 text-sm mb-2">{project.title}</h3>
+                        <div className="content-card p-4">
+                          <h3 className="font-semibold text-gray-800 text-sm mb-2">{project.title}</h3>
 
-                        {/* Meta Description or placeholder */}
-                        <p className="text-xs text-gray-500 mb-2">
-                          {project.description || "No description available."}
-                        </p>
+                          <p className="text-xs text-gray-500 mb-2">
+                            {project.description || "No description available."}
+                          </p>
 
-                        {/* Price and Actions */}
-                        <div className="flex items-center justify-between">
-                          <div className="flex flex-col space-y-1">
-                            <span className="text-lg font-bold text-gray-900">${project.price.toLocaleString()}</span>
+                          <div className="flex items-center justify-between">
+                            <div className="flex flex-col space-y-1">
+                              <span className="text-lg font-bold text-gray-900">${project.price.toLocaleString()}</span>
+                            </div>
+                            <button className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700">
+                              <Link href={`/projects/${project.slug}/edit`}>Edit</Link>
+                            </button>
                           </div>
-                          <button className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700">
-                            <Link href={`/projects/${project.slug}/edit`}>Edit</Link>
-                          </button>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
               {projects.length === 0 && (
@@ -230,7 +226,7 @@ export const ProjectsList = () => {
                   <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10 p-8">
                     <div className="w-[200px] h-[200px] mx-auto mb-4">
 
-                    <img src="find.svg" alt="" />
+                      <img src="find.svg" alt="" />
                     </div>
                     <p className="text-gray-500 text-lg">No Project available</p>
                   </div>
