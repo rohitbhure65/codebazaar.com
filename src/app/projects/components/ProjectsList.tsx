@@ -204,7 +204,9 @@ export const ProjectsList = () => {
                           <h3 className="font-semibold text-gray-800 text-sm mb-2">{project.title}</h3>
 
                           <p className="text-xs text-gray-500 mb-2">
-                            {project.description || "No description available."}
+                            {(project.description || "No description available.").length > 30
+                              ? (project.description || "").slice(0, 40) + "..."
+                              : project.description || "No description available."}
                           </p>
 
                           <div className="flex items-center justify-between">
