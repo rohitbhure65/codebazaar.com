@@ -1,14 +1,9 @@
 "use client"
-
-import { useMutation, useQuery } from "@blitzjs/rpc"
+import { useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import deleteProject from "../mutations/deleteProject"
 import getProject from "../queries/getProject"
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
-  const router = useRouter()
-  const [deleteProjectMutation] = useMutation(deleteProject)
   const [project] = useQuery(getProject, { slug: projectSlug })
 
   return (
