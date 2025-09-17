@@ -3,33 +3,32 @@ import { usePaginatedQuery } from "@blitzjs/rpc";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import getProjects from "../queries/getProjects";
-import { useSearchParams } from "next/navigation";
-import { usePathname } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
+import Pagination from "@mui/material/Pagination";
 import { Route } from "next";
 
 const ITEMS_PER_PAGE = 8;
 
 export const ProjectsList = () => {
   const searchparams = useSearchParams()!;
-  const page = Number(searchparams.get("page")) || 0;
-  const [{ projects, hasMore }] = usePaginatedQuery(getProjects, {
+  const page = Number(searchparams.get("page")) || 1; // MUI Pagination starts at 1
+  const [{ projects,  count }] = usePaginatedQuery(getProjects, {
     orderBy: { id: "asc" },
-    skip: ITEMS_PER_PAGE * page,
+    skip: ITEMS_PER_PAGE * (page - 1),
     take: ITEMS_PER_PAGE,
   });
+
   const router = useRouter();
   const pathname = usePathname();
 
-  const goToPreviousPage = () => {
+  const handlePageChange = (_: any, value: number) => {
     const params = new URLSearchParams(searchparams);
-    params.set("page", (page - 1).toString());
+    params.set("page", value.toString());
     router.push((pathname + "?" + params.toString()) as Route);
   };
-  const goToNextPage = () => {
-    const params = new URLSearchParams(searchparams);
-    params.set("page", (page + 1).toString());
-    router.push((pathname + "?" + params.toString()) as Route);
-  };
+
+  // Calculate total pages
+  const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
 
   return (
     <section className="py-10 sm:py-16 lg:py-10">
@@ -38,7 +37,6 @@ export const ProjectsList = () => {
           {projects.map((project) => (
             <div key={project.id} className="shadow-lg rounded-lg overflow-hidden bg-white mt-10">
               <div className="bg-white hover:shadow-md transition-shadow duration-200">
-
                 {/* Image or placeholder */}
                 <div className="h-32 bg-gray-200 mb-3 flex items-center justify-center">
                   {project.projectImages.length > 0 ? (
@@ -61,12 +59,11 @@ export const ProjectsList = () => {
                     {project.metaDescription || "No description available."}
                   </p>
 
-                  {/* Price, Slug, and Actions */}
+                  {/* Price and Actions */}
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col space-y-1">
                       <span className="text-lg font-bold text-gray-900">${project.price.toLocaleString()}</span>
                     </div>
-
                     <button className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700">
                       <Link href={`/projects/${project.slug}/edit`}>Edit</Link>
                     </button>
@@ -77,22 +74,15 @@ export const ProjectsList = () => {
           ))}
         </div>
 
-        {/* Pagination */}
-        <div className="flex justify-between mt-6">
-          <button
-            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
-            disabled={page === 0}
-            onClick={goToPreviousPage}
-          >
-            Previous
-          </button>
-          <button
-            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
-            disabled={!hasMore}
-            onClick={goToNextPage}
-          >
-            Next
-          </button>
+        {/* MUI Pagination */}
+        <div className="flex justify-center mt-6">
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={handlePageChange}
+            variant="outlined" 
+            shape="rounded" 
+          />
         </div>
       </div>
     </section>
