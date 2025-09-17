@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { Route } from "next";
 
-const ITEMS_PER_PAGE = 100;
+const ITEMS_PER_PAGE = 8;
 
 export const ProjectsList = () => {
   const searchparams = useSearchParams()!;
@@ -53,6 +53,9 @@ export const ProjectsList = () => {
                         <span className="text-sm text-gray-500 line-through">${project.price}</span>
                       )}
                     </div>
+                    <button className=" px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700">
+                      <Link href={`/projects/${project.slug}/edit`}>Edit</Link>
+                    </button>
                     {/* 
                   {discount && (
                     <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-medium">

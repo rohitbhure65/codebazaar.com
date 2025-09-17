@@ -24,8 +24,7 @@ export default function Page() {
             <Skeleton className="h-[227px] w-[268px] mt-10 rounded-xl" />
             <Skeleton className="h-[227px] w-[268px] mt-10 rounded-xl" />
             <Skeleton className="h-[227px] w-[268px] mt-10 rounded-xl" />
-
-
+            <Skeleton className="h-[227px] w-[268px] mt-10 rounded-xl" />
           </div>
         </div>
       </section>

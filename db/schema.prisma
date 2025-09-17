@@ -206,14 +206,15 @@ model Purchase {
 }
 
 model Review {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  rating    Int      @default(5) @db.SmallInt
-  comment   String
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  rating        Int      @default(5) @db.SmallInt
+  comment       String
+  averageRating Float?   @default(0) // New field for average rating
+  ratingcount   Int?     @default(0) // New field for rating count
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int
 
   project   Project @relation(fields: [projectId], references: [id])
   projectId Int
@@ -340,26 +341,43 @@ enum IssueType {
 // }
 
 model Project {
-  id              Int             @id @default(autoincrement())
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  title           String
-  description     String
-  category        String[]
-  tags            String[]
-  techStack       String[]
-  projectImages   String[]
-  slug            String          @unique
-  fileUrl         String
-  price           Float
-  isResellAllowed Boolean         @default(false)
-  isApproved      Boolean         @default(false)
-  user            User            @relation(fields: [userId], references: [id])
-  userId          Int
-  Purchase        Purchase[]
-  Review          Review[]
-  ProjectTag      ProjectTag[]
-  SupportTicket   SupportTicket[]
+  id                 Int             @id @default(autoincrement())
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  title              String
+  description        String
+  category           String[]
+  tags               String[]
+  techStack          String[]
+  projectImages      String[]
+  slug               String          @unique
+  fileUrl            String
+  price              Float
+  isResellAllowed    Boolean         @default(false)
+  isApproved         Boolean         @default(false)
+  views              Int             @default(0)
+  downloads          Int             @default(0)
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  ogTitle            String?
+  ogDescription      String?
+  ogImage            String?
+  twitterTitle       String?
+  twitterDescription String?
+  twitterImage       String?
+  canonicalUrl       String?
+  robots             String?         @default("index, follow")
+  // Example: "noindex, nofollow", "index, follow"
+  demoUrl            String?
+  repositoryUrl      String?
+  visibility         String          @default("public")
+  user               User            @relation(fields: [userId], references: [id])
+  userId             Int
+  Purchase           Purchase[]
+  Review             Review[]
+  ProjectTag         ProjectTag[]
+  SupportTicket      SupportTicket[]
 }
 
 // model User {
