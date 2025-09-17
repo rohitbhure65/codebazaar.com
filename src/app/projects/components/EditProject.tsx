@@ -18,8 +18,6 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
   return (
     <>
       <div>
-        <h1>Edit Project {project.id}</h1>
-        <pre>{JSON.stringify(project, null, 2)}</pre>
         <Suspense fallback={<div>Loading...</div>}>
           <ProjectForm
             submitText="Update Project"

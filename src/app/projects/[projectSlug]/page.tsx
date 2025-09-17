@@ -23,9 +23,6 @@ export default async function Page(props: ProjectPageProps) {
   const params = await props.params;
   return (
     <div>
-      <p>
-        <Link href={"/projects"}>Projects</Link>
-      </p>
       <Suspense fallback={<div>Loading...</div>}>
         <Project projectSlug={params.projectSlug} />
       </Suspense>
