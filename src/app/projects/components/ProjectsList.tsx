@@ -37,31 +37,39 @@ export const ProjectsList = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {projects.map((project) => (
             <div key={project.id} className="shadow-lg rounded-lg overflow-hidden bg-white mt-10">
-              <div className="bg-white hover:shadow-md transition-shadow duration-200 ">
-                <div className="h-32  bg-gray-200 mb-3 flex items-center justify-center">
-                  <span className="text-gray-500">{project.projectImages}</span>
-                </div>
-                <div className="content-card p-4">
+              <div className="bg-white hover:shadow-md transition-shadow duration-200">
 
+                {/* Image or placeholder */}
+                <div className="h-32 bg-gray-200 mb-3 flex items-center justify-center">
+                  {project.projectImages.length > 0 ? (
+                    <img
+                      src={project.projectImages[0]}
+                      alt={project.title}
+                      className="object-cover h-full w-full"
+                    />
+                  ) : (
+                    <span className="text-gray-500">No Image</span>
+                  )}
+                </div>
+
+                <div className="content-card p-4">
+                  {/* Title */}
                   <h3 className="font-semibold text-gray-800 text-sm mb-2">{project.title}</h3>
 
+                  {/* Meta Description or placeholder */}
+                  <p className="text-xs text-gray-500 mb-2">
+                    {project.metaDescription || "No description available."}
+                  </p>
+
+                  {/* Price, Slug, and Actions */}
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-lg font-bold text-gray-900">${project.price}</span>
-                      <span className="text-lg font-bold text-gray-900">${project.slug}</span>
-                      {project.price && (
-                        <span className="text-sm text-gray-500 line-through">${project.price}</span>
-                      )}
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-lg font-bold text-gray-900">${project.price.toLocaleString()}</span>
                     </div>
-                    <button className=" px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700">
+
+                    <button className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700">
                       <Link href={`/projects/${project.slug}/edit`}>Edit</Link>
                     </button>
-                    {/* 
-                  {discount && (
-                    <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-medium">
-                      {discount}
-                    </span>
-                  )} */}
                   </div>
                 </div>
               </div>
@@ -69,12 +77,23 @@ export const ProjectsList = () => {
           ))}
         </div>
 
-        <button disabled={page === 0} onClick={goToPreviousPage}>
-          Previous
-        </button>
-        <button disabled={!hasMore} onClick={goToNextPage}>
-          Next
-        </button>
+        {/* Pagination */}
+        <div className="flex justify-between mt-6">
+          <button
+            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+            disabled={page === 0}
+            onClick={goToPreviousPage}
+          >
+            Previous
+          </button>
+          <button
+            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+            disabled={!hasMore}
+            onClick={goToNextPage}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </section>
   );
