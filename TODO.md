@@ -1,0 +1,2 @@
+- [x] Fix Badge component in components/ui/badge.tsx to render children by adding {props.children} inside the div.
+- [x] Update Project.tsx to map over project.tags array, split each tag into words, and render a Badge for each word with variant="outline".
