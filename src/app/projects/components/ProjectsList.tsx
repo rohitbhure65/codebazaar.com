@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useState, useEffect } from "react";
 import { TextField, Slider } from '@mui/material';
-
+import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -170,7 +170,7 @@ export const ProjectsList = () => {
                   margin="normal"
                 />
                 <div style={{ margin: '16px 0' }}>
-                  <label>Price Range: ${filters.minPrice} - ${filters.maxPrice}</label>
+                  <label>Price Range: <CurrencyRupeeRoundedIcon />{filters.minPrice} - <CurrencyRupeeRoundedIcon /> {filters.maxPrice}</label>
                   <Slider
                     value={[filters.minPrice, filters.maxPrice]}
                     onChange={(e, newValue) => setFilters({ ...filters, minPrice: newValue[0], maxPrice: newValue[1] })}
@@ -211,7 +211,7 @@ export const ProjectsList = () => {
 
                           <div className="flex items-center justify-between">
                             <div className="flex flex-col space-y-1">
-                              <span className="text-lg font-bold text-gray-900">${project.price.toLocaleString()}</span>
+                              <span className="text-xl font-bold text-gray-900"><CurrencyRupeeRoundedIcon />{project.price.toLocaleString()}</span>
                             </div>
                             <button className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700">
                               <Link href={`/projects/${project.slug}/edit`}>Edit</Link>
