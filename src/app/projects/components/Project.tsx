@@ -2,6 +2,7 @@
 import { useQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import getProject from "../queries/getProject"
+import {Badge} from "@/components/ui/badge"
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
@@ -72,6 +73,8 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
               </div>
             </div>
           </div>
+
+          <p className="text-gray-700 font-bold">Tags:  <Badge variant="outline">Outline</Badge></p>
 
           <div className="flex gap-4 mt-4">
             {project.demoUrl ? (
