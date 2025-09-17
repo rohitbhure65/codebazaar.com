@@ -208,7 +208,7 @@ export const ProjectsList = () => {
 
                         {/* Meta Description or placeholder */}
                         <p className="text-xs text-gray-500 mb-2">
-                          {project.metaDescription || "No description available."}
+                          {project.description || "No description available."}
                         </p>
 
                         {/* Price and Actions */}
