@@ -6,13 +6,28 @@ import { Badge } from "@/components/ui/badge"
 import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
 import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import TextSnippetRoundedIcon from '@mui/icons-material/TextSnippetRounded';
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
 
   return (
     <div className="max-w-6xl mx-auto p-10">
-      <div className="flex flex-col md:flex-row gap-8">
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link color="inherit" href="/">
+          <HomeRoundedIcon /> Home
+        </Link>
+        <Link
+          color="inherit"
+          href="/projects"
+        >
+          Project
+        </Link>
+        <Typography sx={{ color: 'text.primary' }}>{project.slug}</Typography>
+      </Breadcrumbs>
+      <div className="flex flex-col mt-4 md:flex-row gap-8">
         <div className="md:w-1/2 space-y-4 ">
           <img className="rounded-lg" src={project.projectImage} alt="" />
         </div>
@@ -79,7 +94,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
 
           <p className="text-gray-700">{project.tags && project.tags.length > 0 ? (
             <span className="flex flex-wrap gap-2">
-            <TextSnippetRoundedIcon/>  <span className="text-sm font-bold">Tags</span>: {project.tags.flatMap((tag, index) =>
+              <TextSnippetRoundedIcon />  <span className="text-sm font-bold">Tags</span>: {project.tags.flatMap((tag, index) =>
                 tag.split(' ').map((word, wordIndex) => (
                   <Badge key={`${index}-${wordIndex}`} variant="outline">{word}</Badge>
                 ))
