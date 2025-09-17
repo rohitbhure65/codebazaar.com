@@ -19,7 +19,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         </div>
 
         <div className="md:w-1/2 space-y-6">
-          <h1 className="text-2xl font-bold">{project.title}</h1>
+          <h1 className="text-5xl font-bold">{project.title}</h1>
           <div className="flex items-center space-x-2 text-sm text-gray-500">
             <span>Updated on {new Date(project.updatedAt).toLocaleDateString('en-US', {
               year: 'numeric',
