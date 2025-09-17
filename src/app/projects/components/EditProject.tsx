@@ -1,11 +1,11 @@
-"use client";
-import { Suspense } from "react";
-import updateProject from "../mutations/updateProject";
-import getProject from "../queries/getProject";
-import { UpdateProjectSchema } from "../schemas";
-import { FORM_ERROR, ProjectForm } from "./ProjectForm";
-import { useMutation, useQuery } from "@blitzjs/rpc";
-import { useRouter } from "next/navigation";
+"use client"
+import { Suspense } from "react"
+import updateProject from "../mutations/updateProject"
+import getProject from "../queries/getProject"
+import { UpdateProjectSchema } from "../schemas"
+import { FORM_ERROR, ProjectForm } from "./ProjectForm"
+import { useMutation, useQuery } from "@blitzjs/rpc"
+import { useRouter } from "next/navigation"
 
 export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
   const [project, { setQueryData }] = useQuery(
@@ -15,9 +15,9 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
       // This ensures the query never refreshes and overwrites the form data while the user is editing.
       staleTime: Infinity,
     }
-  );
-  const [updateProjectMutation] = useMutation(updateProject);
-  const router = useRouter();
+  )
+  const [updateProjectMutation] = useMutation(updateProject)
+  const router = useRouter()
   return (
     <>
       <div>
@@ -27,25 +27,40 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
           <ProjectForm
             submitText="Update Project"
             schema={UpdateProjectSchema}
-            initialValues={project}
+            initialValues={{
+              ...project,
+              metaTitle: project.metaTitle || undefined,
+              metaDescription: project.metaDescription || undefined,
+              metaKeywords: project.metaKeywords || undefined,
+              ogTitle: project.ogTitle || undefined,
+              ogDescription: project.ogDescription || undefined,
+              ogImage: project.ogImage || undefined,
+              twitterTitle: project.twitterTitle || undefined,
+              twitterDescription: project.twitterDescription || undefined,
+              twitterImage: project.twitterImage || undefined,
+              canonicalUrl: project.canonicalUrl || undefined,
+              robots: project.robots || undefined,
+              demoUrl: project.demoUrl || undefined,
+              repositoryUrl: project.repositoryUrl || undefined,
+            }}
             onSubmit={async (values) => {
               try {
                 const updated = await updateProjectMutation({
                   ...values,
-                  slug: project.slug,
-                });
-                await setQueryData(updated);
-                router.refresh();
+                  id: project.id,
+                })
+                await setQueryData(updated)
+                router.refresh()
               } catch (error: any) {
-                console.error(error);
+                console.error(error)
                 return {
                   [FORM_ERROR]: error.toString(),
-                };
+                }
               }
             }}
           />
         </Suspense>
       </div>
     </>
-  );
-};
+  )
+}

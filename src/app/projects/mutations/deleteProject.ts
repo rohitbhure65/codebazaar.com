@@ -1,14 +1,14 @@
-import { resolver } from "@blitzjs/rpc";
-import db from "db";
-import { DeleteProjectSchema } from "../schemas";
+import { resolver } from "@blitzjs/rpc"
+import db from "db"
+import { DeleteProjectSchema } from "../schemas"
 
 export default resolver.pipe(
   resolver.zod(DeleteProjectSchema),
   resolver.authorize(),
-  async ({ slug }) => {
+  async ({ id }) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const project = await db.project.deleteMany({ where: { slug } });
+    const project = await db.project.delete({ where: { id } })
 
-    return project;
+    return project
   }
-);
+)
