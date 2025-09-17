@@ -9,6 +9,7 @@ export const CreateProjectSchema = z.object({
   techStack: z.preprocess((val) => typeof val === 'string' ? val.split(',').map(s => s.trim()) : val, z.array(z.string())),
   projectImages: z.preprocess((val) => typeof val === 'string' ? val.split(',').map(s => s.trim()) : val, z.array(z.string())),
   fileUrl: z.string(),
+  slug: z.string(),
   price: z.number(),
   isResellAllowed: z.boolean().default(true),
   isApproved: z.boolean().default(true),

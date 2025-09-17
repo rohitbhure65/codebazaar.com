@@ -8,7 +8,7 @@ import getTasks from "../queries/getTasks"
 import { useSearchParams } from "next/navigation"
 import { Route } from "next"
 import deleteTask from "../mutations/deleteTask"
-import TaskStatus  from "db"
+import TaskStatus from "db"
 import TextField from "@mui/material/TextField"
 import FormControl from "@mui/material/FormControl"
 import InputLabel from "@mui/material/InputLabel"
@@ -42,7 +42,7 @@ export const TasksList = () => {
         }
         : {}),
     },
-  })
+  }) as any
 
   const router = useRouter()
   const [deleteTaskMutation] = useMutation(deleteTask)
