@@ -79,7 +79,6 @@
   }
 }
 
-/* Appear Animation (default center) */
 @keyframes appear {
   from {
     opacity: 0;
@@ -97,7 +96,6 @@
   animation-range: entry 0% cover 40%;
 }
 
-/* Appear from Left Animation */
 @keyframes appear-left {
   from {
     opacity: 0;
@@ -115,7 +113,6 @@
   animation-range: entry 0% cover 40%;
 }
 
-/* Appear from Right Animation */
 @keyframes appear-right {
   from {
     opacity: 0;
