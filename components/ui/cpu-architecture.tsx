@@ -17,7 +17,7 @@ const CpuArchitecture = ({
     className,
     width = "100%",
     height = "150%",
-    text = "CPU",
+    text = "CODEBAZAAR",
     showCpuConnections = true,
     animateText = true,
     lineMarkerSize = 18,
@@ -220,27 +220,29 @@ const CpuArchitecture = ({
                         />
                     </g>
                 )}
-                {/* Main CPU Rectangle */}
-                <rect
-                    x="85"
-                    y="40"
-                    width="30"
-                    height="20"
-                    rx="2"
-                    fill="#181818"
-                    filter="url(#cpu-light-shadow)"
-                />
-                {/* CPU Text */}
-                <text
-                    x="92"
-                    y="52.5"
-                    fontSize="7"
-                    fill={animateText ? "url(#cpu-text-gradient)" : "white"}
-                    fontWeight="600"
-                    letterSpacing="0.05em"
-                >
-                    {text}
-                </text>
+        {/* Main CPU Rectangle */}
+        <rect
+          x="70"
+          y="40"
+          width="60"
+          height="20"
+          rx="2"
+          fill="#181818"
+          filter="url(#cpu-light-shadow)"
+        />
+        {/* CPU Text */}
+        <text
+          x="100"
+          y="52.5"
+          fontSize="7"
+          fill={animateText ? "url(#cpu-text-gradient)" : "white"}
+          fontWeight="600"
+          letterSpacing="0.05em"
+          textAnchor="middle"
+          dominantBaseline="middle"
+        >
+          {text}
+        </text>
             </g>
             {/* Masks */}
             <defs>
