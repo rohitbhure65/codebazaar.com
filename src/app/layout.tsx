@@ -2,6 +2,8 @@ import "./styles/globals.css"
 import { BlitzProvider } from "./blitz-client"
 import { Inter } from "next/font/google"
 import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
+
 const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "CodeBazaar.com",
@@ -15,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <BlitzProvider>
           <Navbar />
           <div>{children}</div>
+          <Footer/>
         </BlitzProvider>
       </body>
     </html>
