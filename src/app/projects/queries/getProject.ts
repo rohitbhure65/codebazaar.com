@@ -13,7 +13,10 @@ export default resolver.pipe(
   resolver.authorize(),
   async ({ slug }) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const project = await db.project.findFirst({ where: { slug } });
+    const project = await db.project.findFirst({
+      where: { slug },
+      include: { Review: { include: { user: true } } },
+    });
 
     if (!project) throw new NotFoundError();
 
