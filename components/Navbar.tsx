@@ -16,15 +16,15 @@ const Navbar = () => {
     return (
         <div className="relative bg-gray-50">
             <div className="absolute bottom-0 right-0 overflow-hidden lg:inset-y-0">
-                <img className="w-auto h-full" src="https://d33wubrfki0l68.cloudfront.net/1e0fc04f38f5896d10ff66824a62e466839567f8/699b5/images/hero/3/background-pattern.png" alt="" />
+                <img className="w-auto h-full" src="https://d33wubrfki0l68.cloudfront.net/1e0fc04f38f5896d10ff66824a62e466839567f8/699b5/images/hero/3/background-pattern.png" alt="codebazaar.com" />
             </div>
 
             <header className="relative py-4 md:py-6">
                 <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between">
                         <div className="flex-shrink-0 flex items-center">
-                            <Link href="/" title="" className="flex rounded outline-none  focus:ring-1 focus:ring-gray-900 focus:ring-offset-2">
-                                <img className="w-auto h-8" src="https://d33wubrfki0l68.cloudfront.net/682a555ec15382f2c6e7457ca1ef48d8dbb179ac/f8cd3/images/logo.svg" alt="" />
+                            <Link href="/" title="" className="flex">
+                                <img className="w-auto h-8" src="https://d33wubrfki0l68.cloudfront.net/682a555ec15382f2c6e7457ca1ef48d8dbb179ac/f8cd3/images/logo.svg" alt="codebazaar.com" />
                             </Link><span className="ml-3 relative flex size-3">
                                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
                                 <span className="relative inline-flex size-3 rounded-full bg-green-500"></span>

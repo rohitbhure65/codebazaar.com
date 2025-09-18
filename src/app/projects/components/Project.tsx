@@ -30,7 +30,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       </Breadcrumbs>
       <div className="flex flex-col mt-4 md:flex-row gap-8">
         <div className="md:w-1/2 space-y-4 ">
-          <img className="rounded-lg" src={project.projectImage} alt="" />
+          <img className="rounded-lg" src={project.projectImage} alt="codebazaar.com" />
         </div>
 
         <div className="md:w-1/2 space-y-2">
