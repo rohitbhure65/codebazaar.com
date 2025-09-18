@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </BlitzProvider>
       </body>
 
-      <Script
+      {/* <Script
         src={`https://www.googletagmanager.com/gtag/js?id=G-W6LGMJG0YR`}
         strategy="afterInteractive"
       />
@@ -33,8 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('js', new Date());
             gtag('config', 'G-W6LGMJG0YR');
           `}
-      </Script>
-
+      </Script> */}
     </html>
   )
 }
