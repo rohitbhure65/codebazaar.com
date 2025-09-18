@@ -14,7 +14,7 @@ const State = () => {
                 <div className="grid grid-cols-1 gap-8 mt-10 text-center lg:mt-24 sm:gap-x-8 md:grid-cols-3">
                     <div className='block-appear-left'>
                         <h3 className="font-bold text-7xl">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-600 to-blue-600"> <CountUp
+                            <span className="text-black bg-clip-text"> <CountUp
                                 from={0}
                                 to={6}
                                 separator=","
@@ -29,7 +29,7 @@ const State = () => {
 
                     <div>
                         <h3 className="font-bold text-7xl">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-600 to-blue-600"> <CountUp
+                            <span className="text-black bg-clip-text"> <CountUp
                                 from={0}
                                 to={4821}
                                 separator=","
@@ -44,14 +44,15 @@ const State = () => {
 
                     <div className='block-appear-right'>
                         <h3 className="font-bold text-7xl">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-600 to-blue-600">                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-600 to-blue-600"> <CountUp
-                                from={0}
-                                to={37}
-                                separator=","
-                                direction="up"
-                                duration={1}
-                                className="count-up-text"
-                            /> </span>+ </span>
+                            <span className="text-black bg-clip-text">
+                                <CountUp
+                                    from={0}
+                                    to={37}
+                                    separator=","
+                                    direction="up"
+                                    duration={1}
+                                    className="count-up-text"
+                                /> + </span>
                         </h3>
                         <p className="mt-4 text-xl font-medium text-gray-900">Team members</p>
                         <p className="text-base mt-0.5 text-gray-500">Working for your success</p>

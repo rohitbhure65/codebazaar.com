@@ -1,5 +1,6 @@
 "use client"
 import TextType from 'components/ui/TextType';
+import { CpuArchitecture } from './ui/cpu-architecture';
 
 const Hero = () => {
     return (
@@ -11,7 +12,7 @@ const Hero = () => {
                             <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight font-pj">
                                 <TextType
                                     text={["Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code!"]}
-                                    typingSpeed={100}
+                                    typingSpeed={200}
                                     pauseDuration={1500}
                                     showCursor={true}
                                     cursorCharacter="|"
@@ -72,8 +73,9 @@ const Hero = () => {
                         </div>
                     </div>
 
-                    <div className="xl:col-span-3 block-appear-right">
-                        <img className="w-full mx-auto scale-110" src="https://d33wubrfki0l68.cloudfront.net/29c501c64b21014b3f2e225abe02fe31fd8f3a5c/f866d/images/hero/3/illustration.png" alt="" />
+                    <div className="xl:col-span-3 block-appear">
+                        {/* <img className="w-full mx-auto scale-110" src="https://d33wubrfki0l68.cloudfront.net/29c501c64b21014b3f2e225abe02fe31fd8f3a5c/f866d/images/hero/3/illustration.png" alt="" /> */}
+                        <CpuArchitecture/> 
                     </div>
                 </div>
             </div>
