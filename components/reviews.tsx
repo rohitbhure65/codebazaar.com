@@ -46,7 +46,7 @@ const Reviews = ({ review = [] }: ReviewProps) => {
       <div className="space-y-6">
         {displayedReviews.map((reviewItem, index) => (
           <div key={reviewItem.id || index} className="border-b pb-6 last:border-b-0 last:pb-0">
-            <div className="flex items-center mb-2">
+            <div className="flex items-center mb-2"> <span className="text-gray-600 font-bold text-sm mr-2">Rating: </span>
               <div className="flex text-yellow-400 mr-2">
                 {[...Array(reviewItem.rating)].map((_, i) => (
                   <span key={i} className="text-lg">

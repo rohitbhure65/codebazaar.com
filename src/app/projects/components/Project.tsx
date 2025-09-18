@@ -87,7 +87,9 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         <Link color="inherit" href="/projects">
           Project
         </Link>
-        <Typography sx={{ color: "text.primary" }}>{project.slug}</Typography>
+        <Link color="inherit" href={`/projects/${project.slug}`}>
+          {project.title}
+        </Link>
       </Breadcrumbs>
       <div className="flex flex-col mt-4 md:flex-row gap-8">
         <div className="md:w-1/2 space-y-4 ">
