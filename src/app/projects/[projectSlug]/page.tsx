@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
 import { invoke } from "src/app/blitz-server";
 import getProject from "../queries/getProject";
@@ -12,7 +11,26 @@ export async function generateMetadata(
   const params = await props.params;
   const Project = await invoke(getProject, { slug: params.projectSlug });
   return {
-    title: `Project ${Project.id} - ${Project.title}`,
+    title: Project.metaTitle || `${Project.title} | Project Details`,
+    description: (Project.metaDescription || Project.description)?.slice(0, 297)
+      + ((Project.metaDescription || Project.description)?.length > 297 ? "..." : ""),
+    keywords: Project.metaKeywords,
+    robots: Project.robots || 'index, follow',
+    openGraph: {
+      title: Project.ogTitle || Project.title,
+      description: Project.ogDescription || Project.metaDescription || Project.description,
+      images: Project.ogImage ? [Project.ogImage] : [],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: Project.twitterTitle || Project.title,
+      description: Project.twitterDescription || Project.metaDescription || Project.description,
+      images: Project.twitterImage ? [Project.twitterImage] : [],
+    },
+    alternates: {
+      canonical: Project.canonicalUrl,
+    },
   };
 }
 
