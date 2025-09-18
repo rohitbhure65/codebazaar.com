@@ -23,7 +23,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
     "name": project.title,
     "description": project.description,
     "image": project.projectImage,
-    "sku": 'sku',
+    "sku": `project-${project.id}`,
     "brand": {
       "@type": "Brand",
       "name": 'CodeBazaar'
