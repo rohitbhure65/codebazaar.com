@@ -12,7 +12,7 @@ const Hero = () => {
                             <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight font-pj">
                                 <TextType
                                     text={["Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code!"]}
-                                    typingSpeed={100}
+                                    typingSpeed={200}
                                     pauseDuration={1500}
                                     showCursor={true}
                                     cursorCharacter="|"
