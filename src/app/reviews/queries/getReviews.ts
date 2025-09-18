@@ -13,18 +13,19 @@ export default resolver.pipe(
   async ({ projectId, skip, take }) => {
     const reviews = await db.review.findMany({
       where: { projectId },
-      include: {
+       include: {
         user: {
           select: {
             id: true,
             name: true,
-          },
-        },
+            email: true
+          }
+        }
       },
-      orderBy: { createdAt: "desc" },
-      skip,
-      take,
-    })
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
 
     const total = await db.review.count({
       where: { projectId },

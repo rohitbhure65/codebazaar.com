@@ -10,6 +10,7 @@ interface ReviewProps {
     user: {
       id: number
       name: string | null
+      email: string
     }
   }>
 }
