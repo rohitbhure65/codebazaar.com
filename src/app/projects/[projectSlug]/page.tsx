@@ -44,9 +44,7 @@ export default async function Page(props: ProjectPageProps) {
     <div>
       <Suspense fallback={
         <div className="max-w-6xl mx-auto p-10 space-y-8">
-          {/* Top Section */}
           <div className="flex flex-col md:flex-row gap-8">
-            {/* Left: Image Skeleton */}
             <div className="md:w-1/2 space-y-4">
               <Skeleton className="h-96 w-full rounded-lg" />
             </div>
