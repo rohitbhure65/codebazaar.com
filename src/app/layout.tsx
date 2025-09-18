@@ -3,6 +3,7 @@ import { BlitzProvider } from "./blitz-client"
 import { Inter } from "next/font/google"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
@@ -17,9 +18,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <BlitzProvider>
           <Navbar />
           <div>{children}</div>
-          <Footer/>
+          <Footer />
         </BlitzProvider>
       </body>
+
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=G-W6LGMJG0YR`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-W6LGMJG0YR');
+          `}
+      </Script>
+
     </html>
   )
 }
