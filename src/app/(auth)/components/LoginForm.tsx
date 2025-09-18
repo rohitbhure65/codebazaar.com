@@ -65,7 +65,7 @@ export const LoginForm = (props: LoginFormProps) => {
         </Form>
 
         <div className="text-center mt-4">
-          Or{" "}
+          Or
           <Link href="/signup" className="text-blue-500 hover:underline">
             <strong>Sign Up</strong>
           </Link>
