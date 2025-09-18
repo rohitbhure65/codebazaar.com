@@ -1,5 +1,6 @@
 "use client"
 import TextType from 'components/ui/TextType';
+import { CpuArchitecture } from './ui/cpu-architecture';
 
 const Hero = () => {
     return (
@@ -72,8 +73,9 @@ const Hero = () => {
                         </div>
                     </div>
 
-                    <div className="xl:col-span-3 block-appear-right">
-                        <img className="w-full mx-auto scale-110" src="https://d33wubrfki0l68.cloudfront.net/29c501c64b21014b3f2e225abe02fe31fd8f3a5c/f866d/images/hero/3/illustration.png" alt="" />
+                    <div className="xl:col-span-3 block-appear">
+                        {/* <img className="w-full mx-auto scale-110" src="https://d33wubrfki0l68.cloudfront.net/29c501c64b21014b3f2e225abe02fe31fd8f3a5c/f866d/images/hero/3/illustration.png" alt="" /> */}
+                        <CpuArchitecture/> 
                     </div>
                 </div>
             </div>
