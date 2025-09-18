@@ -61,23 +61,25 @@ const Reviews = ({ review = [] }: ReviewProps) => {
               </div>
               <span className="text-gray-600 text-sm ml-2">{reviewItem.rating}/5</span>
             </div>
+            <div className="flex justify-between">
+              <p className="font-medium text-gray-900"><AccountCircleIcon /> {reviewItem.user.name || "Anonymous"}
+                <Badge
+                  variant="secondary"
+                  className="bg-green-500 ml-4 hover:bg-green-600 text-white dark:bg-green-600"
+                >
+                  <BadgeCheckIcon className="h-3" />
+                  Purchased
+                </Badge>
+              </p>
 
-            <p className="font-medium text-gray-900"><AccountCircleIcon /> {reviewItem.user.name || "Anonymous"}  <Badge
-              variant="secondary"
-              className="bg-green-500 hover:bg-green-600 text-white dark:bg-green-600"
-            >
-              <BadgeCheckIcon className="h-3" />
-              Purchased
-            </Badge>
-            </p>
-
-            <span className="text-gray-500 text-sm">
-              {new Date(reviewItem.createdAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
+              <span className="text-gray-500 text-sm">
+                {new Date(reviewItem.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            </div>
 
             <p className="my-3 text-gray-700">{reviewItem.comment}</p>
 
