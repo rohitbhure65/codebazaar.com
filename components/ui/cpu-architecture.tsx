@@ -168,8 +168,8 @@ const CpuArchitecture = ({
                 {/* Cpu connections */}
                 {showCpuConnections && (
                     <g fill="url(#cpu-connection-gradient)">
-                        <rect x="93" y="37" width="2.5" height="5" rx="0.7" />
-                        <rect x="104" y="37" width="2.5" height="5" rx="0.7" />
+                        <rect x="93" y="39" width="2.5" height="5" rx="0.7" />
+                        <rect x="104" y="39" width="2.5" height="5" rx="0.7" />
                         <rect
                             x="116.3"
                             y="44"
@@ -188,7 +188,7 @@ const CpuArchitecture = ({
                         />
                         <rect
                             x="104"
-                            y="16"
+                            y="15"
                             width="2.5"
                             height="5"
                             rx="0.7"
@@ -196,7 +196,7 @@ const CpuArchitecture = ({
                         />
                         <rect
                             x="114.5"
-                            y="16"
+                            y="15"
                             width="2.5"
                             height="5"
                             rx="0.7"
@@ -223,7 +223,7 @@ const CpuArchitecture = ({
         {/* Main CPU Rectangle */}
         <rect
           x="70"
-          y="40"
+          y="42"
           width="60"
           height="20"
           rx="2"
