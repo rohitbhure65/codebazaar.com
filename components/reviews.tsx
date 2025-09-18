@@ -1,5 +1,8 @@
 "use client"
 import { useState } from "react"
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Badge } from "@/components/ui/badge"
+import { BadgeCheckIcon } from "lucide-react"
 
 interface ReviewProps {
   review?: Array<{
@@ -59,6 +62,15 @@ const Reviews = ({ review = [] }: ReviewProps) => {
               <span className="text-gray-600 text-sm ml-2">{reviewItem.rating}/5</span>
             </div>
 
+            <p className="font-medium text-gray-900"><AccountCircleIcon /> {reviewItem.user.name || "Anonymous"}  <Badge
+              variant="secondary"
+              className="bg-green-500 hover:bg-green-600 text-white dark:bg-green-600"
+            >
+              <BadgeCheckIcon className="h-3" />
+              Purchased
+            </Badge>
+            </p>
+
             <span className="text-gray-500 text-sm">
               {new Date(reviewItem.createdAt).toLocaleDateString("en-US", {
                 year: "numeric",
@@ -69,7 +81,7 @@ const Reviews = ({ review = [] }: ReviewProps) => {
 
             <p className="my-3 text-gray-700">{reviewItem.comment}</p>
 
-            <p className="font-medium text-gray-900">{reviewItem.user.name || "Anonymous"}</p>
+
           </div>
         ))}
       </div>
