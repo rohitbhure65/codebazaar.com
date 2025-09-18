@@ -10,6 +10,9 @@ import Typography from "@mui/material/Typography"
 import Breadcrumbs from "@mui/material/Breadcrumbs"
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded"
 import Reviews from "@/components/reviews"
+import CloudDownloadRoundedIcon from '@mui/icons-material/CloudDownloadRounded';
+import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
+import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
@@ -30,31 +33,33 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
           <img className="rounded-lg" src={project.projectImage} alt="" />
         </div>
 
-        <div className="md:w-1/2 space-y-6">
+        <div className="md:w-1/2 space-y-2">
           <h1 className="text-5xl font-bold">{project.title}</h1>
-          <div className="flex items-center space-x-2 text-sm text-gray-500">
+
+          <div className="flex items-center space-x-2 text-xs text-gray-500">
             <span>
-              Updated on{" "}
+              Posted on{" "}
+              {new Date(project.createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span> 
+            <span>
+             | Updated on{" "}
               {new Date(project.updatedAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
             </span>
-
             <span>⭐ {project._count?.Review || 0} Reviews</span>
-            {/* <ul className="mt-2 space-y-1 text-sm text-gray-600">
-                {project.Review?.map((review) => (
-                  <li key={review.id}>
-                    {review.comment} — <span className="font-medium">{review.rating}⭐</span>
-                  </li>
-                ))}
-              </ul> */}
           </div>
 
-          <h1 className="font-bold text-3xl ">
+
+          <div className="font-bold py-4 my-4 text-3xl ">
             <CurrencyRupeeRoundedIcon /> {project.price}
-          </h1>
+          </div>
 
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Project Details</h3>
@@ -165,9 +170,8 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 <span className="text-gray-600">
                   Resell Allowed:{" "}
                   <span
-                    className={`font-medium ${
-                      project.isResellAllowed ? "text-green-600" : "text-red-600"
-                    }`}
+                    className={`font-medium ${project.isResellAllowed ? "text-green-600" : "text-red-600"
+                      }`}
                   >
                     {project.isResellAllowed ? "Yes" : "No"}
                   </span>
@@ -190,9 +194,8 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 <span className="text-gray-600">
                   Approved:{" "}
                   <span
-                    className={`font-medium ${
-                      project.isApproved ? "text-green-600" : "text-red-600"
-                    }`}
+                    className={`font-medium ${project.isApproved ? "text-green-600" : "text-red-600"
+                      }`}
                   >
                     {project.isApproved ? "Yes" : "No"}
                   </span>
@@ -242,24 +245,24 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 rel="noopener noreferrer"
                 className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition inline-block"
               >
-                Live Preview
+                <RemoveRedEyeRoundedIcon />  Live Preview
               </a>
             ) : (
               <span className="px-6 py-2 border border-gray-300 rounded-md text-gray-400 cursor-not-allowed inline-block">
-                Live Preview
+                <RemoveRedEyeRoundedIcon />  Live Preview
               </span>
             )}
             <Link
               href="/"
               className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition"
             >
-              Purchase Now
+              <CloudDownloadRoundedIcon />  Download Now
             </Link>
           </div>
         </div>
       </div>
       <div className="bg-white rounded-lg shadow-md mt-10 p-6 border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Project Details</h3>
+        <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> Project Details</h3>
         <p className="mb-4">{project.description}</p>
       </div>
 
