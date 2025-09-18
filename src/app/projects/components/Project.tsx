@@ -38,7 +38,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
 
           <div className="flex items-center space-x-2 text-xs text-gray-500">
             <span>
-              Posted on{" "}
+              Posted on
               {new Date(project.createdAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -46,7 +46,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
               })}
             </span> 
             <span>
-             | Updated on{" "}
+             | Updated on
               {new Date(project.updatedAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
