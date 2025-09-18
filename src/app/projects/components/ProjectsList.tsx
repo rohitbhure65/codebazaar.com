@@ -151,7 +151,7 @@ export const ProjectsList = () => {
                 type="number"
                 value={filters.minPrice.toString()}
                 onChange={(e) => setFilters({ ...filters, minPrice: parseFloat(e.target.value) || 0 })}
-                inputProps={{ min: 0, max: 10000, step: 10 }}
+                inputProps={{ min: 0, max: 100000, step: 10 }}
                 variant="outlined"
                 size="small"
                 margin="normal"
@@ -161,8 +161,8 @@ export const ProjectsList = () => {
                 label="Max Price"
                 type="number"
                 value={filters.maxPrice.toString()}
-                onChange={(e) => setFilters({ ...filters, maxPrice: parseFloat(e.target.value) || 10000 })}
-                inputProps={{ min: 0, max: 10000, step: 10 }}
+                onChange={(e) => setFilters({ ...filters, maxPrice: parseFloat(e.target.value) || 100000 })}
+                inputProps={{ min: 0, max: 100000, step: 10 }}
                 variant="outlined"
                 size="small"
                 margin="normal"
@@ -171,20 +171,20 @@ export const ProjectsList = () => {
                 <label>Price Range: <CurrencyRupeeRoundedIcon />{filters.minPrice} - <CurrencyRupeeRoundedIcon /> {filters.maxPrice}</label>
                 <Slider
                   value={[filters.minPrice, filters.maxPrice]}
-                  onChange={(e, newValue) => setFilters({ 
-                    ...filters, 
-                    minPrice: Array.isArray(newValue) ? newValue[0] : newValue, 
-                    maxPrice: Array.isArray(newValue) ? newValue[1] : newValue 
+                  onChange={(e, newValue) => setFilters({
+                    ...filters,
+                    minPrice: Array.isArray(newValue) ? newValue[0] : newValue,
+                    maxPrice: Array.isArray(newValue) ? newValue[1] : newValue
                   })}
                   valueLabelDisplay="auto"
                   min={0}
-                  max={10000}
-                  step={10}
+                  max={100000}
+                  step={100}
                 />
               </div>
             </div>
           </div>
-          
+
           <div className="w-full sm:w-3/4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {projects.map((project) => (
@@ -228,7 +228,7 @@ export const ProjectsList = () => {
                 </Link>
               ))}
             </div>
-            
+
             {projects.length === 0 && (
               <div className="text-center py-10">
                 <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10 p-8">

@@ -57,7 +57,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       "@type": "Offer",
       "url": `https://codebazaar.com/projects/${project.slug}`,
       "priceCurrency": 'INR',
-      "price": project.price,
+      "price": project.price.toLocaleString(),
       "availability": `https://schema.org/InStock}`,
       "seller": {
         "@type": "CodeBazaar",
@@ -119,7 +119,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
 
 
           <div className="font-bold py-4 my-4 text-3xl ">
-            <CurrencyRupeeRoundedIcon /> {project.price}
+            <CurrencyRupeeRoundedIcon /> {project.price.toLocaleString()}
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
