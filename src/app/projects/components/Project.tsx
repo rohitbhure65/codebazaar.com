@@ -36,7 +36,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       {
         "@type": "ListItem",
         "position": 3,
-        "name": project.slug,
+        "name": project.title,
         "item": `https://codebazaar.com/projects/${project.slug}`
       }
     ]
