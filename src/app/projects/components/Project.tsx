@@ -17,8 +17,35 @@ import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
 
+  const projectSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": project.title,
+    "description": project.description,
+    "image": project.projectImage,
+    "sku": 'sku',
+    "brand": {
+      "@type": "Brand",
+      "name": 'CodeBazaar'
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://codebazaar.com/projects/${project.slug}`,
+      "priceCurrency": 'INR',
+      "price": project.price,
+      "availability": `https://schema.org/InStock}`,
+      "seller": {
+        "@type": "CodeBazaar",
+        "name": "CodeBazaar"
+      }
+    }
+  };
   return (
     <div className="max-w-6xl mx-auto p-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+      />
       <Breadcrumbs aria-label="breadcrumb">
         <Link color="inherit" href="/">
           <HomeRoundedIcon /> Home
