@@ -33,8 +33,7 @@ const CpuArchitecture = ({
         >
             {/* Paths */}
             <g
-                // stroke="currentColor"
-                stroke="black"
+                stroke="currentColor"
                 fill="none"
                 strokeWidth="0.3"
                 strokeDasharray="100 100"
