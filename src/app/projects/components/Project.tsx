@@ -17,6 +17,31 @@ import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": 'projects',
+        "item": `https://codebazaar.com/projects/`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": project.slug,
+        "item": `https://codebazaar.com/projects/${project.slug}`
+      }
+    ]
+  };
+
   const projectSchema = {
     "@context": "https://schema.org/",
     "@type": "Product",
@@ -37,6 +62,11 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       "seller": {
         "@type": "CodeBazaar",
         "name": "CodeBazaar"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": '5',
+        "reviewCount": `${project._count?.Review || 0}`
       }
     }
   };
@@ -45,6 +75,10 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Breadcrumbs aria-label="breadcrumb">
         <Link color="inherit" href="/">

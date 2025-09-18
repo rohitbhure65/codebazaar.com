@@ -22,6 +22,10 @@ export async function generateMetadata(
       description: Project.ogDescription || Project.metaDescription || Project.description,
       images: Project.ogImage ? [Project.ogImage] : [],
       type: 'website',
+      url: `https://codebazaar.com/projects/${Project.slug}`,
+      siteName: 'CodeBazaar',
+      countryName: 'India',
+      locale: 'en_IN'
     },
     twitter: {
       card: 'summary_large_image',

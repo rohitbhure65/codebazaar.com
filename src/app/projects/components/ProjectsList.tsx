@@ -25,7 +25,7 @@ export const ProjectsList = () => {
     tags: '',
     techStack: '',
     minPrice: 0,
-    maxPrice: 10000,
+    maxPrice: 100000,
   });
   const [debouncedFilters, setDebouncedFilters] = useState(filters);
 
