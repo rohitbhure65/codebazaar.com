@@ -11,7 +11,7 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
   const [project, { setQueryData }] = useQuery(
     getProject,
     { slug: projectSlug },
-    { staleTime: Infinity}
+    { staleTime: Infinity }
   )
   const [updateProjectMutation] = useMutation(updateProject)
   const router = useRouter()
@@ -44,7 +44,7 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
                   ...values,
                   id: project.id,
                 })
-                await setQueryData(updated)
+                await setQueryData({ ...project, ...updated })
                 router.refresh()
               } catch (error: any) {
                 console.error(error)
