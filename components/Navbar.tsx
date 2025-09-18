@@ -1,4 +1,5 @@
 "use client"
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 const Navbar = () => {
@@ -22,9 +23,9 @@ const Navbar = () => {
                 <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between">
                         <div className="flex-shrink-0 flex items-center">
-                            <a href="/" title="" className="flex rounded outline-none  focus:ring-1 focus:ring-gray-900 focus:ring-offset-2">
+                            <Link href="/" title="" className="flex rounded outline-none  focus:ring-1 focus:ring-gray-900 focus:ring-offset-2">
                                 <img className="w-auto h-8" src="https://d33wubrfki0l68.cloudfront.net/682a555ec15382f2c6e7457ca1ef48d8dbb179ac/f8cd3/images/logo.svg" alt="" />
-                            </a><span className="ml-3 relative flex size-3">
+                            </Link><span className="ml-3 relative flex size-3">
                                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
                                 <span className="relative inline-flex size-3 rounded-full bg-green-500"></span>
                             </span>
@@ -58,9 +59,9 @@ const Navbar = () => {
 
                             <div className="w-px h-5 bg-gray-300"></div>
 
-                            <a href="/login" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded font-pj hover:text-opacity-50"> Login </a>
+                            <Link href="/login" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded font-pj hover:text-opacity-50"> Login </Link>
 
-                            <a
+                            <Link
                                 href="/signup"
                                 title=""
                                 className="
@@ -83,7 +84,7 @@ const Navbar = () => {
                                 role="button"
                             >
                                 Create free account
-                            </a>
+                            </Link>
                         </div>
                     </div>
 
@@ -91,26 +92,26 @@ const Navbar = () => {
                     {isMenuOpen && (
                         <div className="lg:hidden mt-4 bg-white rounded-lg shadow-lg p-4">
                             <div className="flex flex-col space-y-4">
-                                <a
+                                <Link
                                     href="/projects"
                                     className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
                                     onClick={closeMenu}
                                 >
                                     Projects
-                                </a>
+                                </Link>
 
                                 <div className="w-full h-px bg-gray-300 my-2"></div>
 
-                                <a
-                                    href="login"
+                                <Link
+                                    href="/login"
                                     className="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
                                     onClick={closeMenu}
                                 >
                                     Login
-                                </a>
+                                </Link>
 
-                                <a
-                                    href="signup"
+                                <Link
+                                    href="/signup"
                                     className="
                                         px-5
                                         py-2
@@ -133,7 +134,7 @@ const Navbar = () => {
                                     onClick={closeMenu}
                                 >
                                     Create free account
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     )}
