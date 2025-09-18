@@ -17,8 +17,69 @@ import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": 'projects',
+        "item": `https://codebazaar.com/projects/`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": project.slug,
+        "item": `https://codebazaar.com/projects/${project.slug}`
+      }
+    ]
+  };
+
+  const projectSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": project.title,
+    "description": project.description,
+    "image": project.projectImage,
+    "sku": `project-${project.id}`,
+    "brand": {
+      "@type": "Brand",
+      "name": 'CodeBazaar'
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://codebazaar.com/projects/${project.slug}`,
+      "priceCurrency": 'INR',
+      "price": project.price,
+      "availability": `https://schema.org/InStock}`,
+      "seller": {
+        "@type": "CodeBazaar",
+        "name": "CodeBazaar"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": '5',
+        "reviewCount": `${project._count?.Review || 0}`
+      }
+    }
+  };
   return (
     <div className="max-w-6xl mx-auto p-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Breadcrumbs aria-label="breadcrumb">
         <Link color="inherit" href="/">
           <HomeRoundedIcon /> Home
@@ -30,7 +91,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       </Breadcrumbs>
       <div className="flex flex-col mt-4 md:flex-row gap-8">
         <div className="md:w-1/2 space-y-4 ">
-          <img className="rounded-lg" src={project.projectImage} alt="" />
+          <img className="rounded-lg" src={project.projectImage} alt="codebazaar.com" />
         </div>
 
         <div className="md:w-1/2 space-y-2">

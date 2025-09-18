@@ -18,9 +18,6 @@ interface ReviewProps {
 const Reviews = ({ review = [] }: ReviewProps) => {
   const [expanded, setExpanded] = useState(false)
 
-  console.log("Reviews component received:", review)
-  console.log("Number of reviews:", review.length)
-
   const displayedReviews = expanded ? review : review.slice(0, 2)
 
   if (!review || review.length === 0) {

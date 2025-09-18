@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
 import { invoke } from "src/app/blitz-server";
 import getProject from "../queries/getProject";
@@ -12,7 +11,31 @@ export async function generateMetadata(
   const params = await props.params;
   const Project = await invoke(getProject, { slug: params.projectSlug });
   return {
-    title: `Project ${Project.id} - ${Project.title}`,
+    title: Project.metaTitle || `${Project.title} | Project Details`,
+    description: (Project.metaDescription || Project.description)?.slice(0, 297)
+      + ((Project.metaDescription || Project.description)?.length > 297 ? "..." : ""),
+    keywords: Project.metaKeywords,
+    category: Project.category[0],
+    robots: Project.robots || 'index, follow',
+    openGraph: {
+      title: Project.ogTitle || Project.title,
+      description: Project.ogDescription || Project.metaDescription || Project.description,
+      images: Project.ogImage ? [Project.ogImage] : [],
+      type: 'website',
+      url: `https://codebazaar.com/projects/${Project.slug}`,
+      siteName: 'CodeBazaar',
+      countryName: 'India',
+      locale: 'en_IN'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: Project.twitterTitle || Project.title,
+      description: Project.twitterDescription || Project.metaDescription || Project.description,
+      images: Project.twitterImage ? [Project.twitterImage] : [],
+    },
+    alternates: {
+      canonical: Project.canonicalUrl,
+    },
   };
 }
 
@@ -26,9 +49,7 @@ export default async function Page(props: ProjectPageProps) {
     <div>
       <Suspense fallback={
         <div className="max-w-6xl mx-auto p-10 space-y-8">
-          {/* Top Section */}
           <div className="flex flex-col md:flex-row gap-8">
-            {/* Left: Image Skeleton */}
             <div className="md:w-1/2 space-y-4">
               <Skeleton className="h-96 w-full rounded-lg" />
             </div>

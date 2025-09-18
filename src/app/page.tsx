@@ -7,11 +7,27 @@ import Hero from "@/components/Hero"
 import Team from "@/components/Team"
 import Faq from "@/components/Faq"
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": 'CodeBazaar',
+  "url": "https://google.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://google.com/search?q=codebazaaer",
+    "query-input": "required name=codebazaar"
+  }
+};
+
 export default async function Home() {
   // const currentUser = await invoke(getCurrentUser, null)
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
       <Hero />
       <State />
       <ProjectShowCase />

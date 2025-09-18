@@ -1,2 +1,5 @@
-- [x] Fix Badge component in components/ui/badge.tsx to render children by adding {props.children} inside the div.
-- [x] Update Project.tsx to map over project.tags array, split each tag into words, and render a Badge for each word with variant="outline".
+# TODO: Make Project List Responsive for Mobile
+
+- [ ] Update MUI Grid sizes for responsiveness (sidebar xs=12 sm=3, main xs=12 sm=8)
+- [ ] Update projects grid classes to grid-cols-1 sm:grid-cols-2 md:grid-cols-4
+- [ ] Test layout on mobile after edits

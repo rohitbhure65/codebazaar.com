@@ -68,6 +68,8 @@ const CpuArchitecture = ({
                 <path d="M 88 88 v -15 q 0 -5 -5 -5 h -10 q -5 0 -5 -5 v -5 q 0 -5 5 -5 h 14" />
                 {/* 8th */}
                 <path d="M 30 30 h 25 q 5 0 5 5 v 6.5 q 0 5 5 5 h 20" />
+                {/* 9th */}
+                 <path d="M 20 80 h 20 q 5 0 5 -5 v -19.5 q 0 -5 5 -5 h 30" />
                 {/* Animation For Path Starting */}
                 {animateLines && (
                     <animate
