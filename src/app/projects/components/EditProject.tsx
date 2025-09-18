@@ -45,7 +45,7 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
                   id: project.id,
                 })
                 await setQueryData({ ...project, ...updated })
-                router.refresh()
+                router.push(`/projects/${updated.slug}`)
               } catch (error: any) {
                 console.error(error)
                 return {
