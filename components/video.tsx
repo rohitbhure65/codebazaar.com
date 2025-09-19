@@ -3,7 +3,7 @@ import { Safari } from "./ui/safari";
 
 const Video = () => {
     return (
-        <section className="relative py-12 sm:py-16 lg:pt-20 lg:pb-36">
+        <section className="relative py-12 mt-36 md:mt-20 sm:py-16 lg:pt-20 lg:pb-36">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                 <Safari
                     url="codebazaar.com"

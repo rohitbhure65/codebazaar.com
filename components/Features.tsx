@@ -10,9 +10,7 @@ const Features = () => {
         <section className="relative py-12 sm:py-16 lg:pt-20 lg:pb-36">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                 <div className="grid grid-cols-1 gap-y-8 lg:items-center lg:grid-cols-2 sm:gap-y-20 xl:grid-cols-5">
-
-
-                    <div className="xl:col-span-3 mr-20 block-appear relative">
+                    <div className="xl:col-span-3 xl:mr-20 block-appear relative">
                         <Terminal className="bg-gray-900 text-white">
                             <TypingAnimation>&gt; pnpm dlx shadcn@latest init</TypingAnimation>
                             <AnimatedSpan className="text-green-500">
