@@ -21,23 +21,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  try {
-    const projects = await invoke(getProjects, {});
+  // try {
+  //   const projects = await invoke(getProjects, {});
 
-    const projectPages: MetadataRoute.Sitemap = projects.map(
-      (project: { slug: string; updatedAt?: string | Date }) => ({
-        url: `${baseUrl}/projects/${project.slug}`,
-        lastModified: project.updatedAt
-          ? new Date(project.updatedAt)
-          : currentDate,
-        changeFrequency: "weekly",
-        priority: 0.7,
-      })
-    );
+  //   const projectPages: MetadataRoute.Sitemap = projects.map(
+  //     (project: { slug: string; updatedAt?: string | Date }) => ({
+  //       url: `${baseUrl}/projects/${project.slug}`,
+  //       lastModified: project.updatedAt
+  //         ? new Date(project.updatedAt)
+  //         : currentDate,
+  //       changeFrequency: "weekly",
+  //       priority: 0.7,
+  //     })
+  //   );
 
-    return [...staticPages, ...projectPages];
-  } catch (error) {
-    console.error("Error generating sitemap:", error);
-    return staticPages;
-  }
+    return [
+      ...staticPages,
+      // ...projectPages
+      ];
+  // } catch (error) {
+  //   console.error("Error generating sitemap:", error);
+  //   return staticPages;
+  // }
 }
