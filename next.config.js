@@ -6,7 +6,7 @@ const nextConfig = {
     typedRoutes: true,
   },
   images: {
-    domains: ["images.builderservices.io"],
+    domains: ["images.builderservices.io", "d33wubrfki0l68.cloudfront.net", "cdn.rareblocks.xyz", "imgs.search.brave.com"],
   },
 }
 

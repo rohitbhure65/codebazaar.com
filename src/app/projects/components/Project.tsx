@@ -13,6 +13,7 @@ import Reviews from "@/components/reviews"
 import CloudDownloadRoundedIcon from '@mui/icons-material/CloudDownloadRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
+import Image from "next/image";
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
@@ -125,8 +126,15 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         </Link>
       </Breadcrumbs>
       <div className="flex flex-col mt-4 md:flex-row gap-8">
-        <div className="md:w-1/2 space-y-4 ">
-          <img className="rounded-lg" src={project.projectImage} alt="codebazaar.com" />
+        <div className="md:w-1/2 space-y-4 relative">
+          <Image
+            className="rounded-lg"
+            src={project.projectImage}
+            alt="codebazaar.com"
+            fill
+            style={{ objectFit: 'cover' }}
+            loading="lazy"
+          />
         </div>
 
         <div className="md:w-1/2 space-y-2">
