@@ -6,6 +6,7 @@ import { UpdateProjectSchema } from "../schemas"
 import { FORM_ERROR, ProjectForm } from "./ProjectForm"
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import { useRouter } from "next/navigation"
+import Loader from "@/components/ui/loader"
 
 export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
   const [project, { setQueryData }] = useQuery(
@@ -18,7 +19,7 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
   return (
     <>
       <div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader/>}>
           <ProjectForm
             submitText="Update Project"
             schema={UpdateProjectSchema}
