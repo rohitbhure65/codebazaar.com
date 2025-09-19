@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
-import { invoke } from "src/app/blitz-server";
-import getProjects from "src/app/projects/queries/getProjects";
+// import { invoke } from "src/app/blitz-server";
+// import getProjects from "src/app/projects/queries/getProjects";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://codebazaar.com";
