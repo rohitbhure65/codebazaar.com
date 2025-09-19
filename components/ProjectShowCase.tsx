@@ -1,11 +1,13 @@
+"use client"
 import React from 'react';
+import { useGsapBlocks } from "./ui/useGsap";
 
 interface Product {
-  id: number;
-  name: string;
-  currentPrice: string;
-  originalPrice: string | null;
-  discount: string | null;
+    id: number;
+    name: string;
+    currentPrice: string;
+    originalPrice: string | null;
+    discount: string | null;
 }
 
 const CompactProductCard = ({ product }: { product: Product }) => {
@@ -42,6 +44,7 @@ const CompactProductCard = ({ product }: { product: Product }) => {
 };
 
 const ProjectShowCase = () => {
+    useGsapBlocks()
     const products: Product[] = [
         {
             id: 1,

@@ -2,8 +2,10 @@
 import React from 'react';
 import Image from "next/image";
 import Link from 'next/link';
+import { useGsapBlocks } from "./ui/useGsap";
 
 const Testimonial = () => {
+    useGsapBlocks()
     return (
         <section className="py-12 bg-gray-50 sm:py-16 lg:py-20">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">

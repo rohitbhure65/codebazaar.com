@@ -2,8 +2,10 @@
 import TextType from 'components/ui/TextType';
 import { CpuArchitecture } from './ui/cpu-architecture';
 import Image from "next/image";
+import { useGsapBlocks } from "./ui/useGsap";
 
 const Hero = () => {
+    useGsapBlocks()
     return (
         <section className="relative py-12 sm:py-16 lg:pt-20 lg:pb-36">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">

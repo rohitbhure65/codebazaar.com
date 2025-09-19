@@ -1,5 +1,6 @@
 "use client"
 import { IconCloud } from "./ui/icon-cloud";
+import { useGsapBlocks } from "./ui/useGsap";
 const slugs = [
     "typescript",
     "javascript",
@@ -29,8 +30,7 @@ const slugs = [
 ];
 
 const Cloud = () => {
-
-
+    useGsapBlocks()
     const images = slugs.map(
         (slug) => `https://cdn.simpleicons.org/${slug}/${slug}`,
     );

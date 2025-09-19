@@ -1,8 +1,10 @@
 "use client";
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useGsapBlocks } from "./ui/useGsap";
 
 const Faq = () => {
+    useGsapBlocks()
     const [faq, setFaq] = useState([
         {
             question: 'How to create an account?',
