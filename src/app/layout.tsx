@@ -1,13 +1,14 @@
 import "./styles/globals.css"
 import { BlitzProvider } from "./blitz-client"
-import { Inter } from "next/font/google"
+import { Nunito } from "next/font/google"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import Script from "next/script";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-const inter = Inter({ subsets: ["latin"] })
+const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" })
+
 export const metadata = {
   title: "CodeBazaar.com",
   description: "Cobazaar.com online market place for developers",
@@ -56,7 +57,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${nunito.className} font-sans`}>
         <BlitzProvider>
           <Navbar />
           <div>{children}</div>

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import CurrencyRupeeRoundedIcon from "@mui/icons-material/CurrencyRupeeRounded"
 import CodeRoundedIcon from "@mui/icons-material/CodeRounded"
 import TextSnippetRoundedIcon from "@mui/icons-material/TextSnippetRounded"
-import Typography from "@mui/material/Typography"
+import Script from "next/script"
 import Breadcrumbs from "@mui/material/Breadcrumbs"
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded"
 import Reviews from "@/components/reviews"
@@ -57,28 +57,61 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       "@type": "Offer",
       "url": `https://codebazaar.com/projects/${project.slug}`,
       "priceCurrency": 'INR',
-      "price": project.price.toLocaleString(),
-      "availability": `https://schema.org/InStock}`,
+      "priceValidUntil": "2099-12-31",
+      "price": project.price,
+      "availability": `https://schema.org/InStock`,
       "seller": {
         "@type": "CodeBazaar",
         "name": "CodeBazaar"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "INR"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "IN"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": "0",
+            "maxValue": "0"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": "0",
+            "maxValue": "0"
+          }
+        }
       },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": '5',
         "reviewCount": `${project._count?.Review || 0}`
       }
+    },
+    "additionalProperty": {
+      "@type": "PropertyValue",
+      "name": "productType",
+      "value": "digital"
     }
   };
   return (
-    <div className="max-w-6xl mx-auto p-10">
-      <script
+    <div className="max-w-6xl mx-auto p-10" >
+      <Script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+        strategy="afterInteractive"
       />
-      <script
+      <Script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        strategy="afterInteractive"
       />
       <Breadcrumbs aria-label="breadcrumb">
         <Link color="inherit" href="/">
@@ -331,6 +364,6 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       </div>
 
       <Reviews review={project.Review} />
-    </div>
+    </div >
   )
 }
