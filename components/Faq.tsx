@@ -1,26 +1,27 @@
 "use client";
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 const Faq = () => {
     const [faq, setFaq] = useState([
         {
             question: 'How to create an account?',
-            answer: 'Amet minim mollit non deserunt ullamco est sit <a href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</a> do amet sint. Velit officia consequat duis enim velit mollit.',
+            answer: 'Amet minim mollit non deserunt ullamco est sit <Link href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</Link> do amet sint. Velit officia consequat duis enim velit mollit.',
             open: false
         },
         {
             question: 'How can I make payment using Paypal?',
-            answer: 'Amet minim mollit non deserunt ullamco est sit <a href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</a> do amet sint. Velit officia consequat duis enim velit mollit.',
+            answer: 'Amet minim mollit non deserunt ullamco est sit <Link href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</Link> do amet sint. Velit officia consequat duis enim velit mollit.',
             open: false
         },
         {
             question: 'Can I cancel my plan?',
-            answer: 'Amet minim mollit non deserunt ullamco est sit <a href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</a> do amet sint. Velit officia consequat duis enim velit mollit.',
+            answer: 'Amet minim mollit non deserunt ullamco est sit <Link href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</Link> do amet sint. Velit officia consequat duis enim velit mollit.',
             open: false
         },
         {
             question: 'How can I reach to support?',
-            answer: 'Amet minim mollit non deserunt ullamco est sit <a href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</a> do amet sint. Velit officia consequat duis enim velit mollit.',
+            answer: 'Amet minim mollit non deserunt ullamco est sit <Link href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</Link> do amet sint. Velit officia consequat duis enim velit mollit.',
             open: false
         }
     ]);
@@ -63,7 +64,7 @@ const Faq = () => {
                     ))}
                 </div>
 
-                <p className="text-center text-gray-600 textbase mt-9">Didn’t find the answer you are looking for? <a href="#" title="" className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline">Contact our support</a></p>
+                <p className="text-center text-gray-600 textbase mt-9">Didn’t find the answer you are looking for? <Link href="/" title="" className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline">Contact our support</Link></p>
             </div>
         </section>
     );

@@ -6,13 +6,13 @@ import { Badge } from "@/components/ui/badge"
 import CurrencyRupeeRoundedIcon from "@mui/icons-material/CurrencyRupeeRounded"
 import CodeRoundedIcon from "@mui/icons-material/CodeRounded"
 import TextSnippetRoundedIcon from "@mui/icons-material/TextSnippetRounded"
-import Typography from "@mui/material/Typography"
 import Breadcrumbs from "@mui/material/Breadcrumbs"
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded"
 import Reviews from "@/components/reviews"
 import CloudDownloadRoundedIcon from '@mui/icons-material/CloudDownloadRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
+import Image from "next/image";
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
@@ -36,7 +36,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       {
         "@type": "ListItem",
         "position": 3,
-        "name": project.slug,
+        "name": project.title,
         "item": `https://codebazaar.com/projects/${project.slug}`
       }
     ]
@@ -57,21 +57,52 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       "@type": "Offer",
       "url": `https://codebazaar.com/projects/${project.slug}`,
       "priceCurrency": 'INR',
+      "priceValidUntil": "2099-12-31",
       "price": project.price,
-      "availability": `https://schema.org/InStock}`,
+      "availability": `https://schema.org/InStock`,
       "seller": {
         "@type": "CodeBazaar",
         "name": "CodeBazaar"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "INR"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "IN"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": "0",
+            "maxValue": "0"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": "0",
+            "maxValue": "0"
+          }
+        }
       },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": '5',
         "reviewCount": `${project._count?.Review || 0}`
       }
+    },
+    "additionalProperty": {
+      "@type": "PropertyValue",
+      "name": "productType",
+      "value": "digital"
     }
   };
   return (
-    <div className="max-w-6xl mx-auto p-10">
+    <div className="max-w-6xl mx-auto p-10" >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
@@ -87,11 +118,20 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         <Link color="inherit" href="/projects">
           Project
         </Link>
-        <Typography sx={{ color: "text.primary" }}>{project.slug}</Typography>
+        <Link color="inherit" href={`/projects/${project.slug}`}>
+          {project.title}
+        </Link>
       </Breadcrumbs>
       <div className="flex flex-col mt-4 md:flex-row gap-8">
-        <div className="md:w-1/2 space-y-4 ">
-          <img className="rounded-lg" src={project.projectImage} alt="codebazaar.com" />
+        <div className="md:w-1/2 space-y-4 relative">
+          <Image
+            className="rounded-lg"
+            src={project.projectImage}
+            alt="codebazaar.com"
+            fill
+            style={{ objectFit: 'cover' }}
+            loading="lazy"
+          />
         </div>
 
         <div className="md:w-1/2 space-y-2">
@@ -119,7 +159,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
 
 
           <div className="font-bold py-4 my-4 text-3xl ">
-            <CurrencyRupeeRoundedIcon /> {project.price}
+            <CurrencyRupeeRoundedIcon /> {project.price.toLocaleString()}
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
@@ -329,6 +369,6 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       </div>
 
       <Reviews review={project.Review} />
-    </div>
+    </div >
   )
 }

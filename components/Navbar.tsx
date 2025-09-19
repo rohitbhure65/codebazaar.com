@@ -1,6 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React, { useState } from 'react';
+import Image from "next/image";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,7 +17,13 @@ const Navbar = () => {
     return (
         <div className="relative bg-gray-50">
             <div className="absolute bottom-0 right-0 overflow-hidden lg:inset-y-0">
-                <img className="w-auto h-full" src="https://d33wubrfki0l68.cloudfront.net/1e0fc04f38f5896d10ff66824a62e466839567f8/699b5/images/hero/3/background-pattern.png" alt="codebazaar.com" />
+                <Image
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    src="https://d33wubrfki0l68.cloudfront.net/1e0fc04f38f5896d10ff66824a62e466839567f8/699b5/images/hero/3/background-pattern.png"
+                    alt="codebazaar.com"
+                    loading="lazy"
+                />
             </div>
 
             <header className="relative py-4 md:py-6">
@@ -24,8 +31,16 @@ const Navbar = () => {
                     <div className="flex items-center justify-between">
                         <div className="flex-shrink-0 flex items-center">
                             <Link href="/" title="" className="flex">
-                                <img className="w-auto h-8" src="https://d33wubrfki0l68.cloudfront.net/682a555ec15382f2c6e7457ca1ef48d8dbb179ac/f8cd3/images/logo.svg" alt="codebazaar.com" />
-                            </Link><span className="ml-3 relative flex size-3">
+                                <Image
+                                    className="w-auto h-8"
+                                    src="https://d33wubrfki0l68.cloudfront.net/682a555ec15382f2c6e7457ca1ef48d8dbb179ac/f8cd3/images/logo.svg"
+                                    alt="codebazaar.com"
+                                    width={120}
+                                    height={32}
+                                    loading="lazy"
+                                />
+                            </Link>
+                            <span className="ml-3 relative flex size-3">
                                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
                                 <span className="relative inline-flex size-3 rounded-full bg-green-500"></span>
                             </span>
@@ -54,7 +69,7 @@ const Navbar = () => {
                         {/* Desktop navigation */}
                         <div className="hidden lg:flex lg:ml-16 lg:items-center lg:justify-center lg:space-x-10">
                             <div className="flex items-center space-x-12">
-                                <a href="/projects" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded font-pj hover:text-opacity-50"> Project </a>
+                                <Link href="/projects" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded font-pj hover:text-opacity-50"> Project </Link>
                             </div>
 
                             <div className="w-px h-5 bg-gray-300"></div>

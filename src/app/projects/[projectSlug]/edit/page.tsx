@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { invoke } from "src/app/blitz-server";
 import getProject from "../../queries/getProject";
 import { EditProject } from "../../components/EditProject";
+import Loader from "@/components/ui/loader";
 
 type EditProjectPageProps = {
   params: Promise<{ projectSlug: string }>;
@@ -22,7 +23,7 @@ export default async function Page(props: EditProjectPageProps) {
   const params = await props.params;
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         <EditProject projectSlug={params.projectSlug} />
       </Suspense>
     </div>

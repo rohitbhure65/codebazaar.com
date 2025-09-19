@@ -1,11 +1,14 @@
 import "./styles/globals.css"
 import { BlitzProvider } from "./blitz-client"
-import { Inter } from "next/font/google"
+import { Nunito } from "next/font/google"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import Script from "next/script";
 
-const inter = Inter({ subsets: ["latin"] })
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
+const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" })
+
 export const metadata = {
   title: "CodeBazaar.com",
   description: "Cobazaar.com online market place for developers",
@@ -54,7 +57,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${nunito.className} font-sans`}>
         <BlitzProvider>
           <Navbar />
           <div>{children}</div>
@@ -63,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
 
       <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=G-W6LGMJG0YR`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
@@ -71,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-W6LGMJG0YR');
+            gtag('config', '${GA_ID}');
           `}
       </Script>
     </html>

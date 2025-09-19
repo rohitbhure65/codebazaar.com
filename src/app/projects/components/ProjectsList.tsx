@@ -6,6 +6,7 @@ import getProjects from "../queries/getProjects";
 import { useSearchParams, usePathname } from "next/navigation";
 import Pagination from "@mui/material/Pagination";
 import { Route } from "next";
+import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import { TextField, Slider } from '@mui/material';
@@ -151,7 +152,7 @@ export const ProjectsList = () => {
                 type="number"
                 value={filters.minPrice.toString()}
                 onChange={(e) => setFilters({ ...filters, minPrice: parseFloat(e.target.value) || 0 })}
-                inputProps={{ min: 0, max: 10000, step: 10 }}
+                inputProps={{ min: 0, max: 100000, step: 10 }}
                 variant="outlined"
                 size="small"
                 margin="normal"
@@ -161,8 +162,8 @@ export const ProjectsList = () => {
                 label="Max Price"
                 type="number"
                 value={filters.maxPrice.toString()}
-                onChange={(e) => setFilters({ ...filters, maxPrice: parseFloat(e.target.value) || 10000 })}
-                inputProps={{ min: 0, max: 10000, step: 10 }}
+                onChange={(e) => setFilters({ ...filters, maxPrice: parseFloat(e.target.value) || 100000 })}
+                inputProps={{ min: 0, max: 100000, step: 10 }}
                 variant="outlined"
                 size="small"
                 margin="normal"
@@ -171,20 +172,20 @@ export const ProjectsList = () => {
                 <label>Price Range: <CurrencyRupeeRoundedIcon />{filters.minPrice} - <CurrencyRupeeRoundedIcon /> {filters.maxPrice}</label>
                 <Slider
                   value={[filters.minPrice, filters.maxPrice]}
-                  onChange={(e, newValue) => setFilters({ 
-                    ...filters, 
-                    minPrice: Array.isArray(newValue) ? newValue[0] : newValue, 
-                    maxPrice: Array.isArray(newValue) ? newValue[1] : newValue 
+                  onChange={(e, newValue) => setFilters({
+                    ...filters,
+                    minPrice: Array.isArray(newValue) ? newValue[0] : newValue,
+                    maxPrice: Array.isArray(newValue) ? newValue[1] : newValue
                   })}
                   valueLabelDisplay="auto"
                   min={0}
-                  max={10000}
-                  step={10}
+                  max={100000}
+                  step={100}
                 />
               </div>
             </div>
           </div>
-          
+
           <div className="w-full sm:w-3/4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {projects.map((project) => (
@@ -193,10 +194,13 @@ export const ProjectsList = () => {
                     <div className="bg-white hover:shadow-md transition-shadow duration-200">
                       <div className="h-32 bg-gray-200 mb-3 flex items-center justify-center">
                         {project.projectImages && project.projectImages.length > 0 ? (
-                          <img
+                          <Image
                             src={project.projectImage}
                             alt={project.title}
+                            width={128}
+                            height={128}
                             className="object-cover h-full w-full"
+                            loading="lazy"
                           />
                         ) : (
                           <span className="text-gray-500">No Image</span>
@@ -204,8 +208,8 @@ export const ProjectsList = () => {
                       </div>
 
                       <div className="content-card p-4">
-                        <h3 className="font-semibold text-gray-800 text-sm mb-2">{project.title}</h3>
-
+                        <h3 className="font-semibold text-gray-800 text-sm">{project.title}</h3>
+                        <div className="text-yellow-400 mb-2">★ ★ ★ ★ ★</div>
                         <p className="text-xs text-gray-500 mb-2">
                           {(project.description || "No description available.").length > 30
                             ? (project.description || "").slice(0, 40) + "..."
@@ -228,12 +232,18 @@ export const ProjectsList = () => {
                 </Link>
               ))}
             </div>
-            
+
             {projects.length === 0 && (
               <div className="text-center py-10">
                 <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10 p-8">
                   <div className="w-[200px] h-[200px] mx-auto mb-4">
-                    <img src="find.svg" alt="No projects found" />
+                    <Image
+                      src="/find.svg"
+                      alt="No projects found"
+                      width={200}
+                      height={200}
+                      loading="lazy"
+                    />
                   </div>
                   <p className="text-gray-500 text-lg">No Project available</p>
                 </div>

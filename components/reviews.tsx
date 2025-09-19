@@ -1,5 +1,8 @@
 "use client"
 import { useState } from "react"
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Badge } from "@/components/ui/badge"
+import { BadgeCheckIcon } from "lucide-react"
 
 interface ReviewProps {
   review?: Array<{
@@ -43,7 +46,7 @@ const Reviews = ({ review = [] }: ReviewProps) => {
       <div className="space-y-6">
         {displayedReviews.map((reviewItem, index) => (
           <div key={reviewItem.id || index} className="border-b pb-6 last:border-b-0 last:pb-0">
-            <div className="flex items-center mb-2">
+            <div className="flex items-center mb-2"> <span className="text-gray-600 font-bold text-sm mr-2">Rating: </span>
               <div className="flex text-yellow-400 mr-2">
                 {[...Array(reviewItem.rating)].map((_, i) => (
                   <span key={i} className="text-lg">
@@ -58,18 +61,29 @@ const Reviews = ({ review = [] }: ReviewProps) => {
               </div>
               <span className="text-gray-600 text-sm ml-2">{reviewItem.rating}/5</span>
             </div>
+            <div className="flex justify-between">
+              <p className="font-medium text-gray-900"><AccountCircleIcon /> {reviewItem.user.name || "Anonymous"}
+                <Badge
+                  variant="secondary"
+                  className="bg-green-500 ml-4 hover:bg-green-600 text-white dark:bg-green-600"
+                >
+                  <BadgeCheckIcon className="h-3" />
+                  Purchased
+                </Badge>
+              </p>
 
-            <span className="text-gray-500 text-sm">
-              {new Date(reviewItem.createdAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
+              <span className="text-gray-500 text-sm">
+                {new Date(reviewItem.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            </div>
 
             <p className="my-3 text-gray-700">{reviewItem.comment}</p>
 
-            <p className="font-medium text-gray-900">{reviewItem.user.name || "Anonymous"}</p>
+
           </div>
         ))}
       </div>
