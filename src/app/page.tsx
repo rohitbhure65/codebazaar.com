@@ -37,7 +37,7 @@ export default async function Home() {
       <Cloud />
       <State />
       <ProjectShowCase />
-      <Team />
+      {/* <Team /> */}
       <Testimonial />
       <Faq />
     </>
