@@ -69,7 +69,7 @@ const Navbar = () => {
                         {/* Desktop navigation */}
                         <div className="hidden lg:flex lg:ml-16 lg:items-center lg:justify-center lg:space-x-10">
                             <div className="flex items-center space-x-12">
-                                <a href="/projects" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded font-pj hover:text-opacity-50"> Project </a>
+                                <Link href="/projects" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded font-pj hover:text-opacity-50"> Project </Link>
                             </div>
 
                             <div className="w-px h-5 bg-gray-300"></div>

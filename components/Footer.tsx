@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link"
+
 export default function Footer() {
   return (
     <footer className="text-gray-600 body-font">
@@ -12,7 +14,7 @@ export default function Footer() {
           <span className="ml-3 text-xl font-bold">CODEBAZAAR</span>
         </a>
         <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2025 Codebazaar.com — All rights reserved.
-          <a href="/" className="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@rohitbhure65</a>
+          <Link href="/" className="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@rohitbhure65</Link>
         </p>
         <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
           <a className="text-gray-500">
