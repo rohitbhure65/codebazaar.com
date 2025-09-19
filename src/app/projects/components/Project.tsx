@@ -247,7 +247,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                       href={project.repositoryUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 hover:underline font-medium"
+                      className="text-blue-600 hover:text-blue-800 font-medium"
                     >
                       {project.repositoryUrl}
                     </a>
@@ -274,7 +274,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                     className={`font-medium ${project.isResellAllowed ? "text-green-600" : "text-red-600"
                       }`}
                   >
-                    {project.isResellAllowed ? "Yes" : "No"}
+                    {project.isResellAllowed ? " Yes" : " No"}
                   </span>
                 </span>
               </div>
@@ -298,7 +298,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                     className={`font-medium ${project.isApproved ? "text-green-600" : "text-red-600"
                       }`}
                   >
-                    {project.isApproved ? "Yes" : "No"}
+                    {project.isApproved ? " Yes" : " No"}
                   </span>
                 </span>
               </div>
