@@ -123,7 +123,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         </Link>
       </Breadcrumbs>
       <div className="flex flex-col mt-4 md:flex-row gap-8">
-        <div className="md:w-1/2 space-y-4 relative">
+        <div className="md:w-1/2 space-y-4 relative h-80 md:h-96">
           <Image
             className="rounded-lg"
             src={project.projectImage}
