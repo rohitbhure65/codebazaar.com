@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge"
 import CurrencyRupeeRoundedIcon from "@mui/icons-material/CurrencyRupeeRounded"
 import CodeRoundedIcon from "@mui/icons-material/CodeRounded"
 import TextSnippetRoundedIcon from "@mui/icons-material/TextSnippetRounded"
-import Script from "next/script"
 import Breadcrumbs from "@mui/material/Breadcrumbs"
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded"
 import Reviews from "@/components/reviews"
@@ -104,15 +103,13 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
   };
   return (
     <div className="max-w-6xl mx-auto p-10" >
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
-        strategy="afterInteractive"
       />
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        strategy="afterInteractive"
       />
       <Breadcrumbs aria-label="breadcrumb">
         <Link color="inherit" href="/">
