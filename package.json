@@ -51,6 +51,7 @@
     "react-dom": "18.2.0",
     "react-final-form": "6.5.9",
     "secure-password": "4.0.0",
+    "tailwind-merge": "3.3.1",
     "tailwindcss-animate": "1.0.7",
     "zod": "3.23.8"
   },
