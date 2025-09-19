@@ -14,10 +14,10 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": 'CodeBazaar',
-  "url": "https://google.com",
+  "url": "https://codebazaar.com",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://google.com/search?q=codebazaaer",
+    "target": "https://www.google.com/search?q=codebazaar",
     "query-input": "required name=codebazaar"
   }
 };
