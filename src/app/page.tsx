@@ -6,6 +6,9 @@ import ProjectShowCase from "@/components/ProjectShowCase"
 import Hero from "@/components/Hero"
 import Team from "@/components/Team"
 import Faq from "@/components/Faq"
+import Features from "@/components/Features"
+import Video from "@/components/video"
+import Cloud from "@/components/Cloud"
 
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -29,6 +32,9 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       <Hero />
+      <Video />
+      <Features />
+      <Cloud />
       <State />
       <ProjectShowCase />
       <Team />
