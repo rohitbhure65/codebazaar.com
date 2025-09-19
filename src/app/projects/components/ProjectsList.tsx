@@ -6,6 +6,7 @@ import getProjects from "../queries/getProjects";
 import { useSearchParams, usePathname } from "next/navigation";
 import Pagination from "@mui/material/Pagination";
 import { Route } from "next";
+import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import { TextField, Slider } from '@mui/material';
@@ -193,10 +194,13 @@ export const ProjectsList = () => {
                     <div className="bg-white hover:shadow-md transition-shadow duration-200">
                       <div className="h-32 bg-gray-200 mb-3 flex items-center justify-center">
                         {project.projectImages && project.projectImages.length > 0 ? (
-                          <img
+                          <Image
                             src={project.projectImage}
                             alt={project.title}
+                            width={128}
+                            height={128}
                             className="object-cover h-full w-full"
+                            loading="lazy"
                           />
                         ) : (
                           <span className="text-gray-500">No Image</span>
@@ -233,7 +237,13 @@ export const ProjectsList = () => {
               <div className="text-center py-10">
                 <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10 p-8">
                   <div className="w-[200px] h-[200px] mx-auto mb-4">
-                    <img src="find.svg" alt="No projects found" />
+                    <Image
+                      src="/find.svg"
+                      alt="No projects found"
+                      width={200}
+                      height={200}
+                      loading="lazy"
+                    />
                   </div>
                   <p className="text-gray-500 text-lg">No Project available</p>
                 </div>

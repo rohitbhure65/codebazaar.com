@@ -1,6 +1,7 @@
 "use client"
 import TextType from 'components/ui/TextType';
 import { CpuArchitecture } from './ui/cpu-architecture';
+import Image from "next/image";
 
 const Hero = () => {
     return (
@@ -21,9 +22,30 @@ const Hero = () => {
 
                             <div className="mt-8 lg:mt-12 lg:flex lg:items-center">
                                 <div className="flex justify-center flex-shrink-0 -space-x-4 overflow-hidden lg:justify-start">
-                                    <img className="inline-block rounded-full w-14 h-14 ring-2 ring-white" src="https://d33wubrfki0l68.cloudfront.net/3bfa6da479d6b9188c58f2d9a8d33350290ee2ef/301f1/images/hero/3/avatar-male.png" alt="codebazaar.com" />
-                                    <img className="inline-block rounded-full w-14 h-14 ring-2 ring-white" src="https://d33wubrfki0l68.cloudfront.net/b52fa09a115db3a80ceb2d52c275fadbf84cf8fc/7fd8a/images/hero/3/avatar-female-1.png" alt="codebazaar.com" />
-                                    <img className="inline-block rounded-full w-14 h-14 ring-2 ring-white" src="https://d33wubrfki0l68.cloudfront.net/8a2efb13f103a5ae2909e244380d73087a9c2fc4/31ed6/images/hero/3/avatar-female-2.png" alt="codebazaar.com" />
+                                    <Image
+                                        className="inline-block rounded-full w-14 h-14 ring-2 ring-white"
+                                        src="https://d33wubrfki0l68.cloudfront.net/3bfa6da479d6b9188c58f2d9a8d33350290ee2ef/301f1/images/hero/3/avatar-male.png"
+                                        alt="codebazaar.com"
+                                        width={56}
+                                        height={56}
+                                        loading="lazy"
+                                    />
+                                    <Image
+                                        className="inline-block rounded-full w-14 h-14 ring-2 ring-white"
+                                        src="https://d33wubrfki0l68.cloudfront.net/b52fa09a115db3a80ceb2d52c275fadbf84cf8fc/7fd8a/images/hero/3/avatar-female-1.png"
+                                        alt="codebazaar.com"
+                                        width={56}
+                                        height={56}
+                                        loading="lazy"
+                                    />
+                                    <Image
+                                        className="inline-block rounded-full w-14 h-14 ring-2 ring-white"
+                                        src="https://d33wubrfki0l68.cloudfront.net/8a2efb13f103a5ae2909e244380d73087a9c2fc4/31ed6/images/hero/3/avatar-female-2.png"
+                                        alt="codebazaar.com"
+                                        width={56}
+                                        height={56}
+                                        loading="lazy"
+                                    />
                                 </div>
 
                                 <p className="mt-4 text-lg text-gray-900 lg:mt-0 lg:ml-4 font-pj">Join with <span className="font-bold">4600+ Developers</span> and start getting feedbacks right now</p>
