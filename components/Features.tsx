@@ -60,7 +60,7 @@ const Features = () => {
                                 Empower Your Coding Journey with Codebazaar
                             </h1>
                             <p className="mt-6 text-lg text-gray-600">
-                                Unlock the power of code with Codebazaar - Your ultimate destination for free, high-quality programming resources. Explore a vast collection of code snippets, libraries, and frameworks to supercharge your development projects. Whether you're a beginner or a seasoned coder, Codebazaar has something for everyone. Start coding smarter, faster, and better today!
+                                Unlock the power of code with Codebazaar - Your ultimate destination for free, high-quality programming resources. Explore a vast collection of code snippets, libraries, and frameworks to supercharge your development projects. Whether you&apos;re a beginner or a seasoned coder, Codebazaar has something for everyone. Start coding smarter, faster, and better today!
                             </p>
                         </div>
                     </div>

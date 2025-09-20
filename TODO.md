@@ -1,5 +1,7 @@
-# TODO: Make Project List Responsive for Mobile
-
-- [ ] Update MUI Grid sizes for responsiveness (sidebar xs=12 sm=3, main xs=12 sm=8)
-- [ ] Update projects grid classes to grid-cols-1 sm:grid-cols-2 md:grid-cols-4
-- [ ] Test layout on mobile after edits
+- [ ] Fix unescaped apostrophes in Cloud.tsx
+- [ ] Fix unescaped apostrophes in Features.tsx
+- [ ] Add missing dependency 'getRandomSpeed' to useEffect in TextType.tsx
+- [ ] Add missing dependencies to useEffect and useCallbacks in file-tree.tsx
+- [ ] Add missing dependencies to useEffects in terminal.tsx
+- [ ] Add missing dependencies to useEffect in ProjectsList.tsx
+- [ ] Run build to verify fixes

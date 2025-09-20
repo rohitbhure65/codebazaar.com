@@ -10,7 +10,7 @@ const { api, getBlitzContext, useAuthenticatedBlitzContext, invoke, withBlitzAut
     plugins: [
       AuthServerPlugin({
         ...authConfig,
-        storage: PrismaStorage(db),
+        storage: PrismaStorage(db as any),
         isAuthorized: simpleRolesIsAuthorized,
       }),
       RpcServerPlugin({}),

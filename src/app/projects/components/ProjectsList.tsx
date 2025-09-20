@@ -99,7 +99,7 @@ export const ProjectsList = () => {
     const params = new URLSearchParams(searchparams);
     params.set("page", "1");
     router.push((pathname + "?" + params.toString()) as Route);
-  }, [debouncedSearchTerm, debouncedFilters]);
+  }, [debouncedSearchTerm, debouncedFilters, pathname, router, searchparams]);
 
   // Calculate total pages
   const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
