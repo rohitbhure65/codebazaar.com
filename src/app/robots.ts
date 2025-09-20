@@ -1,4 +1,5 @@
-import { MetadataRoute } from "next";
+import { MetadataRoute } from "next"
+import { WEBSITE_URL } from "@/lib/constants"
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin", "/api"],
       },
     ],
-    sitemap: "http://localhost:3000/sitemap.xml",
-    host: "http://localhost:3000",
-  };
+    sitemap: `${WEBSITE_URL}/sitemap.xml`,
+    host: `${WEBSITE_URL}`,
+  }
 }

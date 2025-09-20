@@ -1,7 +1,0 @@
-- [ ] Fix unescaped apostrophes in Cloud.tsx
-- [ ] Fix unescaped apostrophes in Features.tsx
-- [ ] Add missing dependency 'getRandomSpeed' to useEffect in TextType.tsx
-- [ ] Add missing dependencies to useEffect and useCallbacks in file-tree.tsx
-- [ ] Add missing dependencies to useEffects in terminal.tsx
-- [ ] Add missing dependencies to useEffect in ProjectsList.tsx
-- [ ] Run build to verify fixes

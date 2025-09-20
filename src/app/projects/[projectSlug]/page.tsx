@@ -4,6 +4,7 @@ import { invoke } from "src/app/blitz-server";
 import getProject from "../queries/getProject";
 import { Project } from "../components/Project";
 import { Skeleton } from "@/components/ui/skeleton"
+import { WEBSITE_URL, WEBSITE_NAME, GA_ID, WEBSITE_DESCRIPTION, WEBSITE_KEYWORDS } from "@/lib/constants"
 
 export async function generateMetadata(
   props: ProjectPageProps
@@ -22,8 +23,8 @@ export async function generateMetadata(
       description: Project.ogDescription || Project.metaDescription || Project.description,
       images: Project.ogImage ? [Project.ogImage] : [],
       type: 'website',
-      url: `https://codebazaar.com/projects/${Project.slug}`,
-      siteName: 'CodeBazaar',
+      url: `${WEBSITE_URL}/projects/${Project.slug}`,
+      siteName: `${WEBSITE_NAME}`,
       countryName: 'India',
       locale: 'en_IN'
     },

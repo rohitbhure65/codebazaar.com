@@ -9,16 +9,19 @@ import Faq from "@/components/Faq"
 import Features from "@/components/Features"
 import Video from "@/components/video"
 import Cloud from "@/components/Cloud"
+import { MarqueeDemo } from "@/components/marque"
+import { WEBSITE_URL, WEBSITE_NAME } from "@/lib/constants"
+import AnimatedFeature from "@/components/AnimatedFeature"
 
 const websiteSchema = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": 'CodeBazaar',
-  "url": "https://codebazaar.com",
+  "@type": "Website",
+  "name": `${WEBSITE_NAME}`,
+  "url": `${WEBSITE_URL}`,
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://www.google.com/search?q=codebazaar",
-    "query-input": "required name=codebazaar"
+    "target": `https://www.google.com/search?q=${WEBSITE_NAME}`,
+    "query-input": `required name=${WEBSITE_NAME}`
   }
 };
 
@@ -33,8 +36,10 @@ export default async function Home() {
       />
       <Hero />
       <Video />
-      <Features />
+      <MarqueeDemo />
+      <AnimatedFeature />
       <Cloud />
+      <Features />
       <State />
       <ProjectShowCase />
       {/* <Team /> */}
