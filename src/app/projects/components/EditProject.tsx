@@ -21,7 +21,7 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
       <div>
         <Suspense fallback={<Loader/>}>
           <ProjectForm
-            submitText="Update Project"
+            submitText="Update"
             schema={UpdateProjectSchema}
             initialValues={{
               ...project,

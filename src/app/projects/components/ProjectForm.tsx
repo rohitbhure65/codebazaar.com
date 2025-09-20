@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import { Form, FormProps } from "src/app/components/Form";
+import { Form, FormProps } from "src/app/components/ProjectForm";
 import { LabeledTextField } from "src/app/components/LabeledTextField";
 import LabeledCheckbox from "../../components/LabeledCheckbox";
 import { z } from "zod";
-export { FORM_ERROR } from "src/app/components/Form";
+export { FORM_ERROR } from "src/app/components/ProjectForm";
 
 import { useCurrentUser } from "src/app/users/hooks/useCurrentUser";
 
@@ -78,8 +78,6 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         type="text"
       />
 
-      <LabeledCheckbox name="isResellAllowed" label="Is Resell Allowed" defaultChecked={true} />
-      <LabeledCheckbox name="isApproved" label="Is Approved" defaultChecked={true} />
       <LabeledTextField
         name="userId"
         label="USER ID"
@@ -91,6 +89,8 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
             : []
         }
       />
+      <LabeledCheckbox name="isResellAllowed" label="Is Resell Allowed" defaultChecked={true} />
+      <LabeledCheckbox name="isApproved" label="Is Approved" defaultChecked={true} />
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}
     </Form>
   );
