@@ -13,6 +13,7 @@ import CloudDownloadRoundedIcon from '@mui/icons-material/CloudDownloadRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import Image from "next/image";
+import ProfileCard from "@/components/ProfileCard"
 import { WEBSITE_URL, WEBSITE_NAME } from "@/lib/constants"
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
@@ -388,6 +389,8 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> Project Details</h3>
         <p className="mb-4">{project.description}</p>
       </div>
+
+      <ProfileCard />
 
       <Reviews review={project.Review} />
     </div >
