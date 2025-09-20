@@ -96,7 +96,6 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       "reviewCount": `${project._count?.Review || 0}`,
       "bestRating": "5",
       "worstRating": "4"
-
     },
   };
   return (
