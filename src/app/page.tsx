@@ -11,6 +11,7 @@ import Video from "@/components/video"
 import Cloud from "@/components/Cloud"
 import { MarqueeDemo } from "@/components/marque"
 import { WEBSITE_URL, WEBSITE_NAME } from "@/lib/constants"
+import AnimatedFeature from "@/components/AnimatedFeature"
 
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -35,9 +36,10 @@ export default async function Home() {
       />
       <Hero />
       <Video />
-      <MarqueeDemo/>
-      <Features />
+      <MarqueeDemo />
+      <AnimatedFeature />
       <Cloud />
+      <Features />
       <State />
       <ProjectShowCase />
       {/* <Team /> */}
