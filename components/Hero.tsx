@@ -3,9 +3,10 @@ import TextType from 'components/ui/TextType';
 import { CpuArchitecture } from './ui/cpu-architecture';
 import Image from "next/image";
 import { useGsapBlocks } from "./ui/useGsap";
+import { useCurrentUser } from '@/src/app/users/hooks/useCurrentUser';
 
-const Hero = ({ user }) => {
-
+const Hero = () => {
+    const user = useCurrentUser();
     const { name } = user || {}
 
     useGsapBlocks()
