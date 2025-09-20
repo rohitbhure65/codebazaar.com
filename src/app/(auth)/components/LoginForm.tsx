@@ -66,7 +66,7 @@ export const LoginForm = (props: LoginFormProps) => {
 
         <div className="text-center mt-4">
           Or
-          <Link href="/signup" className="text-blue-500 hover:underline">
+          <Link href="/signup" className="text-blue-500 pl-2 hover:underline">
             <strong>Sign Up</strong>
           </Link>
         </div>

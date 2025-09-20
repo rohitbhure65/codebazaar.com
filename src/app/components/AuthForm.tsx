@@ -51,9 +51,9 @@ export function Form<S extends z.ZodType<any, any>>({
               type="submit"
               disabled={submitting}
               className="w-full py-3 px-5 font-semibold text-white rounded-xl 
-                 bg-gradient-to-r from-blue-500 to-indigo-600 
-                 hover:from-blue-600 hover:to-indigo-700
-                 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-indigo-800
+                 bg-gradient-to-r from-red-500 to-red-600 
+                 hover:from-red-600 hover:to-red-700
+                 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-800
                  shadow-lg transition-all duration-300 ease-in-out 
                  disabled:opacity-60 disabled:cursor-not-allowed"
             >
@@ -61,8 +61,8 @@ export function Form<S extends z.ZodType<any, any>>({
             </button>
           )}
 
-          <div className="absolute -top-3 -right-3 w-16 h-16 bg-blue-500/20 dark:bg-indigo-500/20 rounded-full blur-2xl" />
-          <div className="absolute -bottom-3 -left-3 w-20 h-20 bg-indigo-500/20 dark:bg-blue-500/20 rounded-full blur-2xl" />
+          <div className="absolute -top-3 -right-3 w-16 h-16 bg-red-500/20 dark:bg-red-500/20 rounded-full blur-2xl" />
+          <div className="absolute -bottom-3 -left-3 w-20 h-20 bg-red-500/20 dark:bg-red-500/20 rounded-full blur-2xl" />
         </form>
 
       )}
