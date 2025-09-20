@@ -203,7 +203,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 </svg>
                 <span className="text-gray-600">
                   Downloads:
-                  <span className="font-medium text-gray-800">{project.downloads || 0}</span>
+                  <span className="font-medium ml-1 text-gray-800">{project.downloads || 0}</span>
                 </span>
               </div>
               {project.demoUrl && (
