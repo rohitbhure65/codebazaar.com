@@ -1,8 +1,10 @@
 "use client"
 import React from 'react';
 import CountUp from './ui/Count';
+import { useGsapBlocks } from "./ui/useGsap";
 
 const State = () => {
+    useGsapBlocks()
     return (
         <section className="py-10 bg-gray-100 sm:py-16 lg:py-24">
             <div className="max-w-5xl block-appear px-4 mx-auto sm:px-6 lg:px-8">

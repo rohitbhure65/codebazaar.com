@@ -99,7 +99,7 @@ export const ProjectsList = () => {
     const params = new URLSearchParams(searchparams);
     params.set("page", "1");
     router.push((pathname + "?" + params.toString()) as Route);
-  }, [debouncedSearchTerm, debouncedFilters]);
+  }, [debouncedSearchTerm, debouncedFilters, pathname, router, searchparams]);
 
   // Calculate total pages
   const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
@@ -192,13 +192,13 @@ export const ProjectsList = () => {
                 <Link href={`/projects/${project.slug}`} key={project.id}>
                   <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10">
                     <div className="bg-white hover:shadow-md transition-shadow duration-200">
-                      <div className="h-32 bg-gray-200 mb-3 flex items-center justify-center">
+                      <div className="h-80 md:h-32 bg-gray-200 mb-3 flex items-center justify-center">
                         {project.projectImages && project.projectImages.length > 0 ? (
                           <Image
                             src={project.projectImage}
                             alt={project.title}
-                            width={128}
-                            height={128}
+                            width={600}
+                            height={300}
                             className="object-cover h-full w-full"
                             loading="lazy"
                           />
@@ -208,9 +208,9 @@ export const ProjectsList = () => {
                       </div>
 
                       <div className="content-card p-4">
-                        <h3 className="font-semibold text-gray-800 text-sm">{project.title}</h3>
+                        <h3 className="font-semibold text-gray-800 text-4xl md:text-sm ">{project.title}</h3>
                         <div className="text-yellow-400 mb-2">★ ★ ★ ★ ★</div>
-                        <p className="text-xs text-gray-500 mb-2">
+                        <p className="text-xl md:text-xs text-gray-500 mb-2">
                           {(project.description || "No description available.").length > 30
                             ? (project.description || "").slice(0, 40) + "..."
                             : project.description || "No description available."}
@@ -218,11 +218,11 @@ export const ProjectsList = () => {
 
                         <div className="flex items-center justify-between">
                           <div className="flex flex-col space-y-1">
-                            <span className="text-xl font-bold text-gray-900">
+                            <span className="text-3xl md:text-xl font-bold text-gray-900">
                               <CurrencyRupeeRoundedIcon />{project.price.toLocaleString()}
                             </span>
                           </div>
-                          <button className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700">
+                          <button className="px-3 py-1 bg-blue-600 text-white text-xl md:text-xs font-medium rounded hover:bg-blue-700">
                             <Link href={`/projects/${project.slug}/edit`}>Edit</Link>
                           </button>
                         </div>

@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api"], // block private routes
+        disallow: ["/admin", "/api"],
       },
     ],
     sitemap: "http://localhost:3000/sitemap.xml",

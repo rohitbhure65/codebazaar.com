@@ -123,7 +123,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         </Link>
       </Breadcrumbs>
       <div className="flex flex-col mt-4 md:flex-row gap-8">
-        <div className="md:w-1/2 space-y-4 relative">
+        <div className="md:w-1/2 space-y-4 relative h-80 md:h-96">
           <Image
             className="rounded-lg"
             src={project.projectImage}
@@ -247,7 +247,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                       href={project.repositoryUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 hover:underline font-medium"
+                      className="text-blue-600 hover:text-blue-800 font-medium"
                     >
                       {project.repositoryUrl}
                     </a>
@@ -274,7 +274,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                     className={`font-medium ${project.isResellAllowed ? "text-green-600" : "text-red-600"
                       }`}
                   >
-                    {project.isResellAllowed ? "Yes" : "No"}
+                    {project.isResellAllowed ? " Yes" : " No"}
                   </span>
                 </span>
               </div>
@@ -298,7 +298,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                     className={`font-medium ${project.isApproved ? "text-green-600" : "text-red-600"
                       }`}
                   >
-                    {project.isApproved ? "Yes" : "No"}
+                    {project.isApproved ? " Yes" : " No"}
                   </span>
                 </span>
               </div>

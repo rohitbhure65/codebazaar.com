@@ -2,9 +2,11 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Image from "next/image";
+import { useThemeMode } from "./ui/ThemeProvider";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { mode, toggleMode } = useThemeMode();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -46,8 +48,20 @@ const Navbar = () => {
                             </span>
                         </div>
 
-                        {/* Mobile menu button */}
-                        <div className="flex lg:hidden">
+                        {/* Mobile controls */}
+                        <div className="flex items-center gap-3 lg:hidden">
+                            <button
+                                type="button"
+                                className="text-gray-900"
+                                aria-label="Toggle theme"
+                                onClick={toggleMode}
+                            >
+                                {mode === 'dark' ? (
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M21.752 15.002A9.718 9.718 0 0 1 12 21.75a9.75 9.75 0 0 1-9.75-9.75 9.718 9.718 0 0 1 6.748-9.252.75.75 0 0 1 .951.94 8.25 8.25 0 0 0 10.113 10.113.75.75 0 0 1 .94.951z" /></svg>
+                                ) : (
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M12 18.75a6.75 6.75 0 1 0 0-13.5 6.75 6.75 0 0 0 0 13.5z" /><path fillRule="evenodd" d="M12 1.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V2.25A.75.75 0 0 1 12 1.5zm0 18.75a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V21a.75.75 0 0 1 .75-.75zM3.97 4.72a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 1 1-1.06 1.061L3.97 5.78a.75.75 0 0 1 0-1.06zm13.94 13.94a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 1 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061zM1.5 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5H2.25A.75.75 0 0 1 1.5 12zm18.75 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75zM3.97 18.22a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 1 1-1.06 1.061L3.97 19.28a.75.75 0 0 1 0-1.06zM19.97 4.72a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 1 1-1.06 1.061L19.97 5.78a.75.75 0 0 1 0-1.06z" clipRule="evenodd" /></svg>
+                                )}
+                            </button>
                             <button
                                 type="button"
                                 className="text-gray-900"
@@ -75,6 +89,14 @@ const Navbar = () => {
                             <div className="w-px h-5 bg-gray-300"></div>
 
                             <Link href="/login" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded font-pj hover:text-opacity-50"> Login </Link>
+
+                            <button
+                                onClick={toggleMode}
+                                title="Toggle theme"
+                                className="px-3 py-2 rounded-xl border border-gray-300 text-gray-900 transition hover:bg-gray-100"
+                            >
+                                {mode === 'dark' ? 'Light' : 'Dark'} Mode
+                            </button>
 
                             <Link
                                 href="/signup"
@@ -124,6 +146,13 @@ const Navbar = () => {
                                 >
                                     Login
                                 </Link>
+
+                                <button
+                                    onClick={() => { toggleMode(); closeMenu(); }}
+                                    className="px-5 py-2 text-base font-semibold leading-7 text-gray-900 transition-all duration-200 bg-transparent border border-gray-900 rounded-xl font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-900 hover:text-white focus:bg-gray-900 focus:text-white text-center"
+                                >
+                                    Toggle {mode === 'dark' ? 'Light' : 'Dark'} Mode
+                                </button>
 
                                 <Link
                                     href="/signup"

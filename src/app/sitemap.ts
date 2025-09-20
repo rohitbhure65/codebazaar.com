@@ -1,26 +1,42 @@
-import { MetadataRoute } from "next";
+import { MetadataRoute } from "next"
+import db from "db"
 
-// Example: dynamic sitemap
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "http://localhost:3000"; // change to your domain
+  const baseUrl = "https://codebazaar.com"
+  const currentDate = new Date()
 
-  // Example: Fetch all projects
-  const projects = await fetch(`${baseUrl}/api/projects`).then(res => res.json());
-
-  const projectUrls = projects.map((project: any) => ({
-    url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: project.updatedAt ? new Date(project.updatedAt) : new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
-
-  return [
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "daily",
+      lastModified: currentDate,
+      changeFrequency: "hourly",
       priority: 1,
     },
-    ...projectUrls,
-  ];
+    {
+      url: `${baseUrl}/projects`,
+      lastModified: currentDate,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+  ]
+
+  try {
+    const projects = await db.project.findMany({
+      where: { isApproved: true, visibility: "public" },
+      select: { slug: true, updatedAt: true },
+      orderBy: { updatedAt: "desc" },
+    })
+
+    const projectPages: MetadataRoute.Sitemap = projects.map((project) => ({
+      url: `${baseUrl}/projects/${project.slug}`,
+      lastModified: project.updatedAt ?? currentDate,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    }))
+
+    return [...staticPages, ...projectPages]
+  } catch (error) {
+    console.error("Error generating sitemap:", error)
+    return staticPages
+  }
 }

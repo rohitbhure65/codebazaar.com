@@ -6,7 +6,12 @@ const nextConfig = {
     typedRoutes: true,
   },
   images: {
-    domains: ["images.builderservices.io", "d33wubrfki0l68.cloudfront.net", "cdn.rareblocks.xyz", "imgs.search.brave.com"],
+    remotePatterns: [
+      { hostname: "images.builderservices.io" },
+      { hostname: "d33wubrfki0l68.cloudfront.net" },
+      { hostname: "cdn.rareblocks.xyz" },
+      { hostname: "imgs.search.brave.com" },
+    ],
   },
 }
 

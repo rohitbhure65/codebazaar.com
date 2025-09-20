@@ -4,6 +4,8 @@ import { Nunito } from "next/font/google"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import Script from "next/script";
+import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
+import { ThemeModeProvider } from "@/components/ui/ThemeProvider";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -59,9 +61,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${nunito.className} font-sans`}>
         <BlitzProvider>
-          <Navbar />
-          <div>{children}</div>
-          <Footer />
+          <ThemeModeProvider>
+            <Navbar />
+            <SmoothScrollProvider>
+              {children}
+            </SmoothScrollProvider>
+            <Footer />
+          </ThemeModeProvider>
         </BlitzProvider>
       </body>
 

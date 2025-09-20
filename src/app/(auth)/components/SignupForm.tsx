@@ -25,9 +25,16 @@ export const SignupForm = (props: SignupFormProps) => {
           initialValues={{ email: "", password: "" }}
           onSubmit={async (values) => {
             try {
-              await signupMutation(values)
-              router.refresh()
-              router.push("/")
+              await signupMutation({email: values.email, password: values.password})
+
+              // Call the onSuccess callback if provided
+              if (props.onSuccess) {
+                props.onSuccess()
+              } else {
+                // Default behavior: refresh and redirect to home
+                router.refresh()
+                router.push("/")
+              }
             } catch (error: any) {
               if (error.code === "P2002" && error.meta?.target?.includes("email")) {
                 // This error comes from Prisma

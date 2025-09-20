@@ -34,7 +34,7 @@ export default resolver.pipe(
           ? (input.tags as string[])
           : [],
     }
-    const project = await db.project.create({ data })
+    const project = await db.project.create({ data: data as any })
 
     return project
   }

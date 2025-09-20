@@ -4,17 +4,20 @@ import State from "components/State"
 import Testimonial from "components/Testimonial"
 import ProjectShowCase from "@/components/ProjectShowCase"
 import Hero from "@/components/Hero"
-import Team from "@/components/Team"
+// import Team from "@/components/Team"
 import Faq from "@/components/Faq"
+import Features from "@/components/Features"
+import Video from "@/components/video"
+import Cloud from "@/components/Cloud"
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": 'CodeBazaar',
-  "url": "https://google.com",
+  "url": "https://codebazaar.com",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://google.com/search?q=codebazaaer",
+    "target": "https://www.google.com/search?q=codebazaar",
     "query-input": "required name=codebazaar"
   }
 };
@@ -29,9 +32,12 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       <Hero />
+      <Video />
+      <Features />
+      <Cloud />
       <State />
       <ProjectShowCase />
-      <Team />
+      {/* <Team /> */}
       <Testimonial />
       <Faq />
     </>
