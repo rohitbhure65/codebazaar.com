@@ -46,7 +46,7 @@ export const LabeledTextField = forwardRef<
       {...outerProps}
       sx={{
         width: '100%',
-        mb: 2,
+        mb: 1,
         ...(outerProps?.sx as object)
       }}
     >
