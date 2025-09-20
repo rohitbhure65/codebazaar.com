@@ -3,10 +3,13 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import Image from "next/image";
 import { useThemeMode } from "./ui/ThemeProvider";
+import { LogoutButton } from '@/src/app/(auth)/components/LogoutButton';
+import { useCurrentUser } from '@/src/app/users/hooks/useCurrentUser';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { mode, toggleMode } = useThemeMode();
+    const user = useCurrentUser();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -97,17 +100,29 @@ const Navbar = () => {
                                 {mode === 'dark' ? 'Light' : 'Dark'} Mode
                             </button>
 
-                            <Link href="/login" title=""  className="px-3 py-2 rounded-xl border border-gray-300 text-gray-900 transition hover:bg-gray-100"> Login </Link>
+                            {!user ? (
+                                <>
+                                    <Link
+                                        href="/login"
+                                        title=""
+                                        className="px-3 py-2 rounded-xl border border-gray-300 text-gray-900 transition hover:bg-gray-100"
+                                    >
+                                        Login
+                                    </Link>
 
+                                    <Link
+                                        href="/signup"
+                                        title=""
+                                        className="px-3 py-2 rounded-xl border border-gray-300 text-gray-900 transition hover:bg-gray-100"
+                                        role="button"
+                                    >
+                                        Create free account
+                                    </Link>
+                                </>
+                            ) : (
+                                <LogoutButton />
+                            )}
 
-                            <Link
-                                href="/signup"
-                                title=""
-                                className="px-3 py-2 rounded-xl border border-gray-300 text-gray-900 transition hover:bg-gray-100"
-                                role="button"
-                            >
-                                Create free account
-                            </Link>
                         </div>
                     </div>
 
