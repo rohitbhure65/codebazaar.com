@@ -81,14 +81,13 @@ const Navbar = () => {
                         </div>
 
                         {/* Desktop navigation */}
-                        <div className="hidden lg:flex lg:ml-16 lg:items-center lg:justify-center lg:space-x-10">
+                        <div className="hidden lg:flex lg:ml-16 lg:items-center lg:justify-center lg:space-x-5">
                             <div className="flex items-center space-x-12">
                                 <Link href="/projects" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded font-pj hover:text-opacity-50"> Project </Link>
                             </div>
 
                             <div className="w-px h-5 bg-gray-300"></div>
 
-                            <Link href="/login" title="" className="text-base font-medium text-gray-900 transition-all duration-200 rounded font-pj hover:text-opacity-50"> Login </Link>
 
                             <button
                                 onClick={toggleMode}
@@ -98,26 +97,13 @@ const Navbar = () => {
                                 {mode === 'dark' ? 'Light' : 'Dark'} Mode
                             </button>
 
+                            <Link href="/login" title=""  className="px-3 py-2 rounded-xl border border-gray-300 text-gray-900 transition hover:bg-gray-100"> Login </Link>
+
+
                             <Link
                                 href="/signup"
                                 title=""
-                                className="
-                            px-5
-                            py-2
-                            text-base
-                            font-semibold
-                            leading-7
-                            text-gray-900
-                            transition-all
-                            duration-200
-                            bg-transparent
-                            border border-gray-900
-                            rounded-xl
-                            font-pj
-                            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900
-                            hover:bg-gray-900 hover:text-white
-                            focus:bg-gray-900 focus:text-white
-                        "
+                                className="px-3 py-2 rounded-xl border border-gray-300 text-gray-900 transition hover:bg-gray-100"
                                 role="button"
                             >
                                 Create free account
