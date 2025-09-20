@@ -61,7 +61,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       "price": project.price,
       "availability": `https://schema.org/InStock`,
       "seller": {
-        "@type": "CodeBazaar",
+        "@type": "Organization",
         "name": "CodeBazaar"
       },
       "shippingDetails": {
@@ -88,18 +88,16 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
             "maxValue": "0"
           }
         }
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": '5',
-        "reviewCount": `${project._count?.Review || 0}`
       }
     },
-    "additionalProperty": {
-      "@type": "PropertyValue",
-      "name": "productType",
-      "value": "digital"
-    }
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": project._count?.Review > 0 ? '5' : '0',
+      "reviewCount": `${project._count?.Review || 0}`,
+      "bestRating": "5",
+      "worstRating": "4"
+
+    },
   };
   return (
     <div className="max-w-6xl mx-auto p-10" >
