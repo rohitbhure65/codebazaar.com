@@ -13,6 +13,7 @@ import CloudDownloadRoundedIcon from '@mui/icons-material/CloudDownloadRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import Image from "next/image";
+import { WEBSITE_URL, WEBSITE_NAME } from "@/lib/constants"
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
   const [project] = useQuery(getProject, { slug: projectSlug })
@@ -31,13 +32,13 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         "@type": "ListItem",
         "position": 2,
         "name": 'projects',
-        "item": `https://codebazaar.com/projects/`
+        "item": `${WEBSITE_URL}/projects/`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": project.title,
-        "item": `https://codebazaar.com/projects/${project.slug}`
+        "item": `${WEBSITE_URL}/projects/${project.slug}`
       }
     ]
   };
@@ -51,18 +52,18 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
     "sku": `project-${project.id}`,
     "brand": {
       "@type": "Brand",
-      "name": 'CodeBazaar'
+      "name": `${WEBSITE_NAME}`
     },
     "offers": {
       "@type": "Offer",
-      "url": `https://codebazaar.com/projects/${project.slug}`,
+      "url": `${WEBSITE_URL}/projects/${project.slug}`,
       "priceCurrency": 'INR',
       "priceValidUntil": "2099-12-31",
       "price": project.price,
       "availability": `https://schema.org/InStock`,
       "seller": {
         "@type": "Organization",
-        "name": "CodeBazaar"
+        "name": `${WEBSITE_NAME}`
       },
       "shippingDetails": {
         "@type": "OfferShippingDetails",
@@ -124,7 +125,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
           <Image
             className="rounded-lg"
             src={project.projectImage}
-            alt="codebazaar.com"
+            alt={project.title}
             fill
             style={{ objectFit: 'cover' }}
             loading="lazy"

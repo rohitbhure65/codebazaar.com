@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next"
 import db from "db"
+import { WEBSITE_URL } from "@/lib/constants"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://codebazaar.com"
+  const baseUrl = `${WEBSITE_URL}`
   const currentDate = new Date()
 
   const staticPages: MetadataRoute.Sitemap = [

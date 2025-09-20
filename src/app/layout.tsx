@@ -6,54 +6,47 @@ import Footer from "@/components/Footer"
 import Script from "next/script";
 import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
 import { ThemeModeProvider } from "@/components/ui/ThemeProvider";
+import { WEBSITE_URL, WEBSITE_NAME, GA_ID, WEBSITE_DESCRIPTION, WEBSITE_KEYWORDS } from "@/lib/constants"
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" })
 
 export const metadata = {
-  title: "CodeBazaar.com",
-  description: "Cobazaar.com online market place for developers",
-  keywords: [
-    "CodeBazaar",
-    "Code Bazaar",
-    "CodeBazaar.com",
-    "Code Bazaar.com",
-    "Code Marketplace",
-    "Rohit Bhure Code Bazaar",
-    "Rohit Bhure CodeBazaar.com"],
+  title: `${WEBSITE_NAME} - Buy and Sell Code Snippets, Templates, and More`,
+  description: `${WEBSITE_DESCRIPTION}`,
+  keywords: `${WEBSITE_KEYWORDS}`,
   robots: 'index, follow',
   openGraph: {
-    title: 'CodeBazaar.com',
-    description: 'Cobazaar.com online market place for developers',
+    title: `${WEBSITE_NAME}`,
+    description: `${WEBSITE_DESCRIPTION}`,
     images: [
       {
-        url: 'https://codebazaar.com/og-image.png',
+        url: `${WEBSITE_URL}/og-image.png`,
         width: 800,
         height: 600,
-        alt: 'CodeBazaar.com',
+        alt: `${WEBSITE_NAME}`,
       },
     ],
     type: 'website',
-    url: 'https://codebazaar.com',
-    siteName: 'CodeBazaar',
+    url: `${WEBSITE_URL}`,
+    siteName: `${WEBSITE_NAME}`,
     countryName: 'India',
     locale: 'en_IN'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CodeBazaar.com',
-    description: 'Cobazaar.com online market place for developers',
+    title: `${WEBSITE_NAME}`,
+    description: `${WEBSITE_DESCRIPTION}`,
     images: [
       {
-        url: 'https://codebazaar.com/og-image.png',
+        url: `${WEBSITE_URL}/og-image.png`,
         width: 800,
         height: 600,
-        alt: 'CodeBazaar.com',
+        alt: `${WEBSITE_NAME}`,
       },
     ],
   },
-  alternates: { canonical: 'https://codebazaar.com' },
+  alternates: { canonical: `${WEBSITE_URL}` },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
