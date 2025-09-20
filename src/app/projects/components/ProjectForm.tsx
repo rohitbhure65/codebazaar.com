@@ -22,59 +22,158 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         placeholder="Title"
         type="text"
       />
+
       <LabeledTextField
         name="description"
         label="Description"
         placeholder="Description"
         type="text"
       />
+
       <LabeledTextField
         name="category"
         label="Category"
-        placeholder="Category"
+        placeholder="Comma separated categories"
         type="text"
       />
-      <LabeledTextField
-        name="projectImage"
-        label="Project Image"
-        placeholder="Project Image"
-        type="text"
-      />
-      <LabeledTextField
-        name="projectImages"
-        label="Project Images"
-        placeholder="project Images"
-        type="text"
-      />
+
       <LabeledTextField
         name="tags"
         label="Tags"
-        placeholder="Tags"
+        placeholder="Comma separated tags"
         type="text"
       />
 
       <LabeledTextField
         name="techStack"
         label="Tech Stack"
-        placeholder="Tech Stack"
+        placeholder="Comma separated tech stack"
         type="text"
       />
+
+      <LabeledTextField
+        name="projectImage"
+        label="Project Image"
+        placeholder="Project Image URL"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="projectImages"
+        label="Project Images"
+        placeholder="Comma separated image URLs"
+        type="text"
+      />
+
       <LabeledTextField
         name="fileUrl"
-        label="File Url"
-        placeholder="File Url"
+        label="File URL"
+        placeholder="File URL"
         type="text"
       />
+
+      <LabeledTextField
+        name="repositoryUrl"
+        label="Github Repo URL"
+        placeholder="Github Repo URL"
+        type="text"
+      />
+
       <LabeledTextField
         name="price"
         label="Price"
         placeholder="Price"
         type="number"
       />
+
       <LabeledTextField
         name="slug"
         label="Slug"
         placeholder="Slug"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="metaTitle"
+        label="Meta Title"
+        placeholder="Meta Title (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="metaDescription"
+        label="Meta Description"
+        placeholder="Meta Description (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="metaKeywords"
+        label="Meta Keywords"
+        placeholder="Meta Keywords (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="ogTitle"
+        label="OG Title"
+        placeholder="OG Title (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="ogDescription"
+        label="OG Description"
+        placeholder="OG Description (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="ogImage"
+        label="OG Image URL"
+        placeholder="OG Image URL (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="twitterTitle"
+        label="Twitter Title"
+        placeholder="Twitter Title (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="twitterDescription"
+        label="Twitter Description"
+        placeholder="Twitter Description (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="twitterImage"
+        label="Twitter Image URL"
+        placeholder="Twitter Image URL (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="canonicalUrl"
+        label="Canonical URL"
+        placeholder="Canonical URL (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="demoUrl"
+        label="Demo URL"
+        placeholder="Demo URL (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="visibility"
+        label="Visibility"
+        placeholder="public/private"
         type="text"
       />
 
