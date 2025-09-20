@@ -1,6 +1,6 @@
 "use client"
 import { LabeledTextField } from "src/app/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/app/components/Form"
+import { Form, FORM_ERROR } from "src/app/components/AuthForm"
 import { ResetPassword } from "../validations"
 import resetPassword from "../mutations/resetPassword"
 import { useMutation } from "@blitzjs/rpc"
