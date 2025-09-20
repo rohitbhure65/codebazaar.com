@@ -3,8 +3,6 @@ import { Form, FormProps } from "src/app/components/Form";
 import { LabeledTextField } from "src/app/components/LabeledTextField";
 import LabeledCheckbox from "../../components/LabeledCheckbox";
 import { z } from "zod";
-import getUsersWithoutProjects from "src/app/users/queries/getUsersWithoutProjects";
-import { usePaginatedQuery } from "@blitzjs/rpc";
 export { FORM_ERROR } from "src/app/components/Form";
 
 import { useCurrentUser } from "src/app/users/hooks/useCurrentUser";
@@ -12,7 +10,6 @@ import { useCurrentUser } from "src/app/users/hooks/useCurrentUser";
 export function ProjectForm<S extends z.ZodType<any, any>>(
   props: FormProps<S>
 ) {
-  const [users] = usePaginatedQuery(getUsersWithoutProjects, null);
   const currentUser = useCurrentUser();
 
   const initialValues = props.initialValues || { userId: currentUser?.id };
