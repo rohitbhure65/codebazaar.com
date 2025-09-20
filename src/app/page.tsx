@@ -1,5 +1,5 @@
-// import { invoke } from "./blitz-server"
-// import getCurrentUser from "./users/queries/getCurrentUser"
+import { invoke } from "./blitz-server"
+import getCurrentUser from "./users/queries/getCurrentUser"
 import State from "components/State"
 import Testimonial from "components/Testimonial"
 import ProjectShowCase from "@/components/ProjectShowCase"
@@ -26,7 +26,7 @@ const websiteSchema = {
 };
 
 export default async function Home() {
-  // const currentUser = await invoke(getCurrentUser, null)
+  const currentUser = await invoke(getCurrentUser, null)
 
   return (
     <>
@@ -34,7 +34,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
-      <Hero />
+      <Hero user={currentUser} />
       <Video />
       <MarqueeDemo />
       <AnimatedFeature />

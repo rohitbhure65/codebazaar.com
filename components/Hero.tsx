@@ -4,7 +4,10 @@ import { CpuArchitecture } from './ui/cpu-architecture';
 import Image from "next/image";
 import { useGsapBlocks } from "./ui/useGsap";
 
-const Hero = () => {
+const Hero = ({ user }) => {
+
+    const { name } = user || {}
+
     useGsapBlocks()
     return (
         <section className="relative py-12 sm:py-16 lg:pt-20 lg:pb-36">
@@ -14,8 +17,8 @@ const Hero = () => {
                         <div className="max-w-sm mx-auto sm:max-w-md md:max-w-full">
                             <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight font-pj">
                                 <TextType
-                                    text={["Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code!"]}
-                                    typingSpeed={200}
+                                    text={[`Welcom I am Happy to See You Again 😊 ${name || ''}`, "Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code!"]}
+                                    typingSpeed={100}
                                     pauseDuration={1500}
                                     showCursor={true}
                                     cursorCharacter="|"
