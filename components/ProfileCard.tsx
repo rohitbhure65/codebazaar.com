@@ -16,8 +16,7 @@ export default function ProfileCard() {
             <div>
                 <h2 className="text-lg font-bold">ATRON CALERY</h2>
                 <p className="text-gray-600 mt-1 text-sm">
-                    Lorem ipsum dolor sit amet, cons tetur adipiscing elit. Orci commodo,
-                    elit sit enim blandit enim sit molestie aana.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore similique debitis asperiores accusantium sed optio necessitatibus facilis est blanditiis dolor rerum tenetur esse molestias sunt illum ut ex aspernatur odit molestiae, iusto nesciunt architecto perferendis eaque dicta! Harum cupiditate accusamus eos sunt repellendus hic sapiente debitis dolorum cumque veniam nemo incidunt, quod, ipsa aut laborum?
                 </p>
                 <div className="mt-3 flex items-center gap-3 text-sm font-medium text-gray-900">
                     <a href="#" className="hover:text-blue-600">
