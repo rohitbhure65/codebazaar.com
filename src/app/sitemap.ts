@@ -5,7 +5,15 @@ import { WEBSITE_URL } from "@/lib/constants"
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = `${WEBSITE_URL}`
   const currentDate = new Date()
-
+// type SitemapFile = Array<{
+//     url: string;
+//     lastModified?: string | Date;
+//     changeFrequency?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+//     priority?: number;
+//     alternates?: {
+//         languages?: Languages<string>;
+//     };
+// }>;
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -16,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/projects`,
       lastModified: currentDate,
-      changeFrequency: "daily",
+      changeFrequency: "always",
       priority: 0.8,
     },
   ]

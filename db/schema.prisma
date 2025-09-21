@@ -16,7 +16,7 @@ model User {
   id             Int      @id @default(autoincrement())
   name           String?
   email          String   @unique
-  phone          BigInt?  @unique
+  phone          String?   @unique
   age            Int?
   gender         Gender?
   hashedPassword String?

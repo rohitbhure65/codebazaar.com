@@ -74,26 +74,15 @@ declare namespace MetadataRoute {
     type Manifest = ManifestFile;
 }
 
-FROM node:lts
 
-WORKDIR /app
+/////////////////////////////////////////// BUILD //////////////////////////////////////////
 
-EXPOSE 3000
+npm run build
 
-# Copy the package.json and pnpm-lock.yaml files to the container
-COPY package.json ./
-#COPY patches ./patches
-COPY pnpm-lock.yaml ./
-
-RUN npm install -g pnpm && pnpm i
-
-COPY . .
-
-RUN yarn build
-
-# https://github.com/blitz-js/blitz/issues/4354
 cp -r ./node_modules/.pnpm/sodium-native@3.4.1/node_modules/sodium-native/prebuilds ".next/server/app/(auth)/login"
+
 cp -r ./node_modules/.pnpm/sodium-native@3.4.1/node_modules/sodium-native/prebuilds ".next/server/app/api/rpc/[[...blitz]]"
+
 cp -r ./node_modules/.pnpm/sodium-native@3.4.1/node_modules/sodium-native/prebuilds ".next/server/app/(auth)/reset-password"
 
-CMD yarn start
+npm start
