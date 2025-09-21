@@ -193,7 +193,7 @@ export const ProjectsList = () => {
                   <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10">
                     <div className="bg-white hover:shadow-md transition-shadow duration-200">
                       <div className="h-80 md:h-32 bg-gray-200 mb-3 flex items-center justify-center">
-                        {project.projectImages && project.projectImages.length > 0 ? (
+                        {project.projectImage ? (
                           <Image
                             src={project.projectImage}
                             alt={project.title}
