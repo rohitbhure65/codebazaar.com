@@ -8,14 +8,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input"> {
   /** Field name. */
   name: string
   /** Field label. */
   label: string
-  /** Field type. Can include checkbox now */
-  type?: "text" | "password" | "email" | "number" | "checkbox"
+  /** Field type. Can include checkbox and textarea now */
+  type?: "text" | "password" | "email" | "number" | "checkbox" | "textarea"
   /** Flag to determine if the field is a select dropdown */
   isSelect?: boolean
   /** Options for select dropdown (if applicable) */
@@ -26,7 +27,7 @@ export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input">
 }
 
 export const LabeledTextField = forwardRef<
-  HTMLInputElement | HTMLSelectElement | HTMLButtonElement,
+  HTMLInputElement | HTMLSelectElement | HTMLButtonElement | HTMLTextAreaElement,
   LabeledTextFieldProps
 >(({ name, label, isSelect, options, outerProps, fieldProps, labelProps, type, ...props }, ref) => {
   const {
@@ -83,6 +84,16 @@ export const LabeledTextField = forwardRef<
             ))}
           </Select>
         </FormControl>
+      ) : type === "textarea" ? (
+        <TextareaAutosize
+          {...input}
+          aria-label={label}
+          minRows={3}
+          placeholder={label}
+          style={{ width: '100%', fontSize: '1rem', padding: '8.5px 14px', borderRadius: 4, borderColor: touched && !!normalizedError ? '#d32f2f' : 'rgba(0, 0, 0, 0.23)', borderStyle: 'solid', borderWidth: 1, boxSizing: 'border-box' }}
+          disabled={submitting}
+          ref={ref as React.Ref<HTMLTextAreaElement>}
+        />
       ) : (
         <TextField
           {...input}
