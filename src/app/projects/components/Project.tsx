@@ -13,6 +13,7 @@ import CloudDownloadRoundedIcon from '@mui/icons-material/CloudDownloadRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import Image from "next/image";
+import ProfileCard from "@/components/ProfileCard"
 import { WEBSITE_URL, WEBSITE_NAME } from "@/lib/constants"
 
 export const Project = ({ projectSlug }: { projectSlug: string }) => {
@@ -52,7 +53,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
     "sku": `project-${project.id}`,
     "brand": {
       "@type": "Brand",
-      "name": `${WEBSITE_NAME}`
+      "name": WEBSITE_NAME
     },
     "offers": {
       "@type": "Offer",
@@ -63,7 +64,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       "availability": `https://schema.org/InStock`,
       "seller": {
         "@type": "Organization",
-        "name": `${WEBSITE_NAME}`
+        "name": WEBSITE_NAME
       },
       "shippingDetails": {
         "@type": "OfferShippingDetails",
@@ -100,7 +101,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
     },
   };
   return (
-    <div className="max-w-6xl mx-auto p-10" >
+    <div className="max-w-6xl mx-auto border my-10 rounded-md p-10" >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
@@ -203,7 +204,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 </svg>
                 <span className="text-gray-600">
                   Downloads:
-                  <span className="font-medium text-gray-800">{project.downloads || 0}</span>
+                  <span className="font-medium ml-1 text-gray-800">{project.downloads || 0}</span>
                 </span>
               </div>
               {project.demoUrl && (
@@ -227,9 +228,9 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                       href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 hover:underline font-medium"
+                      className="text-gray-600 ml-1 underline hover:text-gray-800 font-light"
                     >
-                      {project.demoUrl}
+                      Link
                     </a>
                   </span>
                 </div>
@@ -245,9 +246,9 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                       href={project.repositoryUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 font-medium"
+                      className="text-gray-600 ml-1 underline hover:text-gray-800 font-light"
                     >
-                      {project.repositoryUrl}
+                      Link
                     </a>
                   </span>
                 </div>
@@ -269,8 +270,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 <span className="text-gray-600">
                   Resell Allowed:
                   <span
-                    className={`font-medium ${project.isResellAllowed ? "text-green-600" : "text-red-600"
-                      }`}
+                    className={`font-medium`}
                   >
                     {project.isResellAllowed ? " Yes" : " No"}
                   </span>
@@ -293,13 +293,62 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 <span className="text-gray-600">
                   Approved:
                   <span
-                    className={`font-medium ${project.isApproved ? "text-green-600" : "text-red-600"
-                      }`}
+                    className={`font-medium`}
                   >
                     {project.isApproved ? " Yes" : " No"}
                   </span>
                 </span>
               </div>
+              {project.category && (
+                <div className="flex items-center space-x-2">
+                  <svg
+                    className="w-4 h-4 text-gray-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span className="text-gray-600">
+                    Category:
+                    <span
+                      className={`ml-1 font-medium`}
+                    >
+                      {project.category}
+                    </span>
+                  </span>
+                </div>
+              )}
+              {project.version && (
+                <div className="flex items-center space-x-2">
+                  <svg
+                    className="w-4 h-4 text-gray-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span className="text-gray-600">
+                    Version:
+                    <span
+                      className={`ml-1 font-medium`}
+                    >
+                      {project.version}
+                    </span>
+                  </span>
+                </div>
+              )}
             </div>
           </div>
           <div className="my-4 py-4 space-y-4">
@@ -361,10 +410,42 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
           </div>
         </div>
       </div>
-      <div className="bg-white rounded-lg shadow-md mt-10 p-6 border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> Project Details</h3>
-        <p className="mb-4">{project.description}</p>
-      </div>
+
+
+      {project.features && (
+        <div className="bg-white rounded-lg shadow-md mt-5 p-6 border border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> Features</h3>
+          <p className="mb-4">{project.features}</p>
+        </div>
+      )}
+
+      {project.videoUrl && (
+        <div className="relative w-full pb-[56.25%] mt-5 h-0 overflow-hidden rounded-xl shadow-md">
+          <iframe
+            src={project.videoUrl}
+            title={project.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute top-0 left-0 w-full h-full"
+          ></iframe>
+        </div>
+      )}
+
+      {project.description && (
+        <div className="bg-white rounded-lg shadow-md mt-5 p-6 border border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> Description</h3>
+          <p className="mb-4">{project.description}</p>
+        </div>
+      )}
+
+      {project.requirements && (
+        <div className="bg-white rounded-lg shadow-md mt-5 p-6 border border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> requirements</h3>
+          <p className="mb-4">{project.requirements}</p>
+        </div>
+      )}
+
+      <ProfileCard />
 
       <Reviews review={project.Review} />
     </div >

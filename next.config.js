@@ -7,10 +7,14 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      { hostname: "images.builderservices.io" },
-      { hostname: "d33wubrfki0l68.cloudfront.net" },
-      { hostname: "cdn.rareblocks.xyz" },
-      { hostname: "imgs.search.brave.com" },
+      {
+        protocol: "https",
+        hostname: "**", // allow all hostnames
+      },
+      {
+        protocol: "http",
+        hostname: "**", // also allow http if needed
+      },
     ],
   },
 }

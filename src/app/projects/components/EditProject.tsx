@@ -19,26 +19,11 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
   return (
     <>
       <div>
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={<Loader />}>
           <ProjectForm
-            submitText="Update Project"
+            submitText="Update"
             schema={UpdateProjectSchema}
-            initialValues={{
-              ...project,
-              metaTitle: project.metaTitle || undefined,
-              metaDescription: project.metaDescription || undefined,
-              metaKeywords: project.metaKeywords || undefined,
-              ogTitle: project.ogTitle || undefined,
-              ogDescription: project.ogDescription || undefined,
-              ogImage: project.ogImage || undefined,
-              twitterTitle: project.twitterTitle || undefined,
-              twitterDescription: project.twitterDescription || undefined,
-              twitterImage: project.twitterImage || undefined,
-              canonicalUrl: project.canonicalUrl || undefined,
-              robots: project.robots || undefined,
-              demoUrl: project.demoUrl || undefined,
-              repositoryUrl: project.repositoryUrl || undefined,
-            }}
+            initialValues={{...project}}
             onSubmit={async (values) => {
               try {
                 const updated = await updateProjectMutation({

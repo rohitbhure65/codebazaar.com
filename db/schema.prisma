@@ -12,6 +12,222 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model User {
+  id             Int      @id @default(autoincrement())
+  name           String?
+  email          String   @unique
+  phone          BigInt?  @unique
+  age            Int?
+  gender         Gender?
+  hashedPassword String?
+  walletBalance  Float    @default(0)
+  role           UserRole @default(USER)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  tokens         Token[]
+  sessions       Session[]
+  projects       Project[]
+  purchases      Purchase[]
+  reviews        Review[]
+  transactions   Transaction[]
+  supportTickets SupportTicket[]
+}
+
+model Session {
+  id                 Int       @id @default(autoincrement())
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  expiresAt          DateTime?
+  handle             String    @unique
+  hashedSessionToken String?
+  antiCSRFToken      String?
+  publicData         String?
+  privateData        String?
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model Token {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  hashedToken String
+  type        String
+  expiresAt   DateTime
+  sentTo      String
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@unique([hashedToken, type])
+}
+
+model Project {
+  id                 Int             @id @default(autoincrement())
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  title              String
+  description        String
+  category           String[]
+  tags               String[]
+  techStack          String[]
+  projectImage       String
+  projectImages      String[]
+  slug               String          @unique
+  fileUrl            String?
+  videoUrl           String?
+  featured           Boolean         @default(false)
+  version            String          @default("1.0.0")
+  features           String          @default("")
+  requirements       String          @default("")
+  price              Float
+  isResellAllowed    Boolean         @default(false)
+  isApproved         Boolean         @default(false)
+  views              Int             @default(0)
+  downloads          Int             @default(0)
+  metaTitle          String?         @default("")
+  metaDescription    String?         @default("")
+  metaKeywords       String?         @default("")
+  robots             String?         @default("index, follow") // Example: "noindex, nofollow", "index, follow"
+  demoUrl            String?         @default("")
+  repositoryUrl      String?         @default("")
+  visibility         String          @default("public")
+  user               User            @relation(fields: [userId], references: [id])
+  userId             Int
+  Purchase           Purchase[]
+  Review             Review[]
+  ProjectTag         ProjectTag[]
+  SupportTicket      SupportTicket[]
+}
+
+model Review {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  rating        Int      @default(5) @db.SmallInt
+  comment       String
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
+}
+
+model Purchase {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  amountPaid  Float
+  licenseType LicenseType
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
+}
+
+model Transaction {
+  id            Int             @id @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  type          TransactionType
+  amount        Float
+  paymentMethod PaymentMethod
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String   @unique
+  description String
+
+  projectTags ProjectTag[]
+}
+
+model ProjectTag {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@unique([projectId, categoryId])
+}
+
+model SupportTicket {
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  issueType   IssueType
+  status      TicketStatus @default(OPEN)
+  description String
+  resolvedAt  DateTime?
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId Int?
+}
+
+// ============================================================================
+// ENUMS
+// ============================================================================
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum LicenseType {
+  ORIGINAL
+  RESALE
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+  COMMISSION
+}
+
+enum PaymentMethod {
+  UPI
+  PAYPAL
+  STRIPE
+  BANK_TRANSFER
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+}
+
+enum IssueType {
+  DISPUTE
+  REFUND
+  BUG
+  QUERY
+}
+
+
 // ============================================================================
 // API ROUTES
 // ============================================================================
@@ -138,222 +354,3 @@ generator client {
 // ============================================================================
 // MODELS
 // ============================================================================
-
-model User {
-  id             Int      @id @default(autoincrement())
-  name           String?
-  email          String   @unique
-  phone          Int?     @unique
-  age            Int?
-  gender         Gender?
-  hashedPassword String?
-  walletBalance  Float    @default(0)
-  role           UserRole @default(USER)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  tokens         Token[]
-  sessions       Session[]
-  projects       Project[]
-  purchases      Purchase[]
-  reviews        Review[]
-  transactions   Transaction[]
-  supportTickets SupportTicket[]
-}
-
-model Session {
-  id                 Int       @id @default(autoincrement())
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-  expiresAt          DateTime?
-  handle             String    @unique
-  hashedSessionToken String?
-  antiCSRFToken      String?
-  publicData         String?
-  privateData        String?
-
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
-}
-
-model Token {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  hashedToken String
-  type        String
-  expiresAt   DateTime
-  sentTo      String
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-
-  @@unique([hashedToken, type])
-}
-
-model Project {
-  id                 Int             @id @default(autoincrement())
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
-  title              String
-  description        String
-  category           String[]
-  tags               String[]
-  techStack          String[]
-  projectImage       String
-  projectImages      String[]
-  slug               String          @unique
-  fileUrl            String
-  price              Float
-  isResellAllowed    Boolean         @default(false)
-  isApproved         Boolean         @default(false)
-  views              Int             @default(0)
-  downloads          Int             @default(0)
-  metaTitle          String?
-  metaDescription    String?
-  metaKeywords       String?
-  ogTitle            String?
-  ogDescription      String?
-  ogImage            String?
-  twitterTitle       String?
-  twitterDescription String?
-  twitterImage       String?
-  canonicalUrl       String?
-  robots             String?         @default("index, follow") // Example: "noindex, nofollow", "index, follow"
-  demoUrl            String?
-  repositoryUrl      String?
-  visibility         String          @default("public")
-  user               User            @relation(fields: [userId], references: [id])
-  userId             Int
-  Purchase           Purchase[]
-  Review             Review[]
-  ProjectTag         ProjectTag[]
-  SupportTicket      SupportTicket[]
-}
-
-model Purchase {
-  id          Int         @id @default(autoincrement())
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  amountPaid  Float
-  licenseType LicenseType
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId Int
-}
-
-model Review {
-  id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  rating        Int      @default(5) @db.SmallInt
-  comment       String
-  averageRating Float?   @default(0)
-  ratingcount   Int?     @default(0)
-  user          User     @relation(fields: [userId], references: [id])
-  userId        Int
-
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId Int
-}
-
-model Transaction {
-  id            Int             @id @default(autoincrement())
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  type          TransactionType
-  amount        Float
-  paymentMethod PaymentMethod
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-}
-
-model Category {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  name        String   @unique
-  description String
-
-  projectTags ProjectTag[]
-}
-
-model ProjectTag {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId Int
-
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
-
-  @@unique([projectId, categoryId])
-}
-
-model SupportTicket {
-  id          Int          @id @default(autoincrement())
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  issueType   IssueType
-  status      TicketStatus @default(OPEN)
-  description String
-  resolvedAt  DateTime?
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-
-  project   Project? @relation(fields: [projectId], references: [id])
-  projectId Int?
-}
-
-// ============================================================================
-// ENUMS
-// ============================================================================
-
-enum UserRole {
-  USER
-  ADMIN
-}
-
-enum Gender {
-  MALE
-  FEMALE
-  OTHER
-}
-
-enum LicenseType {
-  ORIGINAL
-  RESALE
-}
-
-enum TransactionType {
-  CREDIT
-  DEBIT
-  COMMISSION
-}
-
-enum PaymentMethod {
-  UPI
-  PAYPAL
-  STRIPE
-  BANK_TRANSFER
-}
-
-enum TicketStatus {
-  OPEN
-  IN_PROGRESS
-  RESOLVED
-}
-
-enum IssueType {
-  DISPUTE
-  REFUND
-  BUG
-  QUERY
-}

@@ -4,7 +4,7 @@ import { invoke } from "src/app/blitz-server";
 import getProject from "../queries/getProject";
 import { Project } from "../components/Project";
 import { Skeleton } from "@/components/ui/skeleton"
-import { WEBSITE_URL, WEBSITE_NAME, GA_ID, WEBSITE_DESCRIPTION, WEBSITE_KEYWORDS } from "@/lib/constants"
+import { WEBSITE_URL, WEBSITE_NAME } from "@/lib/constants"
 
 export async function generateMetadata(
   props: ProjectPageProps
@@ -12,30 +12,32 @@ export async function generateMetadata(
   const params = await props.params;
   const Project = await invoke(getProject, { slug: params.projectSlug });
   return {
-    title: Project.metaTitle || `${Project.title} | Project Details`,
+    title: Project.metaTitle || Project.title,
     description: (Project.metaDescription || Project.description)?.slice(0, 297)
       + ((Project.metaDescription || Project.description)?.length > 297 ? "..." : ""),
     keywords: Project.metaKeywords,
     category: Project.category[0],
     robots: Project.robots || 'index, follow',
     openGraph: {
-      title: Project.ogTitle || Project.title,
-      description: Project.ogDescription || Project.metaDescription || Project.description,
-      images: Project.ogImage ? [Project.ogImage] : [],
+      title: Project.metaTitle || Project.title,
+      description: (Project.metaDescription || Project.description)?.slice(0, 297)
+        + ((Project.metaDescription || Project.description)?.length > 297 ? "..." : ""),
+      images: Project.projectImage,
       type: 'website',
       url: `${WEBSITE_URL}/projects/${Project.slug}`,
-      siteName: `${WEBSITE_NAME}`,
+      siteName: WEBSITE_NAME,
       countryName: 'India',
       locale: 'en_IN'
     },
     twitter: {
       card: 'summary_large_image',
-      title: Project.twitterTitle || Project.title,
-      description: Project.twitterDescription || Project.metaDescription || Project.description,
-      images: Project.twitterImage ? [Project.twitterImage] : [],
+      title: Project.metaTitle || Project.title,
+      description: (Project.metaDescription || Project.description)?.slice(0, 297)
+        + ((Project.metaDescription || Project.description)?.length > 297 ? "..." : ""),
+      images: Project.projectImage,
     },
     alternates: {
-      canonical: Project.canonicalUrl,
+      canonical: `${WEBSITE_URL}/projects/${Project.slug}`,
     },
   };
 }

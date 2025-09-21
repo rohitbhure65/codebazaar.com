@@ -10,7 +10,7 @@ export function New__ModelName() {
   const router = useRouter();
   return (
     <ProjectForm
-      submitText="Create Project"
+      submitText="Create"
       schema={CreateProjectSchema}
       onSubmit={async (values) => {
         try {

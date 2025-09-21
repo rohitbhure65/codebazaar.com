@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div>
-      <h1>Create New Project</h1>
       <Suspense fallback={<Loader />}>
         <New__ModelName />
       </Suspense>

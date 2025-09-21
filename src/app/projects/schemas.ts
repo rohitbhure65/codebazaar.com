@@ -1,3 +1,4 @@
+import { features } from "process"
 import { z } from "zod"
 
 export const CreateProjectSchema = z.object({
@@ -22,25 +23,23 @@ export const CreateProjectSchema = z.object({
   ),
   projectImage: z.string(),
   fileUrl: z.string(),
+  videoUrl: z.string().default(""),
   slug: z.string(),
+  features: z.string(),
+  requirements: z.string(),
   price: z.number(),
   isResellAllowed: z.boolean().default(true),
   isApproved: z.boolean().default(true),
   views: z.number().default(0),
   downloads: z.number().default(0),
-  metaTitle: z.string().optional(),
-  metaDescription: z.string().optional(),
-  metaKeywords: z.string().optional(),
-  ogTitle: z.string().optional(),
-  ogDescription: z.string().optional(),
-  ogImage: z.string().optional(),
-  twitterTitle: z.string().optional(),
-  twitterDescription: z.string().optional(),
-  twitterImage: z.string().optional(),
-  canonicalUrl: z.string().optional(),
-  robots: z.string().optional(),
-  demoUrl: z.string().optional(),
-  repositoryUrl: z.string().optional(),
+  version: z.string().default("1.0.0"),
+  featured: z.boolean().default(false),
+  metaTitle: z.string().default(""),
+  metaDescription: z.string().default(""),
+  metaKeywords: z.string().default(""),
+  robots: z.string().default("index,follow"),
+  demoUrl: z.string().default(""),
+  repositoryUrl: z.string().default(""),
   visibility: z.string().default("public"),
 })
 
