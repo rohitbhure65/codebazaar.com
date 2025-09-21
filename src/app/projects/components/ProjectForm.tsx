@@ -16,6 +16,8 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     userId: currentUser?.id,
     metaTitle: "",
     metaDescription: "",
+    features: "",
+    requirements: "",
     metaKeywords: "",
     robots: "index,follow",
     demoUrl: "",
@@ -87,13 +89,6 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
       />
 
       <LabeledTextField
-        name="repositoryUrl"
-        label="Github Repo URL"
-        placeholder="Github Repo URL"
-        type="text"
-      />
-
-      <LabeledTextField
         name="price"
         label="Price"
         placeholder="Price"
@@ -108,9 +103,23 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
       />
 
       <LabeledTextField
-        name="robots"
-        label="Robots"
-        placeholder="Robots"
+        name="features"
+        label="Features"
+        placeholder="Features"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="requirements"
+        label="Requirements"
+        placeholder="Requirements"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="repositoryUrl"
+        label="Github Repo URL"
+        placeholder="Github Repo URL"
         type="text"
       />
 
@@ -146,6 +155,13 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         name="visibility"
         label="Visibility"
         placeholder="public/private"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="robots"
+        label="Robots"
+        placeholder="Robots"
         type="text"
       />
 

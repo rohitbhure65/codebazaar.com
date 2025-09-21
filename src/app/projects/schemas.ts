@@ -1,3 +1,4 @@
+import { features } from "process"
 import { z } from "zod"
 
 export const CreateProjectSchema = z.object({
@@ -23,6 +24,8 @@ export const CreateProjectSchema = z.object({
   projectImage: z.string(),
   fileUrl: z.string(),
   slug: z.string(),
+  features: z.string(),
+  requirements: z.string(),
   price: z.number(),
   isResellAllowed: z.boolean().default(true),
   isApproved: z.boolean().default(true),

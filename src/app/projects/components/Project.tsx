@@ -101,7 +101,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
     },
   };
   return (
-    <div className="max-w-6xl mx-auto p-10" >
+    <div className="max-w-6xl mx-auto border my-10 rounded-md p-10" >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
@@ -385,9 +385,19 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
           </div>
         </div>
       </div>
-      <div className="bg-white rounded-lg shadow-md mt-10 p-6 border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> Project Details</h3>
+      <div className="bg-white rounded-lg shadow-md mt-5 p-6 border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> Features</h3>
+        <p className="mb-4">{project.features}</p>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-md mt-5 p-6 border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> Description</h3>
         <p className="mb-4">{project.description}</p>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-md mt-5 p-6 border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4"><ArticleRoundedIcon /> requirements</h3>
+        <p className="mb-4">{project.requirements}</p>
       </div>
 
       <ProfileCard />

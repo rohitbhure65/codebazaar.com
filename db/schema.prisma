@@ -77,6 +77,8 @@ model Project {
   projectImages      String[]
   slug               String          @unique
   fileUrl            String
+  features           String          @default("")
+  requirements       String          @default("")
   price              Float
   isResellAllowed    Boolean         @default(false)
   isApproved         Boolean         @default(false)
