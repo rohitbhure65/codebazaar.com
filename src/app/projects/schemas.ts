@@ -1,4 +1,3 @@
-import { features } from "process"
 import { z } from "zod"
 
 export const CreateProjectSchema = z.object({
@@ -21,13 +20,13 @@ export const CreateProjectSchema = z.object({
     (val) => (typeof val === "string" ? val.split(",").map((s) => s.trim()) : val),
     z.array(z.string())
   ),
-  projectImage: z.string(),
-  fileUrl: z.string(),
+  projectImage: z.string().default(""),
+  fileUrl: z.string().default(""),
   videoUrl: z.string().default(""),
-  slug: z.string(),
-  features: z.string(),
-  requirements: z.string(),
-  price: z.number(),
+  slug: z.string().default(""),
+  features: z.string().default(""),
+  requirements: z.string().default(""),
+  price: z.number().default(0),
   isResellAllowed: z.boolean().default(true),
   isApproved: z.boolean().default(true),
   views: z.number().default(0),

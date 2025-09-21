@@ -76,13 +76,13 @@ model Project {
   projectImage       String
   projectImages      String[]
   slug               String          @unique
-  fileUrl            String?
-  videoUrl           String?
+  fileUrl            String?         @default("")
+  videoUrl           String?         @default("")
   featured           Boolean         @default(false)
   version            String          @default("1.0.0")
   features           String          @default("")
   requirements       String          @default("")
-  price              Float
+  price              Float           @default(0)
   isResellAllowed    Boolean         @default(false)
   isApproved         Boolean         @default(false)
   views              Int             @default(0)
