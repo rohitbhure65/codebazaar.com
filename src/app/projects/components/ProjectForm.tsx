@@ -21,12 +21,14 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     metaKeywords: "",
     robots: "index,follow",
     demoUrl: "",
+    version: "1.0.0",
     repositoryUrl: "",
     visibility: "public",
     isResellAllowed: true,
     isApproved: true,
     views: 0,
     downloads: 0,
+    featured: false,
     ...props.initialValues
   };
 
@@ -155,6 +157,13 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         name="visibility"
         label="Visibility"
         placeholder="public/private"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="version"
+        label="Version"
+        placeholder="Version"
         type="text"
       />
 

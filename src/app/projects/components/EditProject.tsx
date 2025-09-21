@@ -23,15 +23,7 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
           <ProjectForm
             submitText="Update"
             schema={UpdateProjectSchema}
-            initialValues={{
-              ...project,
-              metaTitle: project.metaTitle || "",
-              metaDescription: project.metaDescription || "",
-              metaKeywords: project.metaKeywords || "",
-              robots: project.robots || "index,follow",
-              demoUrl: project.demoUrl || "",
-              repositoryUrl: project.repositoryUrl || "",
-            }}
+            initialValues={{...project}}
             onSubmit={async (values) => {
               try {
                 const updated = await updateProjectMutation({

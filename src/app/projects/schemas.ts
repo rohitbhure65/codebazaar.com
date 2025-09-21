@@ -31,6 +31,8 @@ export const CreateProjectSchema = z.object({
   isApproved: z.boolean().default(true),
   views: z.number().default(0),
   downloads: z.number().default(0),
+  version: z.string().default("1.0.0"),
+  featured: z.boolean().default(false),
   metaTitle: z.string().default(""),
   metaDescription: z.string().default(""),
   metaKeywords: z.string().default(""),
