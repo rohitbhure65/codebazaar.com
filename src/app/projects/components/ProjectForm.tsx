@@ -12,7 +12,21 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
 ) {
   const currentUser = useCurrentUser();
 
-  const initialValues = props.initialValues || { userId: currentUser?.id };
+  const initialValues = {
+    userId: currentUser?.id,
+    metaTitle: "",
+    metaDescription: "",
+    metaKeywords: "",
+    robots: "index,follow",
+    demoUrl: "",
+    repositoryUrl: "",
+    visibility: "public",
+    isResellAllowed: true,
+    isApproved: true,
+    views: 0,
+    downloads: 0,
+    ...props.initialValues
+  };
 
   return (
     <Form<S> {...props} initialValues={initialValues}>
@@ -90,6 +104,13 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         name="slug"
         label="Slug"
         placeholder="Slug"
+        type="text"
+      />
+
+      <LabeledTextField
+        name="robots"
+        label="Robots"
+        placeholder="Robots"
         type="text"
       />
 

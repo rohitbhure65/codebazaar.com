@@ -25,12 +25,12 @@ export const EditProject = ({ projectSlug }: { projectSlug: string }) => {
             schema={UpdateProjectSchema}
             initialValues={{
               ...project,
-              metaTitle: project.metaTitle || undefined,
-              metaDescription: project.metaDescription || undefined,
-              metaKeywords: project.metaKeywords || undefined,
-              robots: project.robots || undefined,
-              demoUrl: project.demoUrl || undefined,
-              repositoryUrl: project.repositoryUrl || undefined,
+              metaTitle: project.metaTitle || "",
+              metaDescription: project.metaDescription || "",
+              metaKeywords: project.metaKeywords || "",
+              robots: project.robots || "index,follow",
+              demoUrl: project.demoUrl || "",
+              repositoryUrl: project.repositoryUrl || "",
             }}
             onSubmit={async (values) => {
               try {
