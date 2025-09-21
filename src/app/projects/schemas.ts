@@ -28,12 +28,12 @@ export const CreateProjectSchema = z.object({
   isApproved: z.boolean().default(true),
   views: z.number().default(0),
   downloads: z.number().default(0),
-  metaTitle: z.string().optional(),
-  metaDescription: z.string().optional(),
-  metaKeywords: z.string().optional(),
+  metaTitle: z.string().default(""),
+  metaDescription: z.string().default(""),
+  metaKeywords: z.string().default(""),
   robots: z.string().default("index,follow"),
-  demoUrl: z.string().optional(),
-  repositoryUrl: z.string().optional(),
+  demoUrl: z.string().default(""),
+  repositoryUrl: z.string().default(""),
   visibility: z.string().default("public"),
 })
 

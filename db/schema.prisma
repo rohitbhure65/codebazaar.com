@@ -82,12 +82,12 @@ model Project {
   isApproved         Boolean         @default(false)
   views              Int             @default(0)
   downloads          Int             @default(0)
-  metaTitle          String?
-  metaDescription    String?
-  metaKeywords       String?
+  metaTitle          String?         @default("")
+  metaDescription    String?         @default("")
+  metaKeywords       String?         @default("")
   robots             String?         @default("index, follow") // Example: "noindex, nofollow", "index, follow"
-  demoUrl            String?
-  repositoryUrl      String?
+  demoUrl            String?         @default("")
+  repositoryUrl      String?         @default("")
   visibility         String          @default("public")
   user               User            @relation(fields: [userId], references: [id])
   userId             Int
