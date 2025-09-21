@@ -85,13 +85,6 @@ model Project {
   metaTitle          String?
   metaDescription    String?
   metaKeywords       String?
-  ogTitle            String?
-  ogDescription      String?
-  ogImage            String?
-  twitterTitle       String?
-  twitterDescription String?
-  twitterImage       String?
-  canonicalUrl       String?
   robots             String?         @default("index, follow") // Example: "noindex, nofollow", "index, follow"
   demoUrl            String?
   repositoryUrl      String?

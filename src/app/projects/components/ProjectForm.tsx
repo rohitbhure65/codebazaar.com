@@ -115,55 +115,6 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
       />
 
       <LabeledTextField
-        name="ogTitle"
-        label="OG Title"
-        placeholder="OG Title (optional)"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="ogDescription"
-        label="OG Description"
-        placeholder="OG Description (optional)"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="ogImage"
-        label="OG Image URL"
-        placeholder="OG Image URL (optional)"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="twitterTitle"
-        label="Twitter Title"
-        placeholder="Twitter Title (optional)"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="twitterDescription"
-        label="Twitter Description"
-        placeholder="Twitter Description (optional)"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="twitterImage"
-        label="Twitter Image URL"
-        placeholder="Twitter Image URL (optional)"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="canonicalUrl"
-        label="Canonical URL"
-        placeholder="Canonical URL (optional)"
-        type="text"
-      />
-
-      <LabeledTextField
         name="demoUrl"
         label="Demo URL"
         placeholder="Demo URL (optional)"

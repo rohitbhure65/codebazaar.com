@@ -53,7 +53,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
     "sku": `project-${project.id}`,
     "brand": {
       "@type": "Brand",
-      "name": `${WEBSITE_NAME}`
+      "name": WEBSITE_NAME
     },
     "offers": {
       "@type": "Offer",
@@ -64,7 +64,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       "availability": `https://schema.org/InStock`,
       "seller": {
         "@type": "Organization",
-        "name": `${WEBSITE_NAME}`
+        "name": WEBSITE_NAME
       },
       "shippingDetails": {
         "@type": "OfferShippingDetails",
