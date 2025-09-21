@@ -23,6 +23,7 @@ export const CreateProjectSchema = z.object({
   ),
   projectImage: z.string(),
   fileUrl: z.string(),
+  videoUrl: z.string().default(""),
   slug: z.string(),
   features: z.string(),
   requirements: z.string(),

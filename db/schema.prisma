@@ -76,7 +76,8 @@ model Project {
   projectImage       String
   projectImages      String[]
   slug               String          @unique
-  fileUrl            String
+  fileUrl            String?
+  videoUrl           String?
   featured           Boolean         @default(false)
   version            String          @default("1.0.0")
   features           String          @default("")

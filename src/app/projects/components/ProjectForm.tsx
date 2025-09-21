@@ -23,6 +23,7 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     demoUrl: "",
     version: "1.0.0",
     repositoryUrl: "",
+    videoUrl: "",
     visibility: "public",
     isResellAllowed: true,
     isApproved: true,
@@ -31,6 +32,16 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     featured: false,
     ...props.initialValues
   };
+
+  const visibilityOptions = [
+    { value: "public", label: "public" },
+    { value: "private", label: "private" },
+  ]
+
+  const robotsOptions = [
+    { value: "index, follow", label: "Show in Google" },
+    { value: "noindex, nofollow", label: "Don't Show in Google" },
+  ]
 
   return (
     <Form<S> {...props} initialValues={initialValues}>
@@ -92,7 +103,7 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
 
       <LabeledTextField
         name="price"
-        label="Price"
+        label="Price in INR"
         placeholder="Price"
         type="number"
       />
@@ -154,10 +165,18 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
       />
 
       <LabeledTextField
+        name="videoUrl"
+        label="Video URL"
+        placeholder="Video URL (optional)"
+        type="text"
+      />
+
+      <LabeledTextField
         name="visibility"
         label="Visibility"
         placeholder="public/private"
-        type="text"
+        isSelect={true}
+        options={visibilityOptions}
       />
 
       <LabeledTextField
@@ -171,7 +190,8 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         name="robots"
         label="Robots"
         placeholder="Robots"
-        type="text"
+        isSelect={true}
+        options={robotsOptions}
       />
 
       <LabeledTextField

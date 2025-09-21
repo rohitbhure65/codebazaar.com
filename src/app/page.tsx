@@ -14,8 +14,8 @@ import AnimatedFeature from "@/components/AnimatedFeature"
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "Website",
-  "name": `${WEBSITE_NAME}`,
-  "url": `${WEBSITE_URL}`,
+  "name": WEBSITE_NAME,
+  "url": WEBSITE_URL,
   "potentialAction": {
     "@type": "SearchAction",
     "target": `https://www.google.com/search?q=${WEBSITE_NAME}`,
