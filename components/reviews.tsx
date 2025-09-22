@@ -63,7 +63,7 @@ const Reviews = ({ review = [] }: ReviewProps) => {
               <p className="font-medium text-gray-900"><AccountCircleIcon /> {reviewItem.user.name || "Anonymous"}
                 <Badge
                   variant="secondary"
-                  className="bg-green-500 ml-4 hover:bg-green-600 text-white dark:bg-green-600"
+                  className="bg-red-500 ml-4 hover:bg-red-600 text-white dark:bg-red-600"
                 >
                   <BadgeCheckIcon className="h-3" />
                   Purchased
