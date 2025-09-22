@@ -16,6 +16,14 @@ export default resolver.pipe(
       where: { slug },
       include: {
         Review: { include: { user: true } },
+        ProjectCategory: { include: { category: true } },
+        ProjectTag: { include: { tag: true } },
+        ProjectTechStack: { include: { techstack: true } },
+        // SupportTicket: {
+        //   include: {
+        //     user: true,
+        //   },
+        // },
         _count: {
           select: {
             Review: true,
