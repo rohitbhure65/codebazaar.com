@@ -28,9 +28,7 @@ model User {
   tokens   Token[]
   sessions Session[]
   projects Project[]
-  // purchases      Purchase[]
   reviews  Review[]
-  // transactions   Transaction[]
   // supportTickets SupportTicket[]
 }
 
@@ -65,41 +63,108 @@ model Token {
 }
 
 model Project {
-  id              Int        @id @default(autoincrement())
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  title           String
-  description     String
-  category        String[]
-  tags            String[]
-  techStack       String[]
-  projectImage    String
-  projectImages   String[]
-  slug            String     @unique
-  fileUrl         String?
-  videoUrl        String?
-  featured        Boolean    @default(false)
-  version         String     @default("1.0.0")
-  features        String?
-  requirements    String?
-  price           Float      @default(0)
-  isResellAllowed Boolean    @default(false)
-  isApproved      Boolean    @default(false)
-  views           Int        @default(0)
-  downloads       Int        @default(0)
-  metaTitle       String?
-  metaDescription String?
-  metaKeywords    String?
-  robots          String?    @default("index,follow") // Example: "noindex, nofollow", "index, follow"
-  demoUrl         String?
-  repositoryUrl   String?
-  visibility      Visibility @default(public)
-  user            User       @relation(fields: [userId], references: [id])
-  userId          Int
-  // Purchase        Purchase[]
-  Review          Review[]
-  // ProjectTag      ProjectTag[]
+  id               Int                @id @default(autoincrement())
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  title            String
+  description      String
+  // category        String[]
+  // tags            String[]
+  // techStack       String[]
+  projectImage     String
+  projectImages    String[]
+  slug             String             @unique
+  fileUrl          String?
+  videoUrl         String?
+  featured         Boolean            @default(false)
+  version          String             @default("1.0.0")
+  features         String?
+  requirements     String?
+  price            Float              @default(0)
+  isResellAllowed  Boolean            @default(false)
+  isApproved       Boolean            @default(false)
+  views            Int                @default(0)
+  downloads        Int                @default(0)
+  metaTitle        String?
+  metaDescription  String?
+  metaKeywords     String?
+  robots           String?            @default("index,follow") // Example: "noindex, nofollow", "index, follow"
+  demoUrl          String?
+  repositoryUrl    String?
+  visibility       Visibility         @default(public)
+  user             User               @relation(fields: [userId], references: [id])
+  userId           Int
+  Review           Review[]
+  ProjectCategory  ProjectCategory[]
+  ProjectTag       ProjectTag[]
+  ProjectTechStack ProjectTechStack[]
   // SupportTicket   SupportTicket[]
+}
+
+model Category {
+  id              Int               @id @default(autoincrement())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  category        String            @unique
+  ProjectCategory ProjectCategory[]
+}
+
+model ProjectCategory {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id])
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@unique([projectId, categoryId])
+}
+
+model Tags {
+  id         Int          @id @default(autoincrement())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  tag        String       @unique
+  ProjectTag ProjectTag[]
+}
+
+model ProjectTag {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id])
+
+  tagId Int
+  tag   Tags @relation(fields: [tagId], references: [id])
+
+  @@unique([projectId, tagId])
+}
+
+model TechStack {
+  id               Int                @id @default(autoincrement())
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  techstack        String             @unique
+  ProjectTechStack ProjectTechStack[]
+}
+
+model ProjectTechStack {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id])
+
+  techStackId Int
+  techstack   TechStack @relation(fields: [techStackId], references: [id])
+
+  @@unique([projectId, techStackId])
 }
 
 model Review {
@@ -108,64 +173,13 @@ model Review {
   updatedAt DateTime @updatedAt
   rating    Int      @default(5) @db.SmallInt
   comment   String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
   project   Project @relation(fields: [projectId], references: [id])
   projectId Int
 }
-
-// LOW PRIORITY
-// model Purchase {
-//   id          Int         @id @default(autoincrement())
-//   createdAt   DateTime    @default(now())
-//   updatedAt   DateTime    @updatedAt
-//   amountPaid  Float
-//   licenseType LicenseType
-
-//   user   User @relation(fields: [userId], references: [id])
-//   userId Int
-
-//   project   Project @relation(fields: [projectId], references: [id])
-//   projectId Int
-// }
-
-// LOW PRIORITY
-// model Transaction {
-//   id            Int             @id @default(autoincrement())
-//   createdAt     DateTime        @default(now())
-//   updatedAt     DateTime        @updatedAt
-//   type          TransactionType
-//   amount        Float
-//   paymentMethod PaymentMethod
-
-//   user   User @relation(fields: [userId], references: [id])
-//   userId Int
-// }
-
-// model Category {
-//   id          Int      @id @default(autoincrement())
-//   createdAt   DateTime @default(now())
-//   updatedAt   DateTime @updatedAt
-//   name        String   @unique
-//   description String
-
-//   projectTags ProjectTag[]
-// }
-
-// model ProjectTag {
-//   id        Int      @id @default(autoincrement())
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-
-//   project   Project @relation(fields: [projectId], references: [id])
-//   projectId Int
-
-//   category   Category @relation(fields: [categoryId], references: [id])
-//   categoryId Int
-
-//   @@unique([projectId, categoryId])
-// }
 
 // model SupportTicket {
 //   id          Int          @id @default(autoincrement())
@@ -211,19 +225,6 @@ enum Visibility {
 enum LicenseType {
   ORIGINAL
   RESALE
-}
-
-enum TransactionType {
-  CREDIT
-  DEBIT
-  COMMISSION
-}
-
-enum PaymentMethod {
-  UPI
-  PAYPAL
-  STRIPE
-  BANK_TRANSFER
 }
 
 enum TicketStatus {
