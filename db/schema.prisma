@@ -90,7 +90,7 @@ model Project {
   metaTitle          String?        
   metaDescription    String?       
   metaKeywords       String?         
-  robots             String?         @default("index, follow") // Example: "noindex, nofollow", "index, follow"
+  robots             String?         @default("index,follow") // Example: "noindex, nofollow", "index, follow"
   demoUrl            String?         
   repositoryUrl      String?        
   visibility         String          @default("public")
