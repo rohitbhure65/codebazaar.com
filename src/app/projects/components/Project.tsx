@@ -299,7 +299,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                   </span>
                 </span>
               </div>
-              {project.category && (
+              {project.category && project.category.length > 0 && (
                 <div className="flex items-center space-x-2">
                   <svg
                     className="w-4 h-4 text-gray-500"
@@ -316,14 +316,15 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                   </svg>
                   <span className="text-gray-600">
                     Category:
-                    <span
-                      className={`ml-1 font-medium`}
-                    >
-                      {project.category}
+                    <span className="ml-1 font-medium">
+                      {Array.isArray(project.category)
+                        ? project.category.join(", ")
+                        : project.category}
                     </span>
                   </span>
                 </div>
               )}
+
               {project.version && (
                 <div className="flex items-center space-x-2">
                   <svg
