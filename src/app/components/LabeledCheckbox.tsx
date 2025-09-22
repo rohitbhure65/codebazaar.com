@@ -1,45 +1,44 @@
-import { forwardRef } from "react"
-import { useField } from "react-final-form"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
-import FormHelperText from "@mui/material/FormHelperText"
-import FormControl from "@mui/material/FormControl"
+import { forwardRef } from "react"                          // To forward refs in React components
+import { useField } from "react-final-form"                 // Hook to connect field with Final Form
+import FormControlLabel from "@mui/material/FormControlLabel" // MUI wrapper for checkbox + label
+import Checkbox from "@mui/material/Checkbox"               // MUI Checkbox component
+import FormHelperText from "@mui/material/FormHelperText"   // MUI error/helper text
+import FormControl from "@mui/material/FormControl"         // MUI form control wrapper
 
 export interface LabeledCheckboxProps {
-  /** Field name. */
-  name: string
-  /** Checkbox label. */
-  label: string
-  /** Additional props */
-  [key: string]: any
+  name: string       // Field name (for Final Form)
+  label: string      // Checkbox label text
+  [key: string]: any // Allow additional props
 }
 
+// ForwardRef allows parent components to get ref of checkbox
 export const LabeledCheckbox = forwardRef<HTMLButtonElement, LabeledCheckboxProps>(
   ({ name, label, ...props }, ref) => {
     const {
-      input,
-      meta: { touched, error, submitError },
+      input,                                             // input handlers from react-final-form
+      meta: { touched, error, submitError },             // meta state (validation + submission)
     } = useField(name, {
-      type: "checkbox", // This is important for checkboxes
+      type: "checkbox", // Important: defines this field as a checkbox type
     })
 
+    // Normalize error: join arrays or fallback to submitError
     const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
 
     return (
-      <FormControl error={touched && !!normalizedError} component="div">
+      <FormControl error={touched && !!normalizedError} component="div"> {/* Wrapper for validation state */}
         <FormControlLabel
           control={
             <Checkbox
-              {...input}
-              {...props}
-              ref={ref}
-              checked={!!input.checked}
-              color="primary"
+              {...input}                // Spread input props (value, onChange, etc.)
+              {...props}                // Spread additional props
+              ref={ref}                 // Forwarded ref
+              checked={!!input.checked} // Ensure boolean checked state
+              color="primary"           // Primary color style
             />
           }
-          label={label}
+          label={label}                 // Show checkbox label
         />
-        {touched && normalizedError && (
+        {touched && normalizedError && ( // Show error only if touched + has error
           <FormHelperText role="alert" error>
             {normalizedError}
           </FormHelperText>
@@ -49,6 +48,6 @@ export const LabeledCheckbox = forwardRef<HTMLButtonElement, LabeledCheckboxProp
   }
 )
 
-LabeledCheckbox.displayName = "LabeledCheckbox"
+LabeledCheckbox.displayName = "LabeledCheckbox" // Helpful for React DevTools
 
-export default LabeledCheckbox
+export default LabeledCheckbox // Default export for usage in forms
