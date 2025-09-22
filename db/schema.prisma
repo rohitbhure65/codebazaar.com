@@ -91,7 +91,7 @@ model Project {
   robots           String?            @default("index,follow") // Example: "noindex, nofollow", "index, follow"
   demoUrl          String?
   repositoryUrl    String?
-  visibility       Visibility         @default(public)
+  visibility       Visibility         @default(PUBLIC)
   user             User               @relation(fields: [userId], references: [id])
   userId           Int
   Review           Review[]
@@ -218,8 +218,8 @@ enum Status {
 }
 
 enum Visibility {
-  public
-  private
+  PUBLIC
+  PRIVATE
 }
 
 enum LicenseType {

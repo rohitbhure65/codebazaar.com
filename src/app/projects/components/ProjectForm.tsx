@@ -34,7 +34,7 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     version: "1.0.0",
     repositoryUrl: undefined,
     videoUrl: undefined,
-    visibility: "public",
+    visibility: "PUBLIC",
     isResellAllowed: true,
     isApproved: true,
     views: 0,
@@ -44,8 +44,8 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
   };
 
   const visibilityOptions = [
-    { value: "public", label: "public" },
-    { value: "private", label: "private" },
+    { value: "PUBLIC", label: "PUBLIC" },
+    { value: "PRIVATE", label: "PRIVATE" },
   ]
 
   const robotsOptions = [

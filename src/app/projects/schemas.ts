@@ -4,18 +4,6 @@ export const CreateProjectSchema = z.object({
   userId: z.number(),
   title: z.string(),
   description: z.string(),
-  category: z.preprocess(
-    (val) => (typeof val === "string" ? val.split(",").map((s) => s.trim()) : val),
-    z.array(z.string()).optional().nullable()
-  ),
-  tags: z.preprocess(
-    (val) => (typeof val === "string" ? val.split(",").map((s) => s.trim()) : val),
-    z.array(z.string()).optional().nullable()
-  ),
-  techStack: z.preprocess(
-    (val) => (typeof val === "string" ? val.split(",").map((s) => s.trim()) : val),
-    z.array(z.string()).optional().nullable()
-  ),
   projectImages: z.preprocess(
     (val) => (typeof val === "string" ? val.split(",").map((s) => s.trim()) : val),
     z.array(z.string()).optional().nullable()
@@ -39,7 +27,7 @@ export const CreateProjectSchema = z.object({
   robots: z.string().default("index,follow"),
   demoUrl: z.string().optional().nullable(),
   repositoryUrl: z.string().optional().nullable(),
-  visibility: z.enum(["public", "private"]).default("public"),
+  visibility: z.enum(["PUBLIC", "PRIVATE"]).default("PUBLIC"),
 })
 
 export const UpdateProjectSchema = CreateProjectSchema.merge(
