@@ -16,9 +16,6 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     userId: currentUser?.id,
     title: undefined,
     slug: undefined,
-    category: undefined,
-    tags: undefined,
-    techStack: undefined,
     projectImage: undefined,
     projectImages: undefined,
     fileUrl: undefined,
@@ -66,27 +63,6 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         name="description"
         label="Description"
         placeholder="Description"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="category"
-        label="Category"
-        placeholder="Comma separated categories"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="tags"
-        label="Tags"
-        placeholder="Comma separated tags"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="techStack"
-        label="Tech Stack"
-        placeholder="Comma separated tech stack"
         type="text"
       />
 

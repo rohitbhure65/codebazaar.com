@@ -299,7 +299,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                   </span>
                 </span>
               </div>
-              {project.category && project.category.length > 0 && (
+              {/* {project.category && project.category.length > 0 && (
                 <div className="flex items-center space-x-2">
                   <svg
                     className="w-4 h-4 text-gray-500"
@@ -323,7 +323,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                     </span>
                   </span>
                 </div>
-              )}
+              )} */}
 
               {project.version && (
                 <div className="flex items-center space-x-2">
@@ -352,7 +352,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
               )}
             </div>
           </div>
-          <div className="my-4 py-4 space-y-4">
+          {/* <div className="my-4 py-4 space-y-4">
             <p className="text-gray-700">
               {project.tags && project.tags.length > 0 && (
                 <span className="flex flex-wrap gap-2">
@@ -383,7 +383,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 </span>
               )}
             </p>
-          </div>
+          </div> */}
 
           <div className="flex gap-4 mt-4">
             {project.demoUrl ? (
