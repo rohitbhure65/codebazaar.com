@@ -162,14 +162,10 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 type="button"
                 className="flex items-center gap-3 px-4 py-2 bg-red-600 text-white font-bold rounded-full shadow-lg hover:scale-105 transform transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-300"
               >
-                {/* Free text with pulse */}
                 <span className="animate-pulse">Free</span>
 
-                {/* Improved Ping dot */}
                 <span className="relative flex h-4 w-4">
-                  {/* Expanding ping */}
                   <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-50 animate-[ping_1.5s_linear_infinite]"></span>
-                  {/* Solid dot */}
                   <span className="relative inline-flex h-4 w-4 rounded-full bg-red-500 shadow-md"></span>
                 </span>
               </button>
