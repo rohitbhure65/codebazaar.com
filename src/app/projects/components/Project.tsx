@@ -418,7 +418,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         </div>
       )}
 
-      {project.videoUrl && (
+      {/* {project.videoUrl && (
         <div className="relative w-full pb-[56.25%] mt-5 h-0 overflow-hidden rounded-xl shadow-md">
           <iframe
             src={project.videoUrl}
@@ -428,7 +428,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
             className="absolute top-0 left-0 w-full h-full"
           ></iframe>
         </div>
-      )}
+      )} */}
 
       {project.description && (
         <div className="bg-white rounded-lg shadow-md mt-5 p-6 border border-gray-200">
