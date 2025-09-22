@@ -32,6 +32,7 @@ export const LoginForm = (props: LoginFormProps) => {
             try {
               await loginMutation(values)
               router.refresh()
+              router.push("/")
               if (next) {
                 router.push(next as Route)
               } else {

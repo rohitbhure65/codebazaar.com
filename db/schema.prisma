@@ -16,7 +16,7 @@ model User {
   id             Int      @id @default(autoincrement())
   name           String?
   email          String   @unique
-  phone          BigInt?  @unique
+  phone          String?   @unique
   age            Int?
   gender         Gender?
   hashedPassword String?
@@ -68,31 +68,31 @@ model Project {
   id                 Int             @id @default(autoincrement())
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
-  title              String
-  description        String
+  title              String          
+  description        String         
   category           String[]
   tags               String[]
   techStack          String[]
-  projectImage       String
+  projectImage       String     
   projectImages      String[]
   slug               String          @unique
-  fileUrl            String?
-  videoUrl           String?
+  fileUrl            String?      
+  videoUrl           String?        
   featured           Boolean         @default(false)
   version            String          @default("1.0.0")
-  features           String          @default("")
-  requirements       String          @default("")
-  price              Float
+  features           String?         
+  requirements       String?          
+  price              Float           @default(0)
   isResellAllowed    Boolean         @default(false)
   isApproved         Boolean         @default(false)
   views              Int             @default(0)
   downloads          Int             @default(0)
-  metaTitle          String?         @default("")
-  metaDescription    String?         @default("")
-  metaKeywords       String?         @default("")
-  robots             String?         @default("index, follow") // Example: "noindex, nofollow", "index, follow"
-  demoUrl            String?         @default("")
-  repositoryUrl      String?         @default("")
+  metaTitle          String?        
+  metaDescription    String?       
+  metaKeywords       String?         
+  robots             String?         @default("index,follow") // Example: "noindex, nofollow", "index, follow"
+  demoUrl            String?         
+  repositoryUrl      String?        
   visibility         String          @default("public")
   user               User            @relation(fields: [userId], references: [id])
   userId             Int

@@ -299,7 +299,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                   </span>
                 </span>
               </div>
-              {project.category && (
+              {project.category && project.category.length > 0 && (
                 <div className="flex items-center space-x-2">
                   <svg
                     className="w-4 h-4 text-gray-500"
@@ -316,14 +316,15 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                   </svg>
                   <span className="text-gray-600">
                     Category:
-                    <span
-                      className={`ml-1 font-medium`}
-                    >
-                      {project.category}
+                    <span className="ml-1 font-medium">
+                      {Array.isArray(project.category)
+                        ? project.category.join(", ")
+                        : project.category}
                     </span>
                   </span>
                 </div>
               )}
+
               {project.version && (
                 <div className="flex items-center space-x-2">
                   <svg
@@ -353,9 +354,10 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
           </div>
           <div className="my-4 py-4 space-y-4">
             <p className="text-gray-700">
-              {project.tags && project.tags.length > 0 ? (
+              {project.tags && project.tags.length > 0 && (
                 <span className="flex flex-wrap gap-2">
-                  <TextSnippetRoundedIcon /> <span className="text-sm font-bold">Tags</span>:
+                  <TextSnippetRoundedIcon />
+                  <span className="text-sm font-bold">Tags</span>:
                   {project.tags.flatMap((tag, index) =>
                     tag.split(" ").map((word, wordIndex) => (
                       <Badge key={`${index}-${wordIndex}`} variant="outline">
@@ -364,14 +366,13 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                     ))
                   )}
                 </span>
-              ) : (
-                <span>No tags</span>
               )}
             </p>
             <p className="text-gray-700">
-              {project.techStack && project.techStack.length > 0 ? (
+              {project.techStack && project.techStack.length > 0 && (
                 <span className="flex flex-wrap gap-2">
-                  <CodeRoundedIcon /> <span className="text-sm font-bold">Tech Stack</span>:
+                  <CodeRoundedIcon />
+                  <span className="text-sm font-bold">Tech Stack</span>:
                   {project.techStack.flatMap((techStack, index) =>
                     techStack.split(" ").map((word, wordIndex) => (
                       <Badge key={`${index}-${wordIndex}`} variant="outline">
@@ -380,8 +381,6 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                     ))
                   )}
                 </span>
-              ) : (
-                <span>No tags</span>
               )}
             </p>
           </div>

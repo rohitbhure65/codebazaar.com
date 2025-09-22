@@ -14,16 +14,26 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
 
   const initialValues = {
     userId: currentUser?.id,
-    metaTitle: "",
-    metaDescription: "",
-    features: "",
-    requirements: "",
-    metaKeywords: "",
+    title: undefined,
+    slug: undefined,
+    category: undefined,
+    tags: undefined,
+    techStack: undefined,
+    projectImage: undefined,
+    projectImages: undefined,
+    fileUrl: undefined,
+    price: 0,
+    description: undefined,
+    features: undefined,
+    requirements: undefined,
+    metatitle: undefined,
+    metaKeywords: undefined,
+    metaDescription: undefined,
     robots: "index,follow",
-    demoUrl: "",
+    demoUrl: undefined,
     version: "1.0.0",
-    repositoryUrl: "",
-    videoUrl: "",
+    repositoryUrl: undefined,
+    videoUrl: undefined,
     visibility: "public",
     isResellAllowed: true,
     isApproved: true,
@@ -39,8 +49,8 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
   ]
 
   const robotsOptions = [
-    { value: "index, follow", label: "Show in Google" },
-    { value: "noindex, nofollow", label: "Don't Show in Google" },
+    { value: "index,follow", label: "Show in Google" },
+    { value: "noindex,nofollow", label: "Don't Show in Google" },
   ]
 
   return (

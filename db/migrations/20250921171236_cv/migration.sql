@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Project" ALTER COLUMN "fileUrl" SET DEFAULT '',
+ALTER COLUMN "price" SET DEFAULT 0,
+ALTER COLUMN "videoUrl" SET DEFAULT '';
