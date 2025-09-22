@@ -49,8 +49,8 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
   ]
 
   const robotsOptions = [
-    { value: "index, follow", label: "Show in Google" },
-    { value: "noindex, nofollow", label: "Don't Show in Google" },
+    { value: "index,follow", label: "Show in Google" },
+    { value: "noindex,nofollow", label: "Don't Show in Google" },
   ]
 
   return (
