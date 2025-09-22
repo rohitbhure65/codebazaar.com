@@ -62,8 +62,8 @@ export async function generateMetadata(
     description: (Project.metaDescription || Project.description)?.slice(0, 297)
       + ((Project.metaDescription || Project.description)?.length > 297 ? "..." : ""),
     keywords: Project.metaKeywords,
-    category: Project.category[0],
-    authors: [{ name: "Rohit Bhure"}],
+    category: Project.ProjectCategory?.map((c) => c.category.category).join(", "),
+    authors: [{ name: "Rohit Bhure" }],
     robots: Project.robots || 'index, follow',
     openGraph: {
       title: Project.metaTitle || Project.title,

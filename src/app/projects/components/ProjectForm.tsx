@@ -16,9 +16,6 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     userId: currentUser?.id,
     title: undefined,
     slug: undefined,
-    category: undefined,
-    tags: undefined,
-    techStack: undefined,
     projectImage: undefined,
     projectImages: undefined,
     fileUrl: undefined,
@@ -34,7 +31,7 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     version: "1.0.0",
     repositoryUrl: undefined,
     videoUrl: undefined,
-    visibility: "public",
+    visibility: "PUBLIC",
     isResellAllowed: true,
     isApproved: true,
     views: 0,
@@ -44,8 +41,8 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
   };
 
   const visibilityOptions = [
-    { value: "public", label: "public" },
-    { value: "private", label: "private" },
+    { value: "PUBLIC", label: "PUBLIC" },
+    { value: "PRIVATE", label: "PRIVATE" },
   ]
 
   const robotsOptions = [
@@ -66,27 +63,6 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         name="description"
         label="Description"
         placeholder="Description"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="category"
-        label="Category"
-        placeholder="Comma separated categories"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="tags"
-        label="Tags"
-        placeholder="Comma separated tags"
-        type="text"
-      />
-
-      <LabeledTextField
-        name="techStack"
-        label="Tech Stack"
-        placeholder="Comma separated tech stack"
         type="text"
       />
 

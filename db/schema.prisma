@@ -25,11 +25,11 @@ model User {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  tokens   Token[]
-  sessions Session[]
-  projects Project[]
-  reviews  Review[]
-  // supportTickets SupportTicket[]
+  tokens         Token[]
+  sessions       Session[]
+  projects       Project[]
+  reviews        Review[]
+  supportTickets SupportTicket[]
 }
 
 model Session {
@@ -68,9 +68,6 @@ model Project {
   updatedAt        DateTime           @updatedAt
   title            String
   description      String
-  // category        String[]
-  // tags            String[]
-  // techStack       String[]
   projectImage     String
   projectImages    String[]
   slug             String             @unique
@@ -91,14 +88,14 @@ model Project {
   robots           String?            @default("index,follow") // Example: "noindex, nofollow", "index, follow"
   demoUrl          String?
   repositoryUrl    String?
-  visibility       Visibility         @default(public)
+  visibility       Visibility         @default(PUBLIC)
   user             User               @relation(fields: [userId], references: [id])
   userId           Int
   Review           Review[]
   ProjectCategory  ProjectCategory[]
   ProjectTag       ProjectTag[]
   ProjectTechStack ProjectTechStack[]
-  // SupportTicket   SupportTicket[]
+  SupportTicket    SupportTicket[]
 }
 
 model Category {
@@ -181,21 +178,21 @@ model Review {
   projectId Int
 }
 
-// model SupportTicket {
-//   id          Int          @id @default(autoincrement())
-//   createdAt   DateTime     @default(now())
-//   updatedAt   DateTime     @updatedAt
-//   issueType   IssueType
-//   status      TicketStatus @default(OPEN)
-//   description String
-//   resolvedAt  DateTime?
+model SupportTicket {
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  issueType   IssueType
+  status      TicketStatus @default(OPEN)
+  description String
+  resolvedAt  DateTime?
 
-//   user   User @relation(fields: [userId], references: [id])
-//   userId Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
-//   project   Project? @relation(fields: [projectId], references: [id])
-//   projectId Int?
-// }
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId Int?
+}
 
 // ============================================================================
 // ENUMS
@@ -218,8 +215,8 @@ enum Status {
 }
 
 enum Visibility {
-  public
-  private
+  PUBLIC
+  PRIVATE
 }
 
 enum LicenseType {
@@ -230,7 +227,11 @@ enum LicenseType {
 enum TicketStatus {
   OPEN
   IN_PROGRESS
+  ON_HOLD
+  ESCALATED
   RESOLVED
+  CLOSED
+  REOPENED
 }
 
 enum IssueType {
@@ -238,6 +239,12 @@ enum IssueType {
   REFUND
   BUG
   QUERY
+  FEATURE_REQUEST
+  PAYMENT
+  ACCOUNT
+  PERFORMANCE
+  SECURITY
+  OTHER
 }
 
 // ============================================================================
