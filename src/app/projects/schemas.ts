@@ -39,7 +39,7 @@ export const CreateProjectSchema = z.object({
   robots: z.string().default("index,follow"),
   demoUrl: z.string().optional().nullable(),
   repositoryUrl: z.string().optional().nullable(),
-  visibility: z.string().default("public"),
+  visibility: z.enum(["public", "private"]).default("public"),
 })
 
 export const UpdateProjectSchema = CreateProjectSchema.merge(

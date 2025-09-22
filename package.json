@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "prepare": "husky install",
     "prisma:all": "blitz prisma generate && blitz prisma migrate dev && blitz prisma db push",
-    "prisma:update": "npx prisma migrate dev"
+    "prisma:update": "npx prisma migrate dev",
+    "prisma:reset-db": "npx prisma migrate reset"
   },
   "prisma": {
     "schema": "db/schema.prisma"
