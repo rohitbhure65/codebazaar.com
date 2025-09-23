@@ -17,6 +17,7 @@ export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<"input">
   label: string // field label
   type?: "text" | "password" | "email" | "number" | "checkbox" | "textarea" // field type
   isSelect?: boolean // flag if it's a dropdown
+  multiple?: boolean // flag for multiple selection
   options?: { value: any; label: any }[] // options for select dropdown
   outerProps?: BoxProps // props for outer Box
   labelProps?: Omit<ComponentPropsWithoutRef<typeof FormControlLabel>, "label" | "control"> // props for label
@@ -29,7 +30,7 @@ export const LabeledTextField = forwardRef<
   LabeledTextFieldProps
 >(
   (
-    { name, label, isSelect, options, outerProps, fieldProps, labelProps, type, ...props },
+    { name, label, isSelect, multiple, options, outerProps, fieldProps, labelProps, type, ...props },
     ref
   ) => {
     const {
@@ -39,6 +40,8 @@ export const LabeledTextField = forwardRef<
       parse:
         type === "number" // if number type, parse value
           ? (v) => (v === "" ? null : Number(v))
+          : multiple // if multiple selection, ensure array
+          ? (v) => (Array.isArray(v) ? v : v ? [v] : [])
           : (v) => (v === "" ? null : v),
       ...fieldProps, // merge extra field props
     })
@@ -77,11 +80,21 @@ export const LabeledTextField = forwardRef<
               labelId={`${name}-label`} // label id
               id={name} // element id
               label={label} // field label
-              value={input.value || ""} // default value
+              multiple={multiple} // enable multiple selection
+              value={multiple ? (input.value || []) : (input.value || "")} // handle multiple values
               ref={ref as React.Ref<any>} // forward ref
+              renderValue={multiple ? (selected: any) => {
+                if (!selected || selected.length === 0) return "";
+                const selectedLabels = selected.map((value: any) => {
+                  const option = options?.find(opt => opt.value === value);
+                  return option?.label || value;
+                });
+                return selectedLabels.join(", ");
+              } : undefined}
             >
               {options?.map((option) => (
                 <MenuItem key={option.value} value={option.value}> {/* option */}
+                  {multiple && <Checkbox checked={(input.value || []).indexOf(option.value) > -1} />}
                   {option.label}
                 </MenuItem>
               ))}

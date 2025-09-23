@@ -7,16 +7,28 @@ export default resolver.pipe(
   resolver.authorize(),
   async (input) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    const { categoryIds, ...projectData } = input
+
     const data = {
-      ...input,
+      ...projectData,
       projectImages:
-        typeof input.projectImages === "string"
-          ? (input.projectImages as string).split(",").map((s) => s.trim())
-          : Array.isArray(input.projectImages)
-          ? input.projectImages
+        typeof projectData.projectImages === "string"
+          ? (projectData.projectImages as string).split(",").map((s) => s.trim())
+          : Array.isArray(projectData.projectImages)
+          ? projectData.projectImages
           : [],
     }
-    const project = await db.project.create({ data: data as any })
+
+    const project = await db.project.create({
+      data: {
+        ...data as any,
+        ProjectCategory: categoryIds && categoryIds.length > 0 ? {
+          create: categoryIds.map(categoryId => ({
+            categoryId: categoryId
+          }))
+        } : undefined
+      }
+    })
 
     return project
   }
