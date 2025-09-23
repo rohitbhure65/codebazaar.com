@@ -28,7 +28,12 @@ export default resolver.pipe(
             },
           },
         },
-        ProjectCategory: { select: { category: { select: { category: true } } } },
+        ProjectCategory: {
+          select: {
+            categoryId: true,
+            category: { select: { category: true } }
+          }
+        },
         ProjectTag: { select: { tag: { select: { tag: true } } } },
         ProjectTechStack: { select: { techstack: { select: { techstack: true } } } },
         _count: {

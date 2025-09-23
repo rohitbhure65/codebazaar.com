@@ -6,11 +6,19 @@ import { z } from "zod";
 export { FORM_ERROR } from "src/app/components/ProjectForm";
 
 import { useCurrentUser } from "src/app/users/hooks/useCurrentUser";
+import { getcategory } from "../../hooks/getCategory";
 
 export function ProjectForm<S extends z.ZodType<any, any>>(
   props: FormProps<S>
 ) {
   const currentUser = useCurrentUser();
+  const categoriesData = getcategory();
+
+  // Transform categories to the format expected by LabeledTextField
+  const categoryOptions = categoriesData?.map(category => ({
+    value: category.id,
+    label: category.category
+  })) || [];
 
   const initialValues = {
     userId: currentUser?.id,
@@ -37,7 +45,14 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     views: 0,
     downloads: 0,
     featured: false,
+    categoryIds: [],
     ...props.initialValues
+  };
+
+  // Extract category IDs from the project data if editing
+  const processedInitialValues = {
+    ...initialValues,
+    categoryIds: props.initialValues?.ProjectCategory?.map((pc: any) => pc.categoryId) || initialValues.categoryIds
   };
 
   const visibilityOptions = [
@@ -51,7 +66,7 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
   ]
 
   return (
-    <Form<S> {...props} initialValues={initialValues}>
+    <Form<S> {...props} initialValues={processedInitialValues}>
       <LabeledTextField
         name="title"
         label="Title"
@@ -191,6 +206,16 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
             : []
         }
       />
+
+      <LabeledTextField
+        name="categoryIds"
+        label="Categories"
+        isSelect={true}
+        disabled={false}
+        options={categoryOptions}
+        multiple={true}
+      />
+
       <LabeledCheckbox name="isResellAllowed" label="Is Resell Allowed" defaultChecked={true} />
       <LabeledCheckbox name="isApproved" label="Is Approved" defaultChecked={true} />
       {/* template: <__component__ name="__fieldName__" label="__Field_Name__" placeholder="__Field_Name__"  type="__inputType__" /> */}

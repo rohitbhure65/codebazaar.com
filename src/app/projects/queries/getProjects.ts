@@ -22,7 +22,21 @@ export default resolver.pipe(
       take,
       count: () => db.project.count({ where }),
       query: (paginateArgs) =>
-        db.project.findMany({ ...paginateArgs, where, orderBy }),
+        db.project.findMany({
+          ...paginateArgs,
+          where,
+          orderBy,
+          include: {
+            ProjectCategory: {
+              select: {
+                categoryId: true,
+                category: {
+                  select: { category: true }
+                }
+              }
+            }
+          }
+        }),
     });
 
     return {
