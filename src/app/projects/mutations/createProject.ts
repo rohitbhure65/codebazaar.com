@@ -7,7 +7,7 @@ export default resolver.pipe(
   resolver.authorize(),
   async (input) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const { categoryIds, ...projectData } = input
+    const { categoryIds, tagIds, techStackIds, ...projectData } = input
 
     const data = {
       ...projectData,
@@ -25,6 +25,16 @@ export default resolver.pipe(
         ProjectCategory: categoryIds && categoryIds.length > 0 ? {
           create: categoryIds.map(categoryId => ({
             categoryId: categoryId
+          }))
+        } : undefined,
+        ProjectTag: tagIds && tagIds.length > 0 ? {
+          create: tagIds.map(tagId => ({
+            tagId: tagId
+          }))
+        } : undefined,
+        ProjectTechStack: techStackIds && techStackIds.length > 0 ? {
+          create: techStackIds.map(techStackId => ({
+            techStackId: techStackId
           }))
         } : undefined
       }

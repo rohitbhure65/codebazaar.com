@@ -7,17 +7,31 @@ export { FORM_ERROR } from "src/app/components/ProjectForm";
 
 import { useCurrentUser } from "src/app/users/hooks/useCurrentUser";
 import { getcategory } from "../../hooks/getCategory";
+import { gettags } from "../../hooks/getTags";
+import { gettechstack } from "../../hooks/getTechStack";
 
 export function ProjectForm<S extends z.ZodType<any, any>>(
   props: FormProps<S>
 ) {
   const currentUser = useCurrentUser();
   const categoriesData = getcategory();
+  const tagsData = gettags();
+  const techStacksData = gettechstack();
 
   // Transform categories to the format expected by LabeledTextField
   const categoryOptions = categoriesData?.map(category => ({
     value: category.id,
     label: category.category
+  })) || [];
+
+  const tagOptions = tagsData?.map(tag => ({
+    value: tag.id,
+    label: tag.tag
+  })) || [];
+
+  const techStackOptions = techStacksData?.map(techStack => ({
+    value: techStack.id,
+    label: techStack.techstack
   })) || [];
 
   const initialValues = {
@@ -46,13 +60,17 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
     downloads: 0,
     featured: false,
     categoryIds: [],
+    tagIds: [],
+    techStackIds: [],
     ...props.initialValues
   };
 
   // Extract category IDs from the project data if editing
   const processedInitialValues = {
     ...initialValues,
-    categoryIds: props.initialValues?.ProjectCategory?.map((pc: any) => pc.categoryId) || initialValues.categoryIds
+    categoryIds: props.initialValues?.ProjectCategory?.map((pc: any) => pc.categoryId) || initialValues.categoryIds,
+    tagIds: props.initialValues?.ProjectTag?.map((pt: any) => pt.tag.id) || initialValues.tagIds,
+    techStackIds: props.initialValues?.ProjectTechStack?.map((pts: any) => pts.techstack.id) || initialValues.techStackIds
   };
 
   const visibilityOptions = [
@@ -213,6 +231,24 @@ export function ProjectForm<S extends z.ZodType<any, any>>(
         isSelect={true}
         disabled={false}
         options={categoryOptions}
+        multiple={true}
+      />
+
+      <LabeledTextField
+        name="tagIds"
+        label="Tags"
+        isSelect={true}
+        disabled={false}
+        options={tagOptions}
+        multiple={true}
+      />
+
+      <LabeledTextField
+        name="techStackIds"
+        label="Tech Stack"
+        isSelect={true}
+        disabled={false}
+        options={techStackOptions}
         multiple={true}
       />
 

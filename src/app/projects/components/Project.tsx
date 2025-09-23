@@ -374,13 +374,11 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 <span className="flex flex-wrap gap-2">
                   <TextSnippetRoundedIcon />
                   <span className="text-sm font-bold">Tags</span>:
-                  {project.ProjectTag.flatMap((t, index) =>
-                    t.tag.tag.split(",").map((word, wordIndex) => (
-                      <Badge key={`${index}-${wordIndex}`} variant="outline">
-                        {word}
-                      </Badge>
-                    ))
-                  )}
+                  {project.ProjectTag.map((t, index) => (
+                    <Badge key={index} variant="outline">
+                      {t.tag.tag}
+                    </Badge>
+                  ))}
                 </span>
               )}
 
@@ -390,13 +388,11 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
                 <span className="flex flex-wrap gap-2">
                   <CodeRoundedIcon />
                   <span className="text-sm font-bold">Tech Stack</span>:
-                  {project.ProjectTechStack.flatMap((t, index) =>
-                    t.techstack.techstack.split(",").map((word, wordIndex) => (
-                      <Badge key={`${index}-${wordIndex}`} variant="outline">
-                        {word.trim()}
-                      </Badge>
-                    ))
-                  )}
+                  {project.ProjectTechStack.map((t, index) => (
+                    <Badge key={index} variant="outline">
+                      {t.techstack.techstack}
+                    </Badge>
+                  ))}
                 </span>
               )}
 

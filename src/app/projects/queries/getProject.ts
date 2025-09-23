@@ -34,8 +34,8 @@ export default resolver.pipe(
             category: { select: { category: true } }
           }
         },
-        ProjectTag: { select: { tag: { select: { tag: true } } } },
-        ProjectTechStack: { select: { techstack: { select: { techstack: true } } } },
+        ProjectTag: { select: { tag: { select: { id: true, tag: true } } } },
+        ProjectTechStack: { select: { techstack: { select: { id: true, techstack: true } } } },
         _count: {
           select: {
             Review: true,

@@ -34,6 +34,22 @@ export default resolver.pipe(
                   select: { category: true }
                 }
               }
+            },
+            ProjectTag: {
+              select: {
+                tagId: true,
+                tag: {
+                  select: { id: true, tag: true }
+                }
+              }
+            },
+            ProjectTechStack: {
+              select: {
+                techStackId: true,
+                techstack: {
+                  select: { id: true, techstack: true }
+                }
+              }
             }
           }
         }),
