@@ -1,0 +1,66 @@
+// This is your Prisma schema file
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  name  String
+  // email String? optional
+
+  // Relations
+  writtenPosts   Post[] @relation("written")   // One-to-many: User writes many Posts
+  favoritePosts  Post[] @relation("favorite")  // One-to-many: User favorites many Posts
+
+  // One-to-one with Userpreference
+  userpreference   Userpreference?
+  
+  // Optional: you can use indexes/uniques
+  // @@unique([name, email]) // same name and email not duplicate
+  // @@index([email])
+  // @@id([name,email]) // composite key
+}
+
+model Userpreference {
+  id           Int   @id @default(autoincrement())
+  emailUpdates Boolean
+  
+  // Relation back to User (one-to-one)
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?  @unique
+}
+
+model Post {
+  id    Int    @id @default(autoincrement())
+
+  // Author (written posts)
+  author   User @relation("written", fields: [authorId], references: [id])
+  authorId Int
+
+  // Favorite (one user can favorite many posts)
+  favoritedBy   User? @relation("favorite", fields: [favoritedById], references: [id])
+  favoritedById Int?
+
+  // Many-to-many with Category
+  categories Category[]
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  posts Post[]
+}
+
+enum Role {
+  BASIC
+  ADMIN
+}

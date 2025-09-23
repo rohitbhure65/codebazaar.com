@@ -13,23 +13,40 @@ generator client {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
+  id             Int             @id @default(autoincrement())
   name           String?
-  email          String   @unique
-  phone          String?  @unique
-  age            Int?
-  gender         Gender?
+  email          String          @unique
   hashedPassword String?
-  walletBalance  Float    @default(0)
-  role           UserRole @default(USER)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
+  role           UserRole        @default(USER)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
   tokens         Token[]
   sessions       Session[]
   projects       Project[]
   reviews        Review[]
   supportTickets SupportTicket[]
+  user           UserProfile?
+}
+
+model UserProfile {
+  id            Int       @id @default(autoincrement())
+  dateOfBirth   DateTime?
+  address       String?
+  age           Int?
+  city          String?
+  state         String?
+  phone         String?   @unique
+  gender        Gender?
+  country       String?
+  postalCode    String?
+  profilePic    String?
+  walletBalance Float     @default(0)
+  bio           String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  userProfile   User? @relation(fields: [userProfileId], references: [id])
+  userProfileId Int?  @unique
 }
 
 model Session {

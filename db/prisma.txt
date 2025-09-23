@@ -1,0 +1,127 @@
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient({ log: ["query"] });
+
+async function main() {
+  // CREATE
+  const singleUser = await prisma.user.create({
+    data: { name: "rohit" },
+  });
+
+  const userWithPref = await prisma.user.create({
+    data: {
+      name: "rohit",
+      userpreference: {
+        create: { emailUpdates: true },
+      },
+    },
+    include: { userpreference: true },
+  });
+
+  const manyUsers = await prisma.user.createMany({
+    data: [{ name: "rohit" }, { name: "kali" }, { name: "sita" }],
+  });
+
+  // READ
+  const findById = await prisma.user.findUnique({
+    where: { id: 1 },
+  });
+
+  const findFirst = await prisma.user.findFirst({
+    where: { name: "rohit" },
+  });
+
+  const findMany = await prisma.user.findMany({
+    where: { name: { contains: "o" } },
+    orderBy: { id: "desc" },
+    take: 5,
+    skip: 2,
+    include: { userpreference: true },
+  });
+
+  // UPDATE
+  const updateUser = await prisma.user.update({
+    where: { id: 1 },
+    data: { name: "rohit updated" },
+  });
+
+  const updatePref = await prisma.user.update({
+    where: { id: 1 },
+    data: {
+      userpreference: { update: { emailUpdates: false } },
+    },
+    include: { userpreference: true },
+  });
+
+  const updateMany = await prisma.user.updateMany({
+    where: { name: { contains: "rohit" } },
+    data: { name: "common name" },
+  });
+
+  // DELETE
+  const deleteUser = await prisma.user.delete({
+    where: { id: 1 },
+  });
+
+  const deleteMany = await prisma.user.deleteMany({
+    where: { name: { startsWith: "r" } },
+  });
+
+  // RELATIONS
+  const createPost = await prisma.post.create({
+    data: {
+      title: "My First Post",
+      author: { connect: { id: 1 } },
+    },
+  });
+
+  const userWithPosts = await prisma.user.findUnique({
+    where: { id: 1 },
+    include: { writtenPosts: true },
+  });
+
+  const postWithTags = await prisma.post.create({
+    data: {
+      title: "Tagged Post",
+      tags: {
+        connectOrCreate: [
+          { where: { id: 1 }, create: { name: "Tech" } },
+          { where: { id: 2 }, create: { name: "AI" } },
+        ],
+      },
+    },
+    include: { tags: true },
+  });
+
+  // ADVANCED QUERIES
+  const filteredUsers = await prisma.user.findMany({
+    where: {
+      OR: [{ name: { startsWith: "r" } }, { name: { endsWith: "t" } }],
+      AND: { id: { gt: 2 } },
+    },
+  });
+
+  const countUsers = await prisma.user.count();
+  const avgId = await prisma.user.aggregate({ _avg: { id: true } });
+  const groupedUsers = await prisma.user.groupBy({
+    by: ["name"],
+    _count: { _all: true },
+  });
+
+  // TRANSACTION
+  const [u1, u2] = await prisma.$transaction([
+    prisma.user.create({ data: { name: "first" } }),
+    prisma.user.create({ data: { name: "second" } }),
+  ]);
+
+  // DEFAULT EXAMPLE
+  const allUsers = await prisma.user.findMany();
+  console.log(allUsers);
+}
+
+main()
+  .catch((e) => {
+    console.error(e.message);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
