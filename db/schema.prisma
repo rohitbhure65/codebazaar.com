@@ -80,34 +80,36 @@ model Token {
 }
 
 model Project {
-  id               Int                @id @default(autoincrement())
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  title            String
-  description      String
-  projectImage     String
-  projectImages    String[]
-  slug             String             @unique
-  fileUrl          String?
-  videoUrl         String?
-  featured         Boolean            @default(false)
-  version          String             @default("1.0.0")
-  features         String?
-  requirements     String?
-  price            Float              @default(0)
-  isResellAllowed  Boolean            @default(false)
-  isApproved       Boolean            @default(false)
-  views            Int                @default(0)
-  downloads        Int                @default(0)
-  metaTitle        String?
-  metaDescription  String?
-  metaKeywords     String?
-  robots           String?            @default("index,follow") // Example: "noindex, nofollow", "index, follow"
-  demoUrl          String?
-  repositoryUrl    String?
-  visibility       Visibility         @default(PUBLIC)
-  user             User               @relation(fields: [userId], references: [id])
-  userId           Int
+  id              Int        @id @default(autoincrement())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  title           String
+  description     String
+  projectImage    String
+  projectImages   String[]
+  slug            String     @unique
+  fileUrl         String?
+  videoUrl        String?
+  featured        Boolean    @default(false)
+  version         String     @default("1.0.0")
+  features        String?
+  requirements    String?
+  price           Float      @default(0)
+  isResellAllowed Boolean    @default(false)
+  isApproved      Boolean    @default(false)
+  views           Int        @default(0)
+  downloads       Int        @default(0)
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+  robots          String?    @default("index,follow") // Example: "noindex, nofollow", "index, follow"
+  demoUrl         String?
+  repositoryUrl   String?
+  visibility      Visibility @default(PUBLIC)
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
   Review           Review[]
   ProjectCategory  ProjectCategory[]
   ProjectTag       ProjectTag[]
@@ -263,130 +265,3 @@ enum IssueType {
   SECURITY
   OTHER
 }
-
-// ============================================================================
-// API ROUTES
-// ============================================================================
-
-// 1. **Users** (`/api/users`)
-//
-// GET    /api/users          # List all users
-// POST   /api/users          # Create a new user
-// GET    /api/users/:id      # Get a specific user
-// PUT    /api/users/:id      # Update a user
-// DELETE /api/users/:id      # Delete a user
-//
-// --------------------------------------------------------------------------
-
-// 2. **Projects** (`/api/projects`)
-//
-// GET    /api/projects           # List all projects
-// POST   /api/projects           # Create a new project
-// GET    /api/projects/:id       # Get a specific project
-// PUT    /api/projects/:id       # Update a project
-// DELETE /api/projects/:id       # Delete a project
-//
-// --------------------------------------------------------------------------
-
-// 3. **Purchases** (`/api/purchases`)
-//
-// GET    /api/purchases          # List all purchases
-// POST   /api/purchases          # Create a new purchase
-// GET    /api/purchases/:id      # Get a specific purchase
-// PUT    /api/purchases/:id      # Update a purchase
-// DELETE /api/purchases/:id      # Delete a purchase
-//
-// --------------------------------------------------------------------------
-
-// 4. **Reviews** (`/api/reviews`)
-//
-// GET    /api/reviews           # List all reviews
-// POST   /api/reviews           # Create a new review
-// GET    /api/reviews/:id       # Get a specific review
-// PUT    /api/reviews/:id       # Update a review
-// DELETE /api/reviews/:id       # Delete a review
-//
-// --------------------------------------------------------------------------
-
-// 5. **Transactions** (`/api/transactions`)
-//
-// GET    /api/transactions          # List all transactions
-// POST   /api/transactions          # Create a new transaction
-// GET    /api/transactions/:id      # Get a specific transaction
-// PUT    /api/transactions/:id      # Update a transaction
-// DELETE /api/transactions/:id      # Delete a transaction
-//
-// --------------------------------------------------------------------------
-
-// 6. **Categories** (`/api/categories`)
-//
-// GET    /api/categories           # List all categories
-// POST   /api/categories           # Create a new category
-// GET    /api/categories/:id       # Get a specific category
-// PUT    /api/categories/:id       # Update a category
-// DELETE /api/categories/:id       # Delete a category
-//
-// --------------------------------------------------------------------------
-
-// 7. **Project Tags** (`/api/project-tags`)
-//
-// GET    /api/project-tags           # List all project tags
-// POST   /api/project-tags           # Create a new project tag
-// GET    /api/project-tags/:id       # Get a specific project tag
-// PUT    /api/project-tags/:id       # Update a project tag
-// DELETE /api/project-tags/:id       # Delete a project tag
-//
-// --------------------------------------------------------------------------
-
-// 8. **Support Tickets** (`/api/support-tickets`)
-//
-// GET    /api/support-tickets           # List all support tickets
-// POST   /api/support-tickets           # Create a new support ticket
-// GET    /api/support-tickets/:id       # Get a specific support ticket
-// PUT    /api/support-tickets/:id       # Update a support ticket
-// DELETE /api/support-tickets/:id       # Delete a support ticket
-//
-// --------------------------------------------------------------------------
-
-// **Custom Endpoints**
-//
-// Authentication
-// POST   /api/auth/login                # User login
-// POST   /api/auth/register             # User registration
-// POST   /api/auth/logout               # User logout
-// GET    /api/auth/me                   # Get current user
-//
-// Project-specific
-// GET    /api/projects/:id/reviews      # Get reviews for a project
-// GET    /api/projects/:id/purchases    # Get purchases for a project
-// POST   /api/projects/:id/purchase     # Purchase a project
-//
-// User-specific
-// GET    /api/users/:id/projects        # Get user's projects
-// GET    /api/users/:id/purchases       # Get user's purchases
-// GET    /api/users/:id/reviews         # Get user's reviews
-// PUT    /api/users/:id/wallet          # Update user's wallet
-//
-// Search & Filters
-// GET    /api/projects/search           # Search projects
-// GET    /api/projects/category/:id     # Get projects by category
-// GET    /api/projects/tech/:stack      # Get projects by tech stack
-//
-// Admin Routes
-// PUT    /api/projects/:id/approve      # Approve a project
-// PUT    /api/users/:id/verify          # Verify a seller
-// GET    /api/admin/dashboard           # Admin dashboard data
-//
-
-// blitz generate all user name:string? email:string:unique hashedPassword:string? walletBalance:float:default=0 profileDetails:json? role:enum:UserRole:default=USER
-// blitz generate all project title:string description:string category:string techStack:string[] fileUrl:string price:float isResellAllowed:boolean:default=false isApproved:boolean:default=false belongsTo:user
-// blitz generate all purchase amountPaid:float licenseType:enum:LicenseType belongsTo:user belongsTo:project
-// blitz generate all review rating:int comment:string belongsTo:user belongsTo:project
-// blitz generate all transaction type:enum:TransactionType amount:float paymentMethod:enum:PaymentMethod belongsTo:user
-// blitz generate all category name:string:unique description:string
-// blitz generate all projectTag belongsTo:project belongsTo:category
-// blitz generate all supportTicket issueType:enum:IssueType status:enum:TicketStatus:default=OPEN description:string resolvedAt:datetime? belongsTo:user belongsTo:project
-
-// ============================================================================
-// MODELS
-// ============================================================================
