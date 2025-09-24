@@ -1,5 +1,6 @@
 "use client"
 import { LabeledTextField } from "src/app/components/LabeledTextField"
+import { LabeledDateField } from "src/app/components/LabeledDateField"
 import { Form, FORM_ERROR } from "@/src/app/components/SignupForm"
 import signup from "../mutations/signup"
 import { Signup } from "../validations"
@@ -86,7 +87,7 @@ export const SignupForm = (props: SignupFormProps) => {
           />
           <LabeledTextField name="name" label="Full Name" placeholder="Full Name" />
           <LabeledTextField name="phone" label="Phone Number" placeholder="Phone Number" />
-          <LabeledTextField name="dateOfBirth" label="Date of Birth" placeholder="YYYY-MM-DD" />
+          <LabeledDateField name="dateOfBirth" label="Date of Birth" />
           <LabeledTextField name="age" label="Age" placeholder="Age" type="number" />
           <LabeledTextField name="address" label="Address" placeholder="Street Address" />
           <LabeledTextField name="city" label="City" placeholder="City" />
