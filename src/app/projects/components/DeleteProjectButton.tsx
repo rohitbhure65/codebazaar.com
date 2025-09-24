@@ -73,7 +73,7 @@ export const DeleteProjectButton = ({
             </div>
 
             <p className="text-gray-600 mb-4">
-              Are you sure you want to delete "{projectTitle}"? This action cannot be undone.
+              Are you sure you want to delete {`"${projectTitle}"`}? This action cannot be undone.
             </p>
 
             <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 mb-6">

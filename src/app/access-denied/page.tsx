@@ -6,7 +6,7 @@ export default function AccessDenied() {
             <h1 className="text-9xl font-bold text-red-500">403</h1>
             <h2 className="mt-4 text-2xl font-semibold">Access Denied</h2>
             <p className="mt-2 text-gray-400 text-center">
-                You don't have permission to access this resource. You can only edit projects that you own.
+                You don&#39;t have permission to access this resource. You can only edit projects that you own.
             </p>
             <div className="mt-6 flex gap-4">
                 <Link
