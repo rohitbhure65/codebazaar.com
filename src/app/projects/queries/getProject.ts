@@ -39,6 +39,10 @@ export default resolver.pipe(
         _count: {
           select: {
             Review: true,
+            ProjectCategory: true,
+            ProjectTag: true,
+            ProjectTechStack: true,
+            SupportTicket: true,
           },
         },
       },

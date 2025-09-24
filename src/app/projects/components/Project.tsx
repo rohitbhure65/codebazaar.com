@@ -399,7 +399,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
             </p>
           </div>
 
-          <div className="flex gap-4 mt-4">
+          <div className="flex gap-4 mt-4 flex-wrap">
             {project.demoUrl ? (
               <a
                 href={project.demoUrl}

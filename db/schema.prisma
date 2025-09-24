@@ -131,7 +131,7 @@ model ProjectCategory {
   updatedAt DateTime @updatedAt
 
   projectId Int
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   categoryId Int
   category   Category @relation(fields: [categoryId], references: [id])
@@ -153,7 +153,7 @@ model ProjectTag {
   updatedAt DateTime @updatedAt
 
   projectId Int
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   tagId Int
   tag   Tags @relation(fields: [tagId], references: [id])
@@ -175,7 +175,7 @@ model ProjectTechStack {
   updatedAt DateTime @updatedAt
 
   projectId Int
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   techStackId Int
   techstack   TechStack @relation(fields: [techStackId], references: [id])
@@ -193,7 +193,7 @@ model Review {
   user   User @relation(fields: [userId], references: [id])
   userId Int
 
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId Int
 }
 
@@ -209,7 +209,7 @@ model SupportTicket {
   user   User @relation(fields: [userId], references: [id])
   userId Int
 
-  project   Project? @relation(fields: [projectId], references: [id])
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId Int?
 }
 
