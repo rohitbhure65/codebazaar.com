@@ -15,6 +15,19 @@ export default resolver.pipe(
     const project = await db.project.findFirst({
       where: { slug },
       include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            user: {
+              select: {
+                profilePic: true,
+                bio: true,
+              },
+            },
+          },
+        },
         Review: {
           select: {
             createdAt:true,

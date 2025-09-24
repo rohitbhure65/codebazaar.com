@@ -473,7 +473,7 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
         )
       }
 
-      <ProfileCard />
+      <ProfileCard user={project.user} />
 
       <Reviews review={project.Review} />
     </div >
