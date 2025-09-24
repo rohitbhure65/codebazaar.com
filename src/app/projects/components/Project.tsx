@@ -435,12 +435,13 @@ export const Project = ({ projectSlug }: { projectSlug: string }) => {
       {project.videoUrl && (
         <div className="relative w-full pb-[56.25%] mt-5 h-0 overflow-hidden rounded-xl shadow-md">
           <iframe
-            src={`https://www.youtube.com/embed/${project.videoUrl}`}
+            src={`https://www.youtube.com/embed/${project.videoUrl.split("youtu.be/")[1]}`}
             title={project.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="absolute top-0 left-0 w-full h-full"
           ></iframe>
+
           {/* <iframe
             className="w-full h-full absolute"
             src={String(project.videoUrl)}
