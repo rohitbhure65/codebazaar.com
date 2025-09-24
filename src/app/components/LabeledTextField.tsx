@@ -72,34 +72,82 @@ export const LabeledTextField = forwardRef<
             {...labelProps} // extra label props
           />
         ) : isSelect ? ( // Render select dropdown
-          <FormControl fullWidth error={touched && !!normalizedError}>
-            <InputLabel id={`${name}-label`}>{label}</InputLabel> {/* dropdown label */}
-            <Select
-              {...input} // bind input
-              disabled={props.disabled || submitting} // disable if needed
-              labelId={`${name}-label`} // label id
-              id={name} // element id
-              label={label} // field label
-              multiple={multiple} // enable multiple selection
-              value={multiple ? (input.value || []) : (input.value || "")} // handle multiple values
-              ref={ref as React.Ref<any>} // forward ref
-              renderValue={multiple ? (selected: any) => {
-                if (!selected || selected.length === 0) return "";
-                const selectedLabels = selected.map((value: any) => {
-                  const option = options?.find(opt => opt.value === value);
-                  return option?.label || value;
-                });
-                return selectedLabels.join(", ");
-              } : undefined}
-            >
-              {options?.map((option) => (
-                <MenuItem key={option.value} value={option.value}> {/* option */}
-                  {multiple && <Checkbox checked={(input.value || []).indexOf(option.value) > -1} />}
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+            // Render select dropdown
+            <FormControl fullWidth error={touched && !!normalizedError}>
+              <InputLabel id={`${name}-label`}>{label}</InputLabel>
+              <Select
+                {...input}
+                disabled={props.disabled || submitting}
+                labelId={`${name}-label`}
+                id={name}
+                label={label}
+                multiple={multiple}
+                value={multiple ? (input.value || []) : (input.value || "")}
+                ref={ref as React.Ref<any>}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      maxHeight: 300, // Increased height
+                      overflow: 'auto',
+                      // Custom scrollbar styling for better appearance
+                      scrollbarWidth: 'thick',
+                      scrollbarColor: '#c1c1c1 #f1f1f1',
+                      '&::-webkit-scrollbar': {
+                        width: '10px',
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        background: '#f1f1f1',
+                        borderRadius: '10px',
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        background: '#c1c1c1',
+                        borderRadius: '10px',
+                        border: '2px solid #f1f1f1',
+                      },
+                      '&::-webkit-scrollbar-thumb:hover': {
+                        background: '#a8a8a8',
+                      },
+                    },
+                  },
+                  // Ensure dropdown positions correctly
+                  anchorOrigin: {
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  },
+                  transformOrigin: {
+                    vertical: 'top',
+                    horizontal: 'left',
+                  },
+                  // Auto focus management for better accessibility
+                  autoFocus: false,
+                }}
+                renderValue={multiple ? (selected: any) => {
+                  if (!selected || selected.length === 0) return "";
+                  const selectedLabels = selected.map((value: any) => {
+                    const option = options?.find(opt => opt.value === value);
+                    return option?.label || value;
+                  });
+                  return selectedLabels.join(", ");
+                } : undefined}
+              >
+                {options?.map((option) => (
+                  <MenuItem
+                    key={option.value}
+                    value={option.value}
+                    sx={{
+                      whiteSpace: 'normal', // Allow text wrapping
+                      wordWrap: 'break-word',
+                      minHeight: '48px', // Ensure consistent height
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {multiple && <Checkbox checked={(input.value || []).indexOf(option.value) > -1} />}
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
         ) : type === "textarea" ? ( // Render textarea
           <TextareaAutosize
             {...input} // bind input

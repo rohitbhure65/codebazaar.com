@@ -6,6 +6,7 @@ import signup from "../mutations/signup"
 import { Signup } from "../validations"
 import { useMutation } from "@blitzjs/rpc"
 import { useRouter } from "next/navigation"
+import { State } from "@/lib/csc"
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -16,7 +17,7 @@ export const SignupForm = (props: SignupFormProps) => {
   const router = useRouter()
 
   return (
-   <section className="flex items-center justify-center h-screen">
+    <section className="flex items-center justify-center h-screen">
       <div className="w-full max-w-7xl p-8">
         <h1 className="text-2xl font-bold text-center mb-6">Create An Account</h1>
 
@@ -91,7 +92,7 @@ export const SignupForm = (props: SignupFormProps) => {
           <LabeledTextField name="age" label="Age" placeholder="Age" type="number" />
           <LabeledTextField name="address" label="Address" placeholder="Street Address" />
           <LabeledTextField name="city" label="City" placeholder="City" />
-          <LabeledTextField name="state" label="State" placeholder="State" />
+          <LabeledTextField name="state" label="State" placeholder="State" isSelect={true} options={State} />
           <LabeledTextField name="country" label="Country" placeholder="Country" />
           <LabeledTextField name="postalCode" label="Postal Code" placeholder="Postal Code" />
           <LabeledTextField name="profilePic" label="Profile Picture URL" placeholder="https://..." />
