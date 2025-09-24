@@ -6,17 +6,17 @@ import { z } from "zod";
 export { FORM_ERROR } from "src/app/components/ProjectForm";
 
 import { useCurrentUser } from "src/app/users/hooks/useCurrentUser";
-import { getcategory } from "../../hooks/getCategory";
-import { gettags } from "../../hooks/getTags";
-import { gettechstack } from "../../hooks/getTechStack";
+import { useCategory } from "../../hooks/getCategory";
+import { useTags } from "../../hooks/getTags";
+import { useTechStack } from "../../hooks/getTechStack";
 
 export function ProjectForm<S extends z.ZodType<any, any>>(
   props: FormProps<S>
 ) {
   const currentUser = useCurrentUser();
-  const categoriesData = getcategory();
-  const tagsData = gettags();
-  const techStacksData = gettechstack();
+  const categoriesData = useCategory();
+  const tagsData = useTags();
+  const techStacksData = useTechStack();
 
   // Transform categories to the format expected by LabeledTextField
   const categoryOptions = categoriesData?.map(category => ({
