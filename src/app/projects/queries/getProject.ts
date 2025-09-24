@@ -15,6 +15,19 @@ export default resolver.pipe(
     const project = await db.project.findFirst({
       where: { slug },
       include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            user: {
+              select: {
+                profilePic: true,
+                bio: true,
+              },
+            },
+          },
+        },
         Review: {
           select: {
             createdAt:true,
@@ -34,11 +47,15 @@ export default resolver.pipe(
             category: { select: { category: true } }
           }
         },
-        ProjectTag: { select: { tag: { select: { tag: true } } } },
-        ProjectTechStack: { select: { techstack: { select: { techstack: true } } } },
+        ProjectTag: { select: { tag: { select: { id: true, tag: true } } } },
+        ProjectTechStack: { select: { techstack: { select: { id: true, techstack: true } } } },
         _count: {
           select: {
             Review: true,
+            ProjectCategory: true,
+            ProjectTag: true,
+            ProjectTechStack: true,
+            SupportTicket: true,
           },
         },
       },

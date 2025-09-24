@@ -29,6 +29,8 @@ export const CreateProjectSchema = z.object({
   repositoryUrl: z.string().optional().nullable(),
   visibility: z.enum(["PUBLIC", "PRIVATE"]).default("PUBLIC"),
   categoryIds: z.array(z.number()).optional().default([]),
+  tagIds: z.array(z.number()).optional().default([]),
+  techStackIds: z.array(z.number()).optional().default([]),
 })
 
 export const UpdateProjectSchema = CreateProjectSchema.merge(

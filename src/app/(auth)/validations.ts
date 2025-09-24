@@ -14,6 +14,22 @@ export const password = z
 export const Signup = z.object({
   email,
   password,
+  name: z.string().min(1, "Name is required").optional(),
+  dateOfBirth: z.string().optional().refine((val) => {
+    if (!val) return true
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/
+    return dateRegex.test(val)
+  }, "Date of birth must be in YYYY-MM-DD format"),
+  address: z.string().optional(),
+  age: z.number().min(1).max(150).optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+  phone: z.string().min(10, "Phone number must be at least 10 digits").optional(),
+  gender: z.enum(["MALE", "FEMALE", "OTHER", ""]).optional(),
+  country: z.string().optional(),
+  postalCode: z.string().optional(),
+  profilePic: z.string().optional(),
+  bio: z.string().optional(),
 })
 
 export const Login = z.object({
