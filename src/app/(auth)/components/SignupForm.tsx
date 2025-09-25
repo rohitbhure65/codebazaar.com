@@ -6,7 +6,7 @@ import signup from "../mutations/signup"
 import { Signup } from "../validations"
 import { useMutation } from "@blitzjs/rpc"
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useFormState } from "react-final-form"
 import axios from "axios"
 import { X_CSCAPI_KEY } from "@/lib/constants"
@@ -14,6 +14,13 @@ import { X_CSCAPI_KEY } from "@/lib/constants"
 type SignupFormProps = {
   onSuccess?: () => void
 }
+
+type ApiResponseItem = { name: string; iso2: string }
+type Country = ApiResponseItem
+type State = ApiResponseItem
+type City = { name: string }
+
+const API_BASE_URL = "https://api.countrystatecity.in/v1"
 
 export const SignupForm = (props: SignupFormProps) => {
   const [signupMutation] = useMutation(signup)
@@ -62,17 +69,14 @@ export const SignupForm = (props: SignupFormProps) => {
                 bio: values.bio
               })
 
-              // Call the onSuccess callback if provided
               if (props.onSuccess) {
                 props.onSuccess()
               } else {
-                // Default behavior: refresh and redirect to home
                 router.refresh()
                 router.push("/")
               }
             } catch (error: any) {
               if (error.code === "P2002" && error.meta?.target?.includes("email")) {
-                // This error comes from Prisma
                 return { email: "This email is already being used" }
               } else if (error.code === "P2002" && error.meta?.target?.includes("phone")) {
                 return { phone: "This phone number is already being used" }
@@ -89,89 +93,144 @@ export const SignupForm = (props: SignupFormProps) => {
   )
 }
 
-const SignupFormFields = () => {
-  const [countries, setCountries] = useState<{ name: string; iso2: string }[]>([])
-  const [states, setStates] = useState<{ name: string; iso2: string }[]>([])
-  const [cities, setCities] = useState<string[]>([])
-  const [selectedCountryIso2, setSelectedCountryIso2] = useState<string | null>(null)
-  const [selectedStateIso2, setSelectedStateIso2] = useState<string | null>(null)
+// Custom hooks for API fetching to improve separation of concerns and reusability
+const useCountries = () => {
+  const [countries, setCountries] = useState<Country[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const { values } = useFormState()
-
-  // Fetch countries on mount
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await axios.get("https://api.countrystatecity.in/v1/countries", {
-          headers: {
-            "X-CSCAPI-KEY": `${X_CSCAPI_KEY}`
-          }
+        setLoading(true)
+        setError(null)
+        const response = await axios.get(`${API_BASE_URL}/countries`, {
+          headers: { "X-CSCAPI-KEY": X_CSCAPI_KEY }
         })
         setCountries(response.data.map((c: any) => ({ name: c.name, iso2: c.iso2 })))
-      } catch (error) {
-        console.error("Error fetching countries:", error)
+      } catch (err) {
+        console.error("Error fetching countries:", err)
+        setError("Failed to load countries")
+      } finally {
+        setLoading(false)
       }
     }
     fetchCountries()
   }, [])
 
-  // Fetch states when country changes
+  return { countries, loading, error }
+}
+
+const useStates = (countryIso2: string | null) => {
+  const [states, setStates] = useState<State[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
   useEffect(() => {
-    if (values.country) {
-      const country = countries.find(c => c.name === values.country)
-      if (country) {
-        setSelectedCountryIso2(country.iso2)
-        const fetchStates = async () => {
-          try {
-            const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${country.iso2}/states`, {
-              headers: {
-                "X-CSCAPI-KEY": `${X_CSCAPI_KEY}`
-              }
-            })
-            setStates(response.data.map((s: any) => ({ name: s.name, iso2: s.iso2 })))
-          } catch (error) {
-            console.error("Error fetching states:", error)
-          }
-        }
-        fetchStates()
-      }
-    } else {
-      setSelectedCountryIso2(null)
+    if (!countryIso2) {
       setStates([])
-      setCities([])
-      setSelectedStateIso2(null)
+      setError(null)
+      return
     }
+
+    const fetchStates = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+        const response = await axios.get(`${API_BASE_URL}/countries/${countryIso2}/states`, {
+          headers: { "X-CSCAPI-KEY": X_CSCAPI_KEY }
+        })
+        setStates(response.data.map((s: any) => ({ name: s.name, iso2: s.iso2 })))
+      } catch (err) {
+        console.error("Error fetching states:", err)
+        setError("Failed to load states")
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchStates()
+  }, [countryIso2])
+
+  return { states, loading, error }
+}
+
+const useCities = (countryIso2: string | null, stateIso2: string | null) => {
+  const [cities, setCities] = useState<City[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!countryIso2 || !stateIso2) {
+      setCities([])
+      setError(null)
+      return
+    }
+
+    const fetchCities = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+        const response = await axios.get(`${API_BASE_URL}/countries/${countryIso2}/states/${stateIso2}/cities`, {
+          headers: { "X-CSCAPI-KEY": X_CSCAPI_KEY }
+        })
+        setCities(response.data.map((c: any) => ({ name: c.name })))
+      } catch (err) {
+        console.error("Error fetching cities:", err)
+        setError("Failed to load cities")
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchCities()
+  }, [countryIso2, stateIso2])
+
+  return { cities, loading, error }
+}
+
+const SignupFormFields = () => {
+  const { values } = useFormState()
+
+  // Fetch countries
+  const { countries, loading: countriesLoading, error: countriesError } = useCountries()
+
+  // Find selected country ISO
+  const selectedCountryIso2 = useMemo(() => {
+    return values.country ? countries.find(c => c.name === values.country)?.iso2 || null : null
   }, [values.country, countries])
 
-  // Fetch cities when state changes
-  useEffect(() => {
-    if (values.state && selectedCountryIso2) {
-      const state = states.find(s => s.name === values.state)
-      if (state) {
-        setSelectedStateIso2(state.iso2)
-        const fetchCities = async () => {
-          try {
-            const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountryIso2}/states/${state.iso2}/cities`, {
-              headers: {
-                "X-CSCAPI-KEY": `${X_CSCAPI_KEY}`
-              }
-            })
-            setCities(response.data.map((c: any) => c.name))
-          } catch (error) {
-            console.error("Error fetching cities:", error)
-          }
-        }
-        fetchCities()
-      }
-    } else {
-      setSelectedStateIso2(null)
-      setCities([])
-    }
-  }, [values.state, selectedCountryIso2, states])
+  // Fetch states based on selected country
+  const { states, loading: statesLoading, error: statesError } = useStates(selectedCountryIso2)
 
-  const countryOptions = countries.map(c => ({ value: c.name, label: c.name }))
-  const stateOptions = states.map(s => ({ value: s.name, label: s.name }))
-  const cityOptions = cities.map(c => ({ value: c, label: c }))
+  // Find selected state ISO
+  const selectedStateIso2 = useMemo(() => {
+    return values.state ? states.find(s => s.name === values.state)?.iso2 || null : null
+  }, [values.state, states])
+
+  // Fetch cities based on selected state
+  const { cities, loading: citiesLoading, error: citiesError } = useCities(selectedCountryIso2, selectedStateIso2)
+
+  // Memoize options to prevent unnecessary re-renders
+  const countryOptions = useMemo(
+    () => countries.map(c => ({ value: c.name, label: c.name })),
+    [countries]
+  )
+  const stateOptions = useMemo(
+    () => states.map(s => ({ value: s.name, label: s.name })),
+    [states]
+  )
+  const cityOptions = useMemo(
+    () => cities.map(c => ({ value: c.name, label: c.name })),
+    [cities]
+  )
+
+  // Combined loading and error states for UX (simplified; could be more granular)
+  const isLocationLoading = countriesLoading || statesLoading || citiesLoading
+  const locationError = countriesError || statesError || citiesError
+
+  if (locationError) {
+    // Optionally render an error message; for now, log and proceed with empty options
+    console.error("Location API error:", locationError)
+  }
 
   return (
     <>
@@ -187,13 +246,33 @@ const SignupFormFields = () => {
       <LabeledDateField name="dateOfBirth" label="Date of Birth" />
       <LabeledTextField name="age" label="Age" placeholder="Age" type="number" />
       <LabeledTextField name="address" label="Address" placeholder="Street Address" />
-      <LabeledTextField name="country" label="Country" placeholder="Country" isSelect options={countryOptions} />
-      <LabeledTextField name="state" label="State" placeholder="State" isSelect options={stateOptions} disabled={!selectedCountryIso2} />
-      <LabeledTextField name="city" label="City" placeholder="City" isSelect options={cityOptions} disabled={!selectedStateIso2} />
+      <LabeledTextField
+        name="country"
+        label="Country"
+        placeholder="Country"
+        isSelect
+        options={countryOptions}
+        disabled={countriesLoading}
+      />
+      <LabeledTextField
+        name="state"
+        label="State"
+        placeholder="State"
+        isSelect
+        options={stateOptions}
+        disabled={!selectedCountryIso2 || statesLoading}
+      />
+      <LabeledTextField
+        name="city"
+        label="City"
+        placeholder="City"
+        isSelect
+        options={cityOptions}
+        disabled={!selectedStateIso2 || citiesLoading}
+      />
       <LabeledTextField name="postalCode" label="Postal Code" placeholder="Postal Code" />
       <LabeledTextField name="profilePic" label="Profile Picture URL" placeholder="https://..." />
       <LabeledTextField name="bio" label="Bio" placeholder="Tell us about yourself" type="textarea" />
-
       <LabeledTextField
         name="gender"
         label="Gender"
@@ -204,6 +283,8 @@ const SignupFormFields = () => {
           { value: "OTHER", label: "Other" }
         ]}
       />
+      {isLocationLoading && <p className="text-sm text-gray-500">Loading location data...</p>}
+      {locationError && <p className="text-sm text-red-500">Error loading locations. Please try again.</p>}
     </>
   )
 }
