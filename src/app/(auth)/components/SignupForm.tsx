@@ -6,7 +6,7 @@ import signup from "../mutations/signup"
 import { Signup } from "../validations"
 import { useMutation } from "@blitzjs/rpc"
 import { useRouter } from "next/navigation"
-import { State } from "@/lib/csc"
+import { Country, State } from "@/lib/csc"
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -93,7 +93,7 @@ export const SignupForm = (props: SignupFormProps) => {
           <LabeledTextField name="address" label="Address" placeholder="Street Address" />
           <LabeledTextField name="city" label="City" placeholder="City" />
           <LabeledTextField name="state" label="State" placeholder="State" isSelect={true} options={State} />
-          <LabeledTextField name="country" label="Country" placeholder="Country" />
+          <LabeledTextField name="country" label="Country" placeholder="Country" isSelect={true} options={Country} />
           <LabeledTextField name="postalCode" label="Postal Code" placeholder="Postal Code" />
           <LabeledTextField name="profilePic" label="Profile Picture URL" placeholder="https://..." />
           <LabeledTextField name="bio" label="Bio" placeholder="Tell us about yourself" type="textarea" />
