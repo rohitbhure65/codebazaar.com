@@ -91,9 +91,9 @@ export const SignupForm = (props: SignupFormProps) => {
           <LabeledDateField name="dateOfBirth" label="Date of Birth" />
           <LabeledTextField name="age" label="Age" placeholder="Age" type="number" />
           <LabeledTextField name="address" label="Address" placeholder="Street Address" />
-          <LabeledTextField name="city" label="City" placeholder="City" />
-          <LabeledTextField name="state" label="State" placeholder="State" isSelect={true} options={State} />
           <LabeledTextField name="country" label="Country" placeholder="Country" isSelect={true} options={Country} />
+          <LabeledTextField name="state" label="State" placeholder="State" isSelect={true} options={State} />
+          <LabeledTextField name="city" label="City" placeholder="City" />
           <LabeledTextField name="postalCode" label="Postal Code" placeholder="Postal Code" />
           <LabeledTextField name="profilePic" label="Profile Picture URL" placeholder="https://..." />
           <LabeledTextField name="bio" label="Bio" placeholder="Tell us about yourself" type="textarea" />

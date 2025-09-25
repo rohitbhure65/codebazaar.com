@@ -87,39 +87,11 @@ export const LabeledTextField = forwardRef<
                 MenuProps={{
                   PaperProps: {
                     sx: {
-                      maxHeight: 300, // Increased height
+                      maxHeight: 300, 
                       overflow: 'auto',
-                      // Custom scrollbar styling for better appearance
-                      scrollbarWidth: 'thick',
-                      scrollbarColor: '#c1c1c1 #f1f1f1',
-                      '&::-webkit-scrollbar': {
-                        width: '10px',
-                      },
-                      '&::-webkit-scrollbar-track': {
-                        background: '#f1f1f1',
-                        borderRadius: '10px',
-                      },
-                      '&::-webkit-scrollbar-thumb': {
-                        background: '#c1c1c1',
-                        borderRadius: '10px',
-                        border: '2px solid #f1f1f1',
-                      },
-                      '&::-webkit-scrollbar-thumb:hover': {
-                        background: '#a8a8a8',
-                      },
+
                     },
                   },
-                  // Ensure dropdown positions correctly
-                  anchorOrigin: {
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  },
-                  transformOrigin: {
-                    vertical: 'top',
-                    horizontal: 'left',
-                  },
-                  // Auto focus management for better accessibility
-                  autoFocus: false,
                 }}
                 renderValue={multiple ? (selected: any) => {
                   if (!selected || selected.length === 0) return "";

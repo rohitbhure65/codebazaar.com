@@ -27,7 +27,7 @@ export const Signup = z.object({
   phone: z.string().min(10, "Phone number must be at least 10 digits").optional(),
   gender: z.enum(["MALE", "FEMALE", "OTHER", ""]).optional(),
   country: z.string().optional(),
-  postalCode: z.string().optional(),
+  postalCode: z.string().min(6).max(6).optional(),
   profilePic: z.string().optional(),
   bio: z.string().optional(),
 })
