@@ -16,7 +16,7 @@ const Hero = () => {
                 <div className="grid grid-cols-1 gap-y-8 lg:items-center lg:grid-cols-2 sm:gap-y-20 xl:grid-cols-5">
                     <div className="text-center xl:col-span-2 lg:text-left md:px-16 lg:px-0">
                         <div className="max-w-sm mx-auto sm:max-w-md md:max-w-full">
-                            <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight font-pj">
+                            <h1 className="text-4xl h-[217px] flex items-center font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight font-pj">
                                 <TextType
                                     text={[`Welcom I am Happy to See You Again 😊 ${name || ''}`, "Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code", "Get meaningful feedbacks on your code!"]}
                                     typingSpeed={100}

@@ -1,10 +1,12 @@
 "use client"
 import { LabeledTextField } from "src/app/components/LabeledTextField"
+import { LabeledDateField } from "src/app/components/LabeledDateField"
 import { Form, FORM_ERROR } from "@/src/app/components/SignupForm"
 import signup from "../mutations/signup"
 import { Signup } from "../validations"
 import { useMutation } from "@blitzjs/rpc"
 import { useRouter } from "next/navigation"
+import { Country, State } from "@/lib/csc"
 
 type SignupFormProps = {
   onSuccess?: () => void
@@ -15,7 +17,7 @@ export const SignupForm = (props: SignupFormProps) => {
   const router = useRouter()
 
   return (
-   <section className="flex items-center justify-center h-screen">
+    <section className="flex items-center justify-center h-screen">
       <div className="w-full max-w-7xl p-8">
         <h1 className="text-2xl font-bold text-center mb-6">Create An Account</h1>
 
@@ -86,12 +88,12 @@ export const SignupForm = (props: SignupFormProps) => {
           />
           <LabeledTextField name="name" label="Full Name" placeholder="Full Name" />
           <LabeledTextField name="phone" label="Phone Number" placeholder="Phone Number" />
-          <LabeledTextField name="dateOfBirth" label="Date of Birth" placeholder="YYYY-MM-DD" />
+          <LabeledDateField name="dateOfBirth" label="Date of Birth" />
           <LabeledTextField name="age" label="Age" placeholder="Age" type="number" />
           <LabeledTextField name="address" label="Address" placeholder="Street Address" />
+          <LabeledTextField name="country" label="Country" placeholder="Country" isSelect={true} options={Country} />
+          <LabeledTextField name="state" label="State" placeholder="State" isSelect={true} options={State} />
           <LabeledTextField name="city" label="City" placeholder="City" />
-          <LabeledTextField name="state" label="State" placeholder="State" />
-          <LabeledTextField name="country" label="Country" placeholder="Country" />
           <LabeledTextField name="postalCode" label="Postal Code" placeholder="Postal Code" />
           <LabeledTextField name="profilePic" label="Profile Picture URL" placeholder="https://..." />
           <LabeledTextField name="bio" label="Bio" placeholder="Tell us about yourself" type="textarea" />
