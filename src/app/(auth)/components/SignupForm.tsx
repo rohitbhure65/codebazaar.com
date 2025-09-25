@@ -125,7 +125,7 @@ const SignupFormFields = () => {
           try {
             const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${country.iso2}/states`, {
               headers: {
-                "X-CSCAPI-KEY": "UEFFSWFlSVVmMGFWZ3ZqVGRBZXJndGVLSXZpdUhTR01rVEdvUU1MZw=="
+                "X-CSCAPI-KEY": `${X_CSCAPI_KEY}`
               }
             })
             setStates(response.data.map((s: any) => ({ name: s.name, iso2: s.iso2 })))
@@ -153,7 +153,7 @@ const SignupFormFields = () => {
           try {
             const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${selectedCountryIso2}/states/${state.iso2}/cities`, {
               headers: {
-                "X-CSCAPI-KEY": "UEFFSWFlSVVmMGFWZ3ZqVGRBZXJndGVLSXZpdUhTR01rVEdvUU1MZw=="
+                "X-CSCAPI-KEY": `${X_CSCAPI_KEY}`
               }
             })
             setCities(response.data.map((c: any) => c.name))
