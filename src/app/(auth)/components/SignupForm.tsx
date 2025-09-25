@@ -173,7 +173,12 @@ const useCities = (countryIso2: string | null, stateIso2: string | null) => {
         const response = await axios.get(`${API_BASE_URL}/countries/${countryIso2}/states/${stateIso2}/cities`, {
           headers: { "X-CSCAPI-KEY": X_CSCAPI_KEY }
         })
-        setCities(response.data.map((c: any) => ({ name: c.name })))
+        const fetchedCities = response.data.map((c: any) => ({ name: c.name }))
+        setCities(fetchedCities)
+        // If no cities are returned, set a specific error
+        if (fetchedCities.length === 0) {
+          setError("No cities available for this state")
+        }
       } catch (err) {
         console.error("Error fetching cities:", err)
         setError("Failed to load cities")
@@ -227,6 +232,17 @@ const SignupFormFields = () => {
   const isLocationLoading = countriesLoading || statesLoading || citiesLoading
   const locationError = countriesError || statesError || citiesError
 
+  // City-specific validation: Check if selected city exists in fetched cities
+  const cityValidationError = useMemo(() => {
+    if (values.city && selectedStateIso2 && cities.length > 0) {
+      const isValidCity = cities.some(c => c.name === values.city)
+      if (!isValidCity) {
+        return "Selected city is not available in this state. Please choose from the list."
+      }
+    }
+    return null
+  }, [values.city, selectedStateIso2, cities])
+
   if (locationError) {
     // Optionally render an error message; for now, log and proceed with empty options
     console.error("Location API error:", locationError)
@@ -270,6 +286,9 @@ const SignupFormFields = () => {
         options={cityOptions}
         disabled={!selectedStateIso2 || citiesLoading}
       />
+      {cityValidationError && (
+        <p className="text-sm text-red-500 mt-1">{cityValidationError}</p>
+      )}
       <LabeledTextField name="postalCode" label="Postal Code" placeholder="Postal Code" />
       <LabeledTextField name="profilePic" label="Profile Picture URL" placeholder="https://..." />
       <LabeledTextField name="bio" label="Bio" placeholder="Tell us about yourself" type="textarea" />
@@ -285,6 +304,9 @@ const SignupFormFields = () => {
       />
       {isLocationLoading && <p className="text-sm text-gray-500">Loading location data...</p>}
       {locationError && <p className="text-sm text-red-500">Error loading locations. Please try again.</p>}
+      {citiesError && !isLocationLoading && (
+        <p className="text-sm text-red-500">City data unavailable: {citiesError}</p>
+      )}
     </>
   )
 }
