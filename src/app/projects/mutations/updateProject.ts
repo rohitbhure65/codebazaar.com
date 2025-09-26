@@ -5,8 +5,9 @@ import { UpdateProjectSchema } from "../schemas"
 export default resolver.pipe(
   resolver.zod(UpdateProjectSchema),
   resolver.authorize(),
-  async ({ id, categoryIds, tagIds, techStackIds, ...data }) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+  async ({ id, categoryIds, tagIds, techStackIds, ...data }, ctx) => {
+    // Ensure user owns the project
+    const userId = ctx.session.userId
 
     // First, delete existing category relationships
     await db.projectCategory.deleteMany({
@@ -25,7 +26,7 @@ export default resolver.pipe(
 
     // Then update the project with new data
     const project = await db.project.update({
-      where: { id },
+      where: { id, userId },
       data: {
         ...data as any,
         ProjectCategory: categoryIds && categoryIds.length > 0 ? {

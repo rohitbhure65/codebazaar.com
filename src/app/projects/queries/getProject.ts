@@ -11,9 +11,9 @@ export default resolver.pipe(
   resolver.zod(GetProject),
   // resolver.authorize(),
   async ({ slug }) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    // Ensure only public projects are accessible
     const project = await db.project.findFirst({
-      where: { slug },
+      where: { slug, visibility: 'PUBLIC' },
       include: {
         user: {
           select: {

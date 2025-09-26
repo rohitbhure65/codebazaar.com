@@ -39,7 +39,7 @@ export function useGsapBlocks() {
       anims.push(
         gsap.fromTo(
           el,
-          { autoAlpha: 0, x: -40 },
+          { autoAlpha: 0, x: -20 },
           {
             autoAlpha: 1,
             x: 0,
@@ -59,7 +59,7 @@ export function useGsapBlocks() {
       anims.push(
         gsap.fromTo(
           el,
-          { autoAlpha: 0, x: 40 },
+          { autoAlpha: 0, x: 20 },
           {
             autoAlpha: 1,
             x: 0,

@@ -1,7 +1,7 @@
 "use client"
 import { LabeledTextField } from "src/app/components/LabeledTextField"
 import { LabeledDateField } from "src/app/components/LabeledDateField"
-import { Form, FORM_ERROR } from "@/src/app/components/SignupForm"
+import { Form, FORM_ERROR } from "src/app/components/SignupForm"
 import signup from "../mutations/signup"
 import { Signup } from "../validations"
 import { useMutation } from "@blitzjs/rpc"
@@ -109,7 +109,6 @@ const useCountries = () => {
         })
         setCountries(response.data.map((c: any) => ({ name: c.name, iso2: c.iso2 })))
       } catch (err) {
-        console.error("Error fetching countries:", err)
         setError("Failed to load countries")
       } finally {
         setLoading(false)
@@ -142,7 +141,6 @@ const useStates = (countryIso2: string | null) => {
         })
         setStates(response.data.map((s: any) => ({ name: s.name, iso2: s.iso2 })))
       } catch (err) {
-        console.error("Error fetching states:", err)
         setError("Failed to load states")
       } finally {
         setLoading(false)
@@ -180,7 +178,6 @@ const useCities = (countryIso2: string | null, stateIso2: string | null) => {
           setError("No cities available for this state")
         }
       } catch (err) {
-        console.error("Error fetching cities:", err)
         setError("Failed to load cities")
       } finally {
         setLoading(false)
@@ -244,8 +241,7 @@ const SignupFormFields = () => {
   }, [values.city, selectedStateIso2, cities])
 
   if (locationError) {
-    // Optionally render an error message; for now, log and proceed with empty options
-    console.error("Location API error:", locationError)
+    // Optionally render an error message; for now, proceed with empty options
   }
 
   return (

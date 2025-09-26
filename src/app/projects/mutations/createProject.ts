@@ -5,8 +5,9 @@ import { CreateProjectSchema } from "../schemas"
 export default resolver.pipe(
   resolver.zod(CreateProjectSchema),
   resolver.authorize(),
-  async (input) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+  async (input, ctx) => {
+    // Ensure user owns the project
+    const userId = ctx.session.userId
     const { categoryIds, tagIds, techStackIds, ...projectData } = input
 
     const data = {
@@ -22,6 +23,7 @@ export default resolver.pipe(
     const project = await db.project.create({
       data: {
         ...data as any,
+        userId,
         ProjectCategory: categoryIds && categoryIds.length > 0 ? {
           create: categoryIds.map(categoryId => ({
             categoryId: categoryId
