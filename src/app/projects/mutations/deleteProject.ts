@@ -5,12 +5,13 @@ import { DeleteProjectSchema } from "../schemas"
 export default resolver.pipe(
   resolver.zod(DeleteProjectSchema),
   resolver.authorize(),
-  async ({ id }) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+  async ({ id }, ctx) => {
+    // Ensure user owns the project
+    const userId = ctx.session.userId
 
     // First, check if the project exists and get its details for better error messages
     const project = await db.project.findFirst({
-      where: { id },
+      where: { id, userId },
       select: {
         id: true,
         title: true,
@@ -32,7 +33,7 @@ export default resolver.pipe(
 
     // Delete the project - CASCADE will handle related records
     const deletedProject = await db.project.delete({
-      where: { id },
+      where: { id, userId },
       select: {
         id: true,
         title: true,

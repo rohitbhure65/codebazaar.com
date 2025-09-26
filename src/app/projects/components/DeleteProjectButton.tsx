@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { useMutation } from "@blitzjs/rpc"
 import { useRouter } from "next/navigation"
 import deleteProject from "../mutations/deleteProject"
@@ -28,30 +28,32 @@ export const DeleteProjectButton = ({
 }: DeleteProjectButtonProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [deleteProjectMutation] = useMutation(deleteProject)
   const router = useRouter()
   const currentUser = useCurrentUser()
 
   const handleDelete = async () => {
     setIsDeleting(true)
+    setErrorMessage(null)
     try {
       await deleteProjectMutation({ id: projectId })
       router.push("/projects")
     } catch (error: any) {
-      console.error("Error deleting project:", error)
-      alert(`Failed to delete project: ${error.message}`)
+      setErrorMessage(error.message)
     } finally {
       setIsDeleting(false)
-      setIsOpen(false)
     }
   }
 
-  const totalRelatedRecords =
+  const totalRelatedRecords = useMemo(() =>
     (relatedRecordsCount?.reviews || 0) +
     (relatedRecordsCount?.categories || 0) +
     (relatedRecordsCount?.tags || 0) +
     (relatedRecordsCount?.techStack || 0) +
-    (relatedRecordsCount?.supportTickets || 0)
+    (relatedRecordsCount?.supportTickets || 0),
+    [relatedRecordsCount]
+  )
 
   return (
     <>
@@ -114,6 +116,20 @@ export const DeleteProjectButton = ({
                 </div>
               </div>
             </div>
+
+            {errorMessage && (
+              <div className="bg-red-50 border border-red-200 rounded-md p-4 mb-6">
+                <div className="flex items-start gap-3">
+                  <WarningIcon className="h-5 w-5 text-red-400 mt-0.5" />
+                  <div>
+                    <h4 className="text-sm font-medium text-red-800 mb-2">
+                      Error deleting project
+                    </h4>
+                    <p className="text-sm text-red-700">{errorMessage}</p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="flex gap-3 justify-end">
               <button

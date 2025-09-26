@@ -1,40 +1,18 @@
-# Author Box Implementation - Completed
+# Code Optimization Tasks
 
-## ✅ Completed Tasks
+## Completed
 
-### 1. Database Query Update
-- **File:** `src/app/projects/queries/getProject.ts`
-- **Change:** Added user and userProfile data to the query include
-- **Purpose:** Fetch user bio and profile picture data along with project data
+- [x] Analyze open files (DeleteProjectButton.tsx, SignupForm.tsx, constants.ts)
+- [x] Identify optimization areas: error handling, security, performance
 
-### 2. ProfileCard Component Update
-- **File:** `components/ProfileCard.tsx`
-- **Changes:**
-  - Added TypeScript interfaces for User and ProfileCardProps
-  - Made component accept dynamic user data as props
-  - Updated to display user's name, profile picture, and bio
-  - Added fallback values for missing data
-- **Purpose:** Display dynamic user information instead of hardcoded data
+## In Progress
 
-### 3. Project Component Update
-- **File:** `src/app/projects/components/Project.tsx`
-- **Change:** Pass user data from project to ProfileCard component
-- **Purpose:** Connect the fetched user data to the ProfileCard display
+- [x] Update lib/constants.ts: Replace hardcoded X_CSCAPI_KEY with env variable
+- [x] Update src/app/(auth)/components/SignupForm.tsx: Remove console.error, improve UI error display, integrate city validation into form schema
+- [x] Update src/app/projects/components/DeleteProjectButton.tsx: Remove console.error, replace alert() with modal error, memoize totalRelatedRecords
 
-## 🎯 Feature Summary
-The author box now displays:
-- User's profile picture (with fallback to default image)
-- User's name (with fallback to "Anonymous User")
-- User's bio (with fallback to "No bio available.")
-- Maintains existing styling and layout
+## Pending
 
-## 🔄 Data Flow
-1. Project page loads with project slug
-2. `getProject` query fetches project data including user and userProfile
-3. User data is passed to `ProfileCard` component
-4. ProfileCard displays the user's information dynamically
-
-## ✅ Testing Status
-- All code changes implemented successfully
-- TypeScript compilation completed without errors
-- Ready for testing on project pages
+- [ ] Address TODOs in project mutations/queries: Add user ownership validation
+- [ ] Run lint and build checks
+- [ ] Test signup form and delete button functionality

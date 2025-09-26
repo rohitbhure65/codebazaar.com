@@ -5,3 +5,4 @@ export const WEBSITE_AUTHER = "Rohit Bhure"
 export const WEBSITE_KEYWORDS =
   "CodeBazaar, CodeBazaar.com, online market place for developers, buy code, sell code, buy scripts, sell scripts, buy plugins, sell plugins, buy themes, sell themes"
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || ""
+export const X_CSCAPI_KEY = process.env.NEXT_PUBLIC_CSC_API_KEY || ''
