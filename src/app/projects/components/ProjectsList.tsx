@@ -8,9 +8,11 @@ import Pagination from "@mui/material/Pagination";
 import { Route } from "next";
 import Image from "next/image";
 
-import { useState, useEffect } from "react";
-import { TextField, Slider } from '@mui/material';
-import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { Box, Typography } from "@mui/material";
+
+import { ProjectFilters } from "./ProjectFilters";
+import { PriceDisplay } from "./PriceDisplay";
 
 const ITEMS_PER_PAGE = 8;
 
@@ -42,7 +44,7 @@ export const ProjectsList = () => {
   }, [searchTerm, filters]);
 
   // Build where clause
-  const buildWhere = () => {
+  const whereClause = useMemo(() => {
     let where: any = {};
 
     if (debouncedSearchTerm) {
@@ -76,23 +78,23 @@ export const ProjectsList = () => {
     where.price = { gte: debouncedFilters.minPrice, lte: debouncedFilters.maxPrice };
 
     return Object.keys(where).length > 0 ? where : undefined;
-  };
+  }, [debouncedSearchTerm, debouncedFilters]);
 
   const [{ projects, count }] = usePaginatedQuery(getProjects, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * (page - 1),
     take: ITEMS_PER_PAGE,
-    where: buildWhere(),
+    where: whereClause,
   });
 
   const router = useRouter();
   const pathname = usePathname();
 
-  const handlePageChange = (_: any, page: number) => {
+  const handlePageChange = useCallback((_: any, page: number) => {
     const params = new URLSearchParams(searchparams);
     params.set("page", page.toString());
     router.push((pathname + "?" + params.toString()) as Route);
-  };
+  }, [searchparams, router, pathname]);
 
   // Reset page to 1 when search term or filters change
   useEffect(() => {
@@ -102,160 +104,71 @@ export const ProjectsList = () => {
   }, [debouncedSearchTerm, debouncedFilters, pathname, router, searchparams]);
 
   // Calculate total pages
-  const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
+  const totalPages = useMemo(() => Math.ceil(count / ITEMS_PER_PAGE), [count]);
 
   return (
-    <section className="py-10 sm:py-16 lg:py-10">
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <div className="w-full sm:w-1/4">
-            <div className="w-full shadow-lg rounded-lg mt-10 p-4 max-h-screen overflow-y-auto">
-              <TextField
-                fullWidth
-                label="Search projects"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                variant="outlined"
-                size="small"
-                margin="normal"
-              />
-              <TextField
-                fullWidth
-                label="Category (comma-separated)"
-                value={filters.category}
-                onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-                variant="outlined"
-                size="small"
-                margin="normal"
-              />
-              <TextField
-                fullWidth
-                label="Tags (comma-separated)"
-                value={filters.tags}
-                onChange={(e) => setFilters({ ...filters, tags: e.target.value })}
-                variant="outlined"
-                size="small"
-                margin="normal"
-              />
-              <TextField
-                fullWidth
-                label="Tech Stack (comma-separated)"
-                value={filters.techStack}
-                onChange={(e) => setFilters({ ...filters, techStack: e.target.value })}
-                variant="outlined"
-                size="small"
-                margin="normal"
-              />
-              <TextField
-                fullWidth
-                label="Min Price"
-                type="number"
-                value={filters.minPrice.toString()}
-                onChange={(e) => setFilters({ ...filters, minPrice: parseFloat(e.target.value) || 0 })}
-                inputProps={{ min: 0, max: 100000, step: 10 }}
-                variant="outlined"
-                size="small"
-                margin="normal"
-              />
-              <TextField
-                fullWidth
-                label="Max Price"
-                type="number"
-                value={filters.maxPrice.toString()}
-                onChange={(e) => setFilters({ ...filters, maxPrice: parseFloat(e.target.value) || 100000 })}
-                inputProps={{ min: 0, max: 100000, step: 10 }}
-                variant="outlined"
-                size="small"
-                margin="normal"
-              />
-              <div style={{ margin: '16px 0' }}>
-                <label>Price Range: <CurrencyRupeeRoundedIcon />{filters.minPrice} - <CurrencyRupeeRoundedIcon /> {filters.maxPrice}</label>
-                <Slider
-                  value={[filters.minPrice, filters.maxPrice]}
-                  onChange={(e, newValue) => setFilters({
-                    ...filters,
-                    minPrice: Array.isArray(newValue) ? newValue[0] : newValue,
-                    maxPrice: Array.isArray(newValue) ? newValue[1] : newValue
-                  })}
-                  valueLabelDisplay="auto"
-                  min={0}
-                  max={100000}
-                  step={100}
-                />
-              </div>
-            </div>
-          </div>
+    <Box component="section" sx={{ py: { xs: 5, sm: 8, lg: 5 } }}>
+      <Box sx={{ maxWidth: '1280px', mx: 'auto', px: 2, py: 1.5 }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1.5 }}>
+          <Box sx={{ width: '100%', flex: { sm: 1 } }}>
+            <ProjectFilters
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              filters={filters}
+              setFilters={setFilters}
+            />
+          </Box>
 
-          <div className="w-full sm:w-3/4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <Box sx={{ width: '100%', flex: { sm: 3 } }}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 1 }}>
               {projects.map((project) => (
                 <Link href={`/projects/${project.slug}`} key={project.id}>
-                  <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10">
-                    <div className="bg-white hover:shadow-md transition-shadow duration-200">
-                      <div className="h-80 md:h-32 bg-gray-200 mb-3 flex items-center justify-center">
+                  <Box sx={{ boxShadow: 2, borderRadius: 1, overflow: 'hidden', bgcolor: 'white', mt: 2.5 }}>
+                    <Box sx={{ bgcolor: 'white', '&:hover': { boxShadow: 3 }, transition: 'box-shadow 0.2s' }}>
+                      <Box sx={{ height: { xs: 320, md: 128 }, bgcolor: 'grey.200', mb: 0.75, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         {project.projectImage ? (
                           <Image
                             src={project.projectImage}
                             alt={project.title}
                             width={600}
                             height={300}
-                            className="object-cover h-full w-full"
+                            style={{ objectFit: 'cover', height: '100%', width: '100%' }}
                             loading="lazy"
                           />
                         ) : (
-                          <span className="text-gray-500">No Image</span>
+                          <Typography color="text.secondary">No Image</Typography>
                         )}
-                      </div>
+                      </Box>
 
-                      <div className="content-card p-4">
-                        <h3 className="font-semibold text-gray-800 text-4xl md:text-sm ">{(project.title)?.slice(0, 60)
-                          + ((project.title)?.length > 60 ? "..." : "")}</h3>
-                        <div className="text-yellow-400 mb-2">★ ★ ★ ★ ★</div>
-                        <p className="text-xl md:text-xs text-gray-500 mb-2">
+                      <Box sx={{ p: 2 }}>
+                        <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary', fontSize: { xs: '1.25rem', md: '0.875rem' } }}>
+                          {(project.title)?.slice(0, 60) + ((project.title)?.length > 60 ? "..." : "")}
+                        </Typography>
+                        <Box sx={{ color: 'warning.main', mb: 0.5 }}>★ ★ ★ ★ ★</Box>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5, fontSize: { xs: '1.125rem', md: '0.75rem' } }}>
                           {(project.description || "No description available.").length > 60
                             ? (project.description || "").slice(0, 60) + "..."
                             : project.description || "No description available."}
-                        </p>
+                        </Typography>
 
-                        <div className="flex items-center justify-between">
-                          <div className="flex flex-col space-y-1">
-                            <span className="text-3xl md:text-xl font-bold relative flex items-center gap-3">
-                              {project.price === 0 ? (
-                                <button
-                                  type="button"
-                                  className="flex items-center gap-3 px-4 py-2 bg-red-600 text-white font-bold rounded-full shadow-lg hover:scale-105 transform transition duration-300 focus:outline-none focus:ring-2 focus:ring-red-300"
-                                >
-                                  {/* Free text with pulse */}
-                                  <span className="animate-pulse">Free</span>
-
-                                  {/* Improved Ping dot */}
-                                  <span className="relative flex h-4 w-4">
-                                    {/* Expanding ping */}
-                                    <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-50 animate-[ping_1.5s_linear_infinite]"></span>
-                                    {/* Solid dot */}
-                                    <span className="relative inline-flex h-4 w-4 rounded-full bg-red-500 shadow-md"></span>
-                                  </span>
-                                </button>
-                              ) : (
-                                <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full shadow-md text-gray-900">
-                                  <CurrencyRupeeRoundedIcon className="text-gray-700" />
-                                  {project.price.toLocaleString()}
-                                </div>
-                              )}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.25 }}>
+                            <Box sx={{ fontSize: { xs: '1.875rem', md: '1.25rem' }, fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                              <PriceDisplay price={project.price} />
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
                 </Link>
               ))}
-            </div>
+            </Box>
 
             {projects.length === 0 && (
-              <div className="text-center py-10">
-                <div className="shadow-lg rounded-lg overflow-hidden bg-white mt-10 p-8">
-                  <div className="w-[200px] h-[200px] mx-auto mb-4">
+              <Box sx={{ textAlign: 'center', py: 5 }}>
+                <Box sx={{ boxShadow: 2, borderRadius: 1, overflow: 'hidden', bgcolor: 'white', mt: 2.5, p: 3 }}>
+                  <Box sx={{ width: 200, height: 200, mx: 'auto', mb: 2 }}>
                     <Image
                       src="/find.svg"
                       alt="No projects found"
@@ -263,14 +176,13 @@ export const ProjectsList = () => {
                       height={200}
                       loading="lazy"
                     />
-                  </div>
-                  <p className="text-gray-500 text-lg">No Project available</p>
-                </div>
-              </div>
+                  </Box>
+                  <Typography variant="body1" color="text.secondary">No Project available</Typography>
+                </Box>
+              </Box>
             )}
 
-            {/* MUI Pagination */}
-            <div className="flex justify-center mt-6">
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1.5 }}>
               <Pagination
                 count={totalPages}
                 page={page}
@@ -278,10 +190,10 @@ export const ProjectsList = () => {
                 variant="outlined"
                 shape="rounded"
               />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
