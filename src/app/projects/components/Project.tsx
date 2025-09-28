@@ -347,20 +347,6 @@ export const Project = ({ projectSlug }: ProjectProps) => {
             </div>
           </div>
 
-          {/* Tags and Tech Stack */}
-          <div className="space-y-4">
-            <TagSection
-              icon={TextSnippetRoundedIcon}
-              label="Tags"
-              items={project.ProjectTag || []}
-            />
-            <TagSection
-              icon={CodeRoundedIcon}
-              label="Tech Stack"
-              items={project.ProjectTechStack || []}
-            />
-          </div>
-
           {/* Action Buttons */}
           <div className="flex gap-4 flex-wrap">
             {project.demoUrl ? (
@@ -420,6 +406,20 @@ export const Project = ({ projectSlug }: ProjectProps) => {
         title="Requirements"
         content={project.requirements}
       />
+
+      {/* Tags and Tech Stack */}
+      <div className="space-y-4 mt-6">
+        <TagSection
+          icon={TextSnippetRoundedIcon}
+          label="Tags"
+          items={project.ProjectTag || []}
+        />
+        <TagSection
+          icon={CodeRoundedIcon}
+          label="Tech Stack"
+          items={project.ProjectTechStack || []}
+        />
+      </div>
 
       {/* User Profile and Reviews */}
       <ProfileCard user={project.user} />

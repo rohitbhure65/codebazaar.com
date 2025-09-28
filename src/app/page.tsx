@@ -5,7 +5,7 @@ import Hero from "@/components/Hero"
 // import Team from "@/components/Team"
 import Faq from "@/components/Faq"
 import Features from "@/components/Features"
-import Video from "@/components/video"
+// import Video from "@/components/video"
 import Cloud from "@/components/Cloud"
 import { MarqueeDemo } from "@/components/marque"
 import { WEBSITE_URL, WEBSITE_NAME } from "@/lib/constants"
@@ -31,7 +31,7 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       <Hero />
-      <Video />
+      {/* <Video /> */}
       <MarqueeDemo />
       <AnimatedFeature />
       <Cloud />
